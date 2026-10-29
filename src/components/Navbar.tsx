@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
-import { Sun, Moon, Menu, X, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import { Sun, Moon, Menu, X, ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Navbar() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -24,12 +24,11 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { label: "The 7 Pillars", href: "#pillars" },
-    { label: "Case Studies", href: "#cases" },
-    { label: "Scope Estimator", href: "#estimator", badge: "Interactive" },
-    { label: "Tech Stack", href: "#tech" },
-    { label: "Why Spectrum 7", href: "#testimonials" },
-    { label: "FAQ", href: "#faq" },
+    { label: "Capabilities", href: "#capabilities" },
+    { label: "Industries", href: "#industries" },
+    { label: "Case Studies", href: "#insights" },
+    { label: "Our Ethos", href: "#ethos" },
+    { label: "Technologies", href: "#technologies" },
   ];
 
   return (
@@ -39,19 +38,15 @@ export default function Navbar() {
         top: 0,
         zIndex: 100,
         width: "100%",
-        transition: "all 0.3s ease",
-        background: scrolled
-          ? "var(--bg-card)"
-          : "rgba(255, 255, 255, 0.8)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        borderBottom: scrolled
-          ? "1px solid var(--border-light)"
-          : "1px solid transparent",
+        transition: "all 0.25s ease",
+        background: scrolled ? "var(--bg-card)" : "rgba(255, 255, 255, 0.9)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        borderBottom: scrolled ? "1px solid var(--border-light)" : "1px solid transparent",
         boxShadow: scrolled ? "var(--shadow-sm)" : "none",
       }}
     >
-      {/* Top subtle spectrum accent bar */}
+      {/* Top subtle Spectrum 7 chromatic indicator bar */}
       <div className="spectrum-bar" style={{ height: "3px", width: "100%" }} />
 
       <div className="container">
@@ -60,20 +55,20 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: "72px",
+            height: "74px",
           }}
         >
-          {/* Brand Logo */}
+          {/* Logo with clean white card pill */}
           <a href="#" aria-label="Spectrum 7 Home" style={{ display: "flex", alignItems: "center" }}>
-            <Logo width={160} height={38} showTagline={false} />
+            <Logo width={158} height={38} showTagline={false} />
           </a>
 
-          {/* Desktop Navigation Links */}
+          {/* Center Navigation Links (TechnePlus minimalist layout) */}
           <nav
             style={{
               display: "none",
               alignItems: "center",
-              gap: "28px",
+              gap: "32px",
             }}
             className="desktop-nav"
           >
@@ -82,82 +77,77 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 style={{
-                  fontSize: "0.92rem",
+                  fontSize: "0.9rem",
                   fontWeight: 500,
                   color: "var(--text-secondary)",
                   transition: "color 0.2s ease",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  position: "relative",
-                  padding: "4px 0",
+                  letterSpacing: "-0.01em",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--blue-primary)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
               >
                 {link.label}
-                {link.badge && (
-                  <span
-                    style={{
-                      fontSize: "0.68rem",
-                      padding: "2px 6px",
-                      borderRadius: "10px",
-                      background: "var(--blue-light)",
-                      color: "var(--blue-primary)",
-                      fontWeight: 600,
-                      border: "1px solid var(--blue-border)",
-                    }}
-                  >
-                    {link.badge}
-                  </span>
-                )}
               </a>
             ))}
           </nav>
 
-          {/* Actions & CTA */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-            }}
-          >
-            {/* Theme Toggle */}
+          {/* Right Action Controls */}
+          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+            {/* ISO 27001 Pill */}
+            <div
+              style={{
+                display: "none",
+                alignItems: "center",
+                gap: "6px",
+                padding: "4px 10px",
+                borderRadius: "6px",
+                background: "var(--bg-tertiary)",
+                border: "1px solid var(--border-light)",
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                color: "var(--text-muted)",
+              }}
+              className="iso-badge"
+            >
+              <ShieldCheck size={13} color="var(--blue-primary)" />
+              <span>ISO 27001:2022</span>
+            </div>
+
+            {/* Dark / Light Mode Toggle */}
             <button
               onClick={toggleTheme}
-              aria-label="Toggle light and dark theme"
+              aria-label="Toggle theme"
               style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "40px",
-                height: "40px",
+                width: "38px",
+                height: "38px",
                 borderRadius: "50%",
-                background: "var(--bg-secondary)",
+                background: "var(--bg-tertiary)",
                 color: "var(--text-primary)",
                 border: "1px solid var(--border-light)",
                 transition: "all 0.2s ease",
               }}
               title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
             >
-              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+              {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
             </button>
 
-            {/* Consultation CTA */}
+            {/* TechnePlus-style "Start The Conversation" pill */}
             <a
               href="#contact"
               className="btn-primary"
               style={{
                 padding: "10px 20px",
-                fontSize: "0.9rem",
+                fontSize: "0.86rem",
               }}
             >
-              <span>Schedule Call</span>
-              <ArrowRight size={16} />
+              <span>Start the Conversation</span>
+              <ArrowRight size={15} />
             </a>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Hamburger Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="mobile-toggle"
@@ -165,29 +155,28 @@ export default function Navbar() {
                 display: "none",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "42px",
-                height: "42px",
+                width: "40px",
+                height: "40px",
                 borderRadius: "8px",
-                background: "var(--bg-secondary)",
+                background: "var(--bg-tertiary)",
                 color: "var(--text-primary)",
                 border: "1px solid var(--border-light)",
               }}
-              aria-label="Toggle menu"
+              aria-label="Toggle mobile menu"
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div
           style={{
             background: "var(--bg-primary)",
             borderBottom: "1px solid var(--border-light)",
             padding: "20px 24px 28px",
-            boxShadow: "var(--shadow-lg)",
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -200,26 +189,10 @@ export default function Navbar() {
                   fontSize: "1.05rem",
                   fontWeight: 600,
                   color: "var(--text-primary)",
-                  padding: "8px 0",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
+                  padding: "6px 0",
                 }}
               >
-                <span>{link.label}</span>
-                {link.badge && (
-                  <span
-                    style={{
-                      fontSize: "0.7rem",
-                      padding: "2px 8px",
-                      borderRadius: "10px",
-                      background: "var(--blue-light)",
-                      color: "var(--blue-primary)",
-                    }}
-                  >
-                    {link.badge}
-                  </span>
-                )}
+                {link.label}
               </a>
             ))}
 
@@ -230,8 +203,8 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 style={{ width: "100%", justifyContent: "center" }}
               >
-                <span>Start Architectural Scoping</span>
-                <ArrowRight size={16} />
+                <span>Start the Conversation</span>
+                <ArrowRight size={15} />
               </a>
             </div>
           </div>
@@ -239,12 +212,15 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
-        @media (min-width: 900px) {
+        @media (min-width: 990px) {
           .desktop-nav {
             display: flex !important;
           }
+          .iso-badge {
+            display: inline-flex !important;
+          }
         }
-        @media (max-width: 899px) {
+        @media (max-width: 989px) {
           .mobile-toggle {
             display: flex !important;
           }

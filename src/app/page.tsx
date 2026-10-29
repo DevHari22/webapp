@@ -1,11 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import PillarsSection from "@/components/PillarsSection";
-import EstimatorSection from "@/components/EstimatorSection";
+import EthosSection from "@/components/EthosSection";
+import CapabilitiesSection from "@/components/CapabilitiesSection";
+import IndustriesSection from "@/components/IndustriesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import TechStackSection from "@/components/TechStackSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import FaqSection from "@/components/FaqSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -15,12 +14,11 @@ export default function Home() {
       <Navbar />
       <main style={{ flex: 1 }}>
         <Hero />
-        <PillarsSection />
-        <EstimatorSection />
+        <EthosSection />
+        <CapabilitiesSection />
+        <IndustriesSection />
         <CaseStudiesSection />
         <TechStackSection />
-        <TestimonialsSection />
-        <FaqSection />
         <ContactSection />
       </main>
       <Footer />

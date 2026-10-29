@@ -3,46 +3,34 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CASE_STUDIES, CaseStudy } from "../data/companyData";
-import { ArrowUpRight, TrendingUp, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, TrendingUp, CheckCircle2 } from "lucide-react";
 
 export default function CaseStudiesSection() {
-  const [activeCaseId, setActiveCaseId] = useState<string>(CASE_STUDIES[0].id);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
-  const activeCase = CASE_STUDIES.find((c) => c.id === activeCaseId) || CASE_STUDIES[0];
+  const categories = ["All", "Architecture & Core Systems", "Data Intelligence", "Enterprise Integration", "Hyper Automation"];
+
+  const filteredCases =
+    selectedCategory === "All"
+      ? CASE_STUDIES
+      : CASE_STUDIES.filter((c) => c.category === selectedCategory);
 
   return (
     <section
-      id="cases"
+      id="insights"
       style={{
         paddingTop: "90px",
         paddingBottom: "100px",
-        background: "var(--bg-secondary)",
-        borderTop: "1px solid var(--border-light)",
+        background: "var(--bg-primary)",
         borderBottom: "1px solid var(--border-light)",
       }}
     >
       <div className="container">
-        {/* Section Header */}
-        <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto 50px" }}>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              padding: "4px 12px",
-              borderRadius: "9999px",
-              background: "var(--blue-light)",
-              color: "var(--blue-primary)",
-              fontSize: "0.82rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              marginBottom: "16px",
-              border: "1px solid var(--blue-border)",
-            }}
-          >
-            <TrendingUp size={14} />
-            <span>Proven Enterprise Impact</span>
+        {/* Header */}
+        <div style={{ maxWidth: "880px", marginBottom: "40px" }}>
+          <div className="arch-tag">
+            <span className="num">[05]</span>
+            <span>WHAT WE&apos;VE BUILT • PROVEN CLIENT IMPACT</span>
           </div>
 
           <h2
@@ -51,244 +39,231 @@ export default function CaseStudiesSection() {
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "var(--text-primary)",
-              marginBottom: "18px",
+              marginBottom: "16px",
+              lineHeight: 1.15,
             }}
           >
-            Real-World Transformations Powered by Spectrum 7
+            Insights and Systems That Move Industries Forward
           </h2>
 
           <p
             style={{
               fontSize: "1.1rem",
-              lineHeight: 1.6,
+              lineHeight: 1.65,
               color: "var(--text-secondary)",
             }}
           >
-            See how forward-thinking Fortune 500 enterprises and hyper-growth scaleups
-            achieved breakthrough scale and resilience using our 7 pillars.
+            Over the past decade, we have delivered technology solutions that transformed
+            businesses from fast-scaling startups to Fortune 500 enterprises. These numbers
+            reflect the outcomes, not the promises.
           </p>
         </div>
 
-        {/* Case Study Switcher Tabs */}
+        {/* Category Filters */}
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "12px",
-            justifyContent: "center",
-            marginBottom: "36px",
+            gap: "10px",
+            marginBottom: "40px",
           }}
         >
-          {CASE_STUDIES.map((cs) => {
-            const isActive = cs.id === activeCaseId;
-            return (
-              <button
-                key={cs.id}
-                onClick={() => setActiveCaseId(cs.id)}
-                style={{
-                  padding: "10px 20px",
-                  borderRadius: "9999px",
-                  background: isActive ? "var(--blue-primary)" : "var(--bg-card)",
-                  color: isActive ? "#ffffff" : "var(--text-secondary)",
-                  border: isActive ? "1px solid var(--blue-primary)" : "1px solid var(--border-light)",
-                  fontWeight: 600,
-                  fontSize: "0.9rem",
-                  boxShadow: isActive ? "var(--shadow-blue)" : "var(--shadow-sm)",
-                  transition: "all 0.2s ease",
-                }}
-              >
-                <span>{cs.client}</span>
-                <span style={{ opacity: 0.7, marginLeft: "6px", fontSize: "0.8rem" }}>
-                  • {cs.industry}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active Case Study Spotlight Card */}
-        <div
-          className="card-glass"
-          style={{
-            borderRadius: "20px",
-            overflow: "hidden",
-            boxShadow: "var(--shadow-lg)",
-            border: "1px solid var(--border-light)",
-          }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr",
-            }}
-            className="case-grid"
-          >
-            {/* Visual Column */}
-            <div
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
               style={{
-                position: "relative",
-                minHeight: "340px",
-                maxHeight: "520px",
-                overflow: "hidden",
-                background: "#090d16",
+                padding: "8px 18px",
+                borderRadius: "9999px",
+                background: selectedCategory === cat ? "var(--text-primary)" : "var(--bg-tertiary)",
+                color: selectedCategory === cat ? "var(--bg-primary)" : "var(--text-secondary)",
+                fontWeight: 600,
+                fontSize: "0.85rem",
+                border: "1px solid var(--border-light)",
+                transition: "all 0.15s ease",
               }}
             >
-              <Image
-                src={activeCase.image}
-                alt={activeCase.title}
-                width={800}
-                height={500}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(9, 13, 22, 0.8) 0%, transparent 60%)",
-                }}
-              />
+              {cat}
+            </button>
+          ))}
+        </div>
 
+        {/* Case Studies 2-Column Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+            gap: "28px",
+          }}
+        >
+          {filteredCases.map((cs) => (
+            <div
+              key={cs.id}
+              className="tech-card"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                overflow: "hidden",
+                background: "var(--bg-card)",
+              }}
+            >
+              {/* Image banner */}
               <div
                 style={{
-                  position: "absolute",
-                  bottom: "24px",
-                  left: "24px",
-                  right: "24px",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "8px",
+                  position: "relative",
+                  width: "100%",
+                  height: "220px",
+                  background: "#07090e",
                 }}
               >
-                {activeCase.tags.map((tag) => (
+                <Image
+                  src={cs.image}
+                  alt={cs.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(7, 9, 14, 0.85) 0%, transparent 70%)",
+                  }}
+                />
+
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "16px",
+                    left: "16px",
+                    display: "flex",
+                    gap: "6px",
+                  }}
+                >
                   <span
-                    key={tag}
                     style={{
-                      fontSize: "0.75rem",
+                      fontSize: "0.72rem",
                       fontWeight: 700,
-                      padding: "4px 10px",
+                      padding: "3px 10px",
                       borderRadius: "6px",
-                      background: "rgba(9, 13, 22, 0.85)",
-                      color: "#93c5fd",
-                      border: "1px solid rgba(0, 98, 255, 0.4)",
-                      backdropFilter: "blur(6px)",
+                      background: "rgba(0, 98, 255, 0.9)",
+                      color: "#ffffff",
                     }}
                   >
-                    {tag}
+                    {cs.category}
                   </span>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* Narrative & Metrics Column */}
-            <div style={{ padding: "40px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
                 <div
                   style={{
+                    position: "absolute",
+                    bottom: "16px",
+                    left: "16px",
+                    right: "16px",
                     display: "flex",
                     alignItems: "center",
-                    gap: "10px",
-                    marginBottom: "12px",
+                    justifyContent: "space-between",
+                    color: "#ffffff",
+                    fontSize: "0.8rem",
                   }}
                 >
-                  <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--blue-primary)", textTransform: "uppercase" }}>
-                    {activeCase.client}
-                  </span>
-                  <span style={{ color: "var(--text-muted)" }}>•</span>
-                  <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
-                    {activeCase.industry}
-                  </span>
-                </div>
-
-                <h3
-                  style={{
-                    fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
-                    fontWeight: 800,
-                    lineHeight: 1.25,
-                    color: "var(--text-primary)",
-                    marginBottom: "20px",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {activeCase.title}
-                </h3>
-
-                <div style={{ marginBottom: "20px" }}>
-                  <div style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
-                    The Challenge
-                  </div>
-                  <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--text-secondary)" }}>
-                    {activeCase.challenge}
-                  </p>
-                </div>
-
-                <div style={{ marginBottom: "28px" }}>
-                  <div style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
-                    Spectrum 7 Engineering Solution
-                  </div>
-                  <p style={{ fontSize: "0.95rem", lineHeight: 1.6, color: "var(--text-secondary)" }}>
-                    {activeCase.solution}
-                  </p>
+                  <span style={{ fontWeight: 600, color: "#93c5fd" }}>{cs.clientIndustry}</span>
+                  <span style={{ color: "#94a3b8" }}>{cs.date}</span>
                 </div>
               </div>
 
-              {/* Impact Metrics Row */}
-              <div>
-                <div style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "12px" }}>
-                  Validated Business Outcomes
-                </div>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, 1fr)",
-                    gap: "12px",
-                    padding: "16px",
-                    borderRadius: "12px",
-                    background: "var(--bg-tertiary)",
-                    border: "1px solid var(--border-light)",
-                  }}
-                >
-                  {activeCase.impact.map((imp, idx) => (
-                    <div key={idx} style={{ textAlign: "center" }}>
-                      <div
-                        style={{
-                          fontSize: "1.4rem",
-                          fontWeight: 800,
-                          color: "var(--blue-primary)",
-                          fontFeatureSettings: "'tnum' on",
-                        }}
-                      >
-                        {imp.metric}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "0.75rem",
-                          fontWeight: 600,
-                          color: "var(--text-muted)",
-                          marginTop: "2px",
-                        }}
-                      >
-                        {imp.label}
-                      </div>
+              {/* Case Study Content Body */}
+              <div style={{ padding: "28px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "1.25rem",
+                      fontWeight: 800,
+                      color: "var(--text-primary)",
+                      letterSpacing: "-0.015em",
+                      marginBottom: "12px",
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {cs.title}
+                  </h3>
+
+                  <div style={{ marginBottom: "16px" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
+                      The Challenge
                     </div>
-                  ))}
+                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                      {cs.challenge}
+                    </p>
+                  </div>
+
+                  <div style={{ marginBottom: "20px" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
+                      Engineering Solution
+                    </div>
+                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                      {cs.solution}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Quantified Outcomes */}
+                <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "18px" }}>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(3, 1fr)",
+                      gap: "10px",
+                      background: "var(--bg-tertiary)",
+                      padding: "12px",
+                      borderRadius: "10px",
+                      textAlign: "center",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    {cs.metrics.map((m, mIdx) => (
+                      <div key={mIdx}>
+                        <div
+                          style={{
+                            fontSize: "1.1rem",
+                            fontWeight: 800,
+                            color: "var(--blue-primary)",
+                            fontFeatureSettings: "'tnum' on",
+                          }}
+                        >
+                          {m.value}
+                        </div>
+                        <div style={{ fontSize: "0.72rem", color: "var(--text-muted)", fontWeight: 600, marginTop: "2px" }}>
+                          {m.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tags */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    {cs.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        style={{
+                          fontSize: "0.72rem",
+                          fontWeight: 600,
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                          background: "var(--bg-tertiary)",
+                          color: "var(--text-muted)",
+                        }}
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @media (min-width: 960px) {
-          .case-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

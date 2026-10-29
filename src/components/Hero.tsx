@@ -1,188 +1,93 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { ArrowRight, Sparkles, Terminal, Activity, ShieldCheck, Zap, Layers, Cpu } from "lucide-react";
-import { COMPANY_INFO } from "../data/companyData";
+import { ArrowRight, ShieldCheck, Award, Zap, CheckCircle2 } from "lucide-react";
+import { COMPANY_DETAILS } from "../data/companyData";
 
 export default function Hero() {
-  const [activeTelemetryTab, setActiveTelemetryTab] = useState<"cluster" | "ai" | "edge">("cluster");
-
   return (
     <section
       style={{
-        position: "relative",
-        paddingTop: "60px",
+        paddingTop: "70px",
         paddingBottom: "80px",
-        overflow: "hidden",
-        background: "radial-gradient(ellipse at 50% -20%, rgba(0, 98, 255, 0.08) 0%, transparent 60%)",
+        position: "relative",
+        borderBottom: "1px solid var(--border-light)",
+        background: "radial-gradient(ellipse at 50% -10%, rgba(0, 98, 255, 0.05) 0%, transparent 70%)",
       }}
     >
-      {/* Background ambient geometry */}
-      <div
-        style={{
-          position: "absolute",
-          top: "10%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "800px",
-          height: "400px",
-          background: "radial-gradient(circle, rgba(0, 98, 255, 0.07) 0%, rgba(6, 182, 212, 0.03) 40%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        <div style={{ textAlign: "center", maxWidth: "880px", margin: "0 auto" }}>
-          {/* Top Rainbow Spectrum Pill Badge */}
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "6px 16px",
-              borderRadius: "9999px",
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-light)",
-              boxShadow: "var(--shadow-sm)",
-              marginBottom: "24px",
-              backdropFilter: "blur(8px)",
-            }}
-          >
-            <div
-              style={{
-                width: "28px",
-                height: "6px",
-                borderRadius: "3px",
-                background: "var(--spectrum-gradient)",
-              }}
-            />
-            <span
-              style={{
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                letterSpacing: "0.05em",
-                color: "var(--text-primary)",
-                textTransform: "uppercase",
-              }}
-            >
-              Enterprise Engineering Across 7 Pillars
-            </span>
-            <span
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                color: "var(--blue-primary)",
-                background: "var(--blue-light)",
-                padding: "2px 8px",
-                borderRadius: "12px",
-              }}
-            >
-              v3.0 Live
-            </span>
+      <div className="container">
+        {/* Top Tag & Architectural Heading */}
+        <div style={{ maxWidth: "980px" }}>
+          {/* Eyebrow architectural label */}
+          <div className="arch-tag">
+            <span className="num">[01]</span>
+            <span>ENTERPRISE DIGITAL CONSULTING & INTEGRATED SYSTEMS</span>
           </div>
 
-          {/* Main Heading */}
+          {/* Main Headline */}
           <h1
             style={{
-              fontSize: "clamp(2.5rem, 5.5vw, 4.2rem)",
+              fontSize: "clamp(2.4rem, 5.2vw, 4.4rem)",
               fontWeight: 800,
-              lineHeight: 1.1,
-              letterSpacing: "-0.03em",
-              marginBottom: "24px",
+              lineHeight: 1.08,
+              letterSpacing: "-0.035em",
               color: "var(--text-primary)",
+              marginBottom: "20px",
             }}
           >
-            Empowering Enterprises Across the{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, var(--blue-primary) 0%, #0284c7 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                position: "relative",
-                display: "inline-block",
-              }}
-            >
-              Full Spectrum
-              <svg
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  bottom: "-6px",
-                  width: "100%",
-                  height: "8px",
-                }}
-                viewBox="0 0 200 8"
-                fill="none"
-              >
-                <path
-                  d="M0 4C50 1 150 7 200 4"
-                  stroke="url(#hero-spectrum-line)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="hero-spectrum-line" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#2563eb" />
-                    <stop offset="0.25" stopColor="#06b6d4" />
-                    <stop offset="0.5" stopColor="#10b981" />
-                    <stop offset="0.75" stopColor="#f59e0b" />
-                    <stop offset="1" stopColor="#ef4444" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </span>{" "}
-            of Innovation
+            Engineering Intelligent Systems for Connected Enterprises.
           </h1>
 
-          {/* Subtitle */}
-          <p
+          {/* Secondary Subhead */}
+          <div
             style={{
-              fontSize: "clamp(1.05rem, 2vw, 1.25rem)",
-              lineHeight: 1.6,
-              color: "var(--text-secondary)",
-              maxWidth: "760px",
-              margin: "0 auto 36px",
+              fontSize: "clamp(1.2rem, 2.2vw, 1.6rem)",
+              fontWeight: 600,
+              color: "var(--blue-primary)",
+              marginBottom: "24px",
+              letterSpacing: "-0.015em",
             }}
           >
-            Spectrum 7 architects, engineers, and operates high-scale cloud platforms, cognitive AI
-            workflows, and zero-trust systems. Unified by our 7 pillars of technological supremacy.
+            Where Technology, Design, and Strategy Converge.
+          </div>
+
+          {/* Lead Paragraph */}
+          <p
+            style={{
+              fontSize: "clamp(1.05rem, 1.8vw, 1.22rem)",
+              lineHeight: 1.65,
+              color: "var(--text-secondary)",
+              maxWidth: "820px",
+              marginBottom: "36px",
+            }}
+          >
+            {COMPANY_DETAILS.subheadline}
           </p>
 
-          {/* Call to Actions */}
+          {/* CTAs */}
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
               alignItems: "center",
-              justifyContent: "center",
-              gap: "16px",
-              marginBottom: "48px",
+              gap: "14px",
+              marginBottom: "56px",
             }}
           >
-            <a href="#pillars" className="btn-primary" style={{ padding: "14px 28px", fontSize: "1rem" }}>
-              <span>Explore The 7 Pillars</span>
-              <ArrowRight size={18} />
+            <a href="#contact" className="btn-primary">
+              <span>Start the Conversation</span>
+              <ArrowRight size={16} />
+            </a>
+
+            <a href="#capabilities" className="btn-secondary">
+              <span>Explore Capabilities</span>
             </a>
 
             <a
-              href="#estimator"
-              className="btn-secondary"
-              style={{ padding: "14px 28px", fontSize: "1rem" }}
-            >
-              <Zap size={18} color="var(--blue-primary)" />
-              <span>Interactive Scope Estimator</span>
-            </a>
-
-            <a
-              href="#cases"
+              href="#insights"
               style={{
-                fontSize: "0.95rem",
+                fontSize: "0.92rem",
                 fontWeight: 600,
                 color: "var(--text-muted)",
                 display: "inline-flex",
@@ -191,138 +96,71 @@ export default function Hero() {
                 marginLeft: "8px",
               }}
             >
-              <span>View Client Case Studies</span>
+              <span>View Case Studies</span>
               <span style={{ color: "var(--blue-primary)" }}>→</span>
             </a>
           </div>
         </div>
 
-        {/* Hero Interactive Cockpit Preview Card */}
+        {/* Hero Visual Canvas with TechnePlus Architecture Preview */}
         <div
           style={{
             position: "relative",
-            maxWidth: "1060px",
-            margin: "0 auto",
-            borderRadius: "20px",
-            padding: "8px",
-            background: "linear-gradient(180deg, rgba(226, 232, 240, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%)",
-            boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.12), 0 0 40px rgba(0, 98, 255, 0.1)",
+            borderRadius: "16px",
+            overflow: "hidden",
+            border: "1px solid var(--border-light)",
+            background: "var(--bg-card)",
+            boxShadow: "var(--shadow-md)",
+            marginBottom: "56px",
           }}
         >
+          {/* Subtle top rainbow spectrum bar */}
+          <div className="spectrum-bar" style={{ height: "4px" }} />
+
           <div
             style={{
               position: "relative",
-              borderRadius: "14px",
-              overflow: "hidden",
-              background: "#090d16",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
+              width: "100%",
+              height: "440px",
+              background: "#07090e",
             }}
           >
-            {/* Cockpit Window Header */}
+            <Image
+              src="/hero-spectrum.jpg"
+              alt="Spectrum 7 Architecture and Data Intelligence"
+              fill
+              priority
+              style={{
+                objectFit: "cover",
+                opacity: 0.88,
+              }}
+            />
+
+            {/* Dark gradient overlay for text readability */}
             <div
               style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to top, rgba(7, 9, 14, 0.95) 0%, rgba(7, 9, 14, 0.3) 60%, transparent 100%)",
+              }}
+            />
+
+            {/* Overlay Architecture Badges */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "28px",
+                left: "28px",
+                right: "28px",
                 display: "flex",
-                alignItems: "center",
+                flexWrap: "wrap",
+                alignItems: "flex-end",
                 justifyContent: "space-between",
-                padding: "12px 18px",
-                background: "rgba(15, 23, 42, 0.9)",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                gap: "16px",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#ef4444" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#f59e0b" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#10b981" }} />
-                <span
-                  style={{
-                    marginLeft: "8px",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: "0.78rem",
-                    color: "#94a3b8",
-                  }}
-                >
-                  spectrum-7-core-cluster :: live-telemetry
-                </span>
-              </div>
-
-              {/* Telemetry Switcher Tabs */}
-              <div style={{ display: "flex", gap: "6px" }}>
-                <button
-                  onClick={() => setActiveTelemetryTab("cluster")}
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    background: activeTelemetryTab === "cluster" ? "var(--blue-primary)" : "rgba(255, 255, 255, 0.06)",
-                    color: "#ffffff",
-                  }}
-                >
-                  Cloud Mesh
-                </button>
-                <button
-                  onClick={() => setActiveTelemetryTab("ai")}
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    background: activeTelemetryTab === "ai" ? "var(--blue-primary)" : "rgba(255, 255, 255, 0.06)",
-                    color: "#ffffff",
-                  }}
-                >
-                  AI Inference
-                </button>
-                <button
-                  onClick={() => setActiveTelemetryTab("edge")}
-                  style={{
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                    fontSize: "0.75rem",
-                    fontWeight: 600,
-                    background: activeTelemetryTab === "edge" ? "var(--blue-primary)" : "rgba(255, 255, 255, 0.06)",
-                    color: "#ffffff",
-                  }}
-                >
-                  Zero-Trust
-                </button>
-              </div>
-            </div>
-
-            {/* Visual Canvas */}
-            <div style={{ position: "relative", minHeight: "380px", maxHeight: "480px" }}>
-              <Image
-                src="/hero-spectrum.jpg"
-                alt="Spectrum 7 Architecture Visualization"
-                width={1200}
-                height={600}
-                priority
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  display: "block",
-                  objectFit: "cover",
-                }}
-              />
-
-              {/* Glowing Dynamic Overlay Card 1 */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "20px",
-                  left: "20px",
-                  background: "rgba(9, 13, 22, 0.85)",
-                  backdropFilter: "blur(12px)",
-                  border: "1px solid rgba(0, 98, 255, 0.4)",
-                  borderRadius: "10px",
-                  padding: "14px 18px",
-                  color: "#ffffff",
-                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.6)",
-                  maxWidth: "320px",
-                }}
-                className="animate-float"
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
+              <div style={{ maxWidth: "480px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                   <span
                     style={{
                       width: "8px",
@@ -332,29 +170,27 @@ export default function Hero() {
                       boxShadow: "0 0 10px #10b981",
                     }}
                   />
-                  <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "#93c5fd", letterSpacing: "0.05em" }}>
-                    PILLAR 01 & 02 SYNC
+                  <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#93c5fd", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                    Connected Enterprise Mesh
                   </span>
                 </div>
-                <div style={{ fontSize: "0.95rem", fontWeight: 700 }}>Autonomous AI Agent Grid</div>
-                <div style={{ fontSize: "0.78rem", color: "#94a3b8", marginTop: "4px" }}>
-                  Throughput: 142k req/sec • p99: 14ms • 0 unhandled exceptions
+                <div style={{ fontSize: "1.3rem", fontWeight: 700, color: "#ffffff", letterSpacing: "-0.01em" }}>
+                  Design • Integration • Execution
+                </div>
+                <div style={{ fontSize: "0.85rem", color: "#cbd5e1", marginTop: "4px", lineHeight: 1.5 }}>
+                  Unifying legacy monoliths, modern SaaS, and custom AI pipelines into a secure, zero-downtime operational core.
                 </div>
               </div>
 
-              {/* Floating Dynamic Overlay Card 2 */}
+              {/* Verified ISO & Award Badge */}
               <div
                 style={{
-                  position: "absolute",
-                  top: "20px",
-                  right: "20px",
-                  background: "rgba(9, 13, 22, 0.85)",
+                  padding: "12px 18px",
+                  borderRadius: "10px",
+                  background: "rgba(13, 17, 26, 0.85)",
                   backdropFilter: "blur(12px)",
                   border: "1px solid rgba(255, 255, 255, 0.15)",
-                  borderRadius: "10px",
-                  padding: "12px 16px",
                   color: "#ffffff",
-                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.6)",
                   display: "flex",
                   alignItems: "center",
                   gap: "12px",
@@ -362,73 +198,99 @@ export default function Hero() {
               >
                 <ShieldCheck size={24} color="#38bdf8" />
                 <div>
-                  <div style={{ fontSize: "0.85rem", fontWeight: 700 }}>SOC 2 & ISO 27001 Enforced</div>
-                  <div style={{ fontSize: "0.72rem", color: "#a5f3fc" }}>Zero-Trust Cryptographic Mesh</div>
+                  <div style={{ fontSize: "0.82rem", fontWeight: 700 }}>ISO/IEC 27001:2022</div>
+                  <div style={{ fontSize: "0.72rem", color: "#94a3b8" }}>Enterprise Information Security Certified</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Real Metrics Banner */}
+        {/* Quantifiable Impact Metrics Grid (From TechnePlus) */}
         <div
           style={{
-            maxWidth: "1060px",
-            margin: "40px auto 0",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "16px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "18px",
+            marginBottom: "50px",
           }}
         >
-          {COMPANY_INFO.stats.map((stat, idx) => (
+          {COMPANY_DETAILS.stats.map((stat, idx) => (
             <div
               key={idx}
-              className="card-glass"
+              className="tech-card"
               style={{
-                padding: "24px 20px",
-                textAlign: "center",
-                position: "relative",
-                overflow: "hidden",
+                padding: "26px 22px",
+                borderTop: idx === 0 ? "3px solid var(--blue-primary)" : "1px solid var(--border-light)",
               }}
             >
               <div
                 style={{
-                  fontSize: "2.2rem",
+                  fontSize: "clamp(2rem, 3.5vw, 2.6rem)",
                   fontWeight: 800,
-                  color: idx === 2 ? "var(--blue-primary)" : "var(--text-primary)",
-                  fontFeatureSettings: "'tnum' on, 'lnum' on",
-                  letterSpacing: "-0.02em",
+                  color: "var(--text-primary)",
+                  fontFeatureSettings: "'tnum' on",
+                  letterSpacing: "-0.03em",
+                  marginBottom: "6px",
                 }}
               >
                 {stat.value}
               </div>
               <div
                 style={{
-                  fontSize: "0.85rem",
-                  color: "var(--text-muted)",
-                  fontWeight: 600,
-                  marginTop: "6px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.04em",
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
+                  marginBottom: "8px",
                 }}
               >
                 {stat.label}
               </div>
-              {idx === 2 && (
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: "25%",
-                    right: "25%",
-                    height: "3px",
-                    background: "var(--spectrum-gradient)",
-                    borderRadius: "3px 3px 0 0",
-                  }}
-                />
-              )}
+              <div
+                style={{
+                  fontSize: "0.82rem",
+                  color: "var(--text-muted)",
+                  lineHeight: 1.5,
+                }}
+              >
+                {stat.detail}
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Partner Recognition & Award Bar (From TechnePlus) */}
+        <div
+          style={{
+            padding: "20px 24px",
+            borderRadius: "12px",
+            background: "var(--bg-tertiary)",
+            border: "1px solid var(--border-light)",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "18px",
+          }}
+        >
+          <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+            Recognised Partner Ecosystem:
+          </div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 600, color: "var(--text-primary)" }}>
+              <Award size={16} color="var(--blue-primary)" />
+              <span>Boomi Partner Innovation Award</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 600, color: "var(--text-primary)" }}>
+              <Zap size={16} color="var(--blue-primary)" />
+              <span>UiPath Automation Partner of the Year</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 600, color: "var(--text-primary)" }}>
+              <ShieldCheck size={16} color="var(--blue-primary)" />
+              <span>ISO/IEC 27001:2022 Certified</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
