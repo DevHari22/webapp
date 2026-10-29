@@ -83,6 +83,7 @@ export default function CapabilitiesSection() {
 
         {/* Capabilities Tab Strip */}
         <div
+          className="capabilities-tab-strip"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
@@ -132,7 +133,7 @@ export default function CapabilitiesSection() {
 
         {/* Active Capability Presentation Display Card */}
         <div
-          className="corp-card"
+          className="corp-card capability-card"
           style={{
             padding: "40px",
             background: "#ffffff",
@@ -349,6 +350,24 @@ export default function CapabilitiesSection() {
         @media (min-width: 960px) {
           .capability-grid {
             grid-template-columns: 1.2fr 0.8fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .capability-card {
+            padding: 22px 16px !important;
+          }
+          .capabilities-tab-strip {
+            display: flex !important;
+            overflow-x: auto !important;
+            flex-wrap: nowrap !important;
+            gap: 8px !important;
+            padding: 6px !important;
+            margin-bottom: 20px !important;
+            -webkit-overflow-scrolling: touch;
+          }
+          .capabilities-tab-strip button {
+            flex-shrink: 0 !important;
+            white-space: nowrap !important;
           }
         }
       `}</style>

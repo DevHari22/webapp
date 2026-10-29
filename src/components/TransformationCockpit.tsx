@@ -674,6 +674,33 @@ export default function TransformationCockpit() {
           border-radius: 8px;
           padding: 14px 16px;
         }
+
+        @media (max-width: 640px) {
+          .cockpit-grid {
+            padding: 18px 14px !important;
+            gap: 20px !important;
+          }
+          .cockpit-top-strip {
+            padding: 12px 14px !important;
+          }
+          .metrics-grid {
+            grid-template-columns: 1fr !important;
+            gap: 8px !important;
+          }
+          .metric-box {
+            display: flex !important;
+            align-items: center !important;
+            justifyContent: space-between !important;
+            text-align: left !important;
+            padding: 10px 14px !important;
+          }
+          .metric-val {
+            font-size: 1.35rem !important;
+          }
+          .cockpit-nav-rail {
+            grid-template-columns: 1fr !important;
+          }
+        }
       `}</style>
     </section>
   );

@@ -114,7 +114,7 @@ export default function CaseStudiesSection() {
           </div>
 
           {/* Right: View Mode Toggle & Category Controls */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
+          <div className="case-controls-wrap" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "10px" }}>
             {/* View Switcher (Showcase vs Full Grid) */}
             <div
               style={{
@@ -669,7 +669,7 @@ export default function CaseStudiesSection() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
               gap: "18px",
               width: "100%",
             }}
@@ -1178,6 +1178,12 @@ export default function CaseStudiesSection() {
         @media (min-width: 960px) {
           .showcase-container {
             grid-template-columns: 1.45fr 1fr !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .case-controls-wrap {
+            align-items: flex-start !important;
+            width: 100% !important;
           }
         }
         @media (max-width: 640px) {

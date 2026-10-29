@@ -38,7 +38,7 @@ export default function Footer() {
           }}
         >
           {/* Brand Info Column */}
-          <div style={{ maxWidth: "340px", gridColumn: "span 2" }}>
+          <div className="footer-brand-col" style={{ maxWidth: "340px", gridColumn: "span 2" }}>
             <div style={{ marginBottom: "20px" }}>
               <Logo width={160} height={38} showTagline={false} />
             </div>
@@ -281,7 +281,7 @@ export default function Footer() {
             © 2026 {COMPANY_DETAILS.legalName}. All rights reserved.
           </div>
 
-          <div style={{ display: "flex", gap: "20px" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
             <a href="#" style={{ color: "#94a3b8" }}>ISMS Policy</a>
             <a href="#" style={{ color: "#94a3b8" }}>Privacy Statement</a>
             <a href="#" style={{ color: "#94a3b8" }}>ISO 27001 Certification</a>
@@ -289,6 +289,15 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .footer-brand-col {
+            grid-column: span 1 !important;
+            max-width: 100% !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

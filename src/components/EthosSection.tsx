@@ -90,14 +90,14 @@ export default function EthosSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
             gap: "24px",
           }}
         >
           {pillars.map((item, idx) => (
             <div
               key={idx}
-              className="corp-card"
+              className="corp-card ethos-card"
               style={{
                 padding: "36px 30px",
                 display: "flex",
@@ -201,6 +201,14 @@ export default function EthosSection() {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 640px) {
+          .ethos-card {
+            padding: 24px 18px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

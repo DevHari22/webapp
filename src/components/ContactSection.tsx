@@ -197,7 +197,7 @@ export default function ContactSection() {
 
           {/* Right Column: Corporate Form */}
           <div
-            className="corp-card"
+            className="corp-card contact-form-card"
             style={{
               padding: "40px",
               background: "#ffffff",
@@ -252,7 +252,7 @@ export default function ContactSection() {
                   Tell us about your organization and modernization objectives.
                 </p>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div className="form-row-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
                       Your Full Name *
@@ -300,7 +300,7 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
+                <div className="form-row-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
                       Company / Organization
@@ -399,6 +399,15 @@ export default function ContactSection() {
         @media (min-width: 960px) {
           .contact-grid {
             grid-template-columns: 1fr 1.15fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .contact-form-card {
+            padding: 24px 18px !important;
+          }
+          .form-row-2col {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
           }
         }
       `}</style>

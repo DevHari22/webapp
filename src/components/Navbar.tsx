@@ -104,6 +104,7 @@ export default function Navbar() {
     >
       {/* Full-Width Header Bar */}
       <div
+        className="header-bar"
         style={{
           width: "100%",
           padding: "0 clamp(24px, 3.5vw, 64px)",
@@ -550,7 +551,7 @@ export default function Navbar() {
           {/* Primary CTA Button */}
           <a
             href="#contact"
-            className="btn-primary"
+            className="btn-primary desktop-cta"
             style={{
               padding: "11px 22px",
               fontSize: "0.88rem",
@@ -992,6 +993,15 @@ export default function Navbar() {
             display: flex !important;
           }
           .search-text {
+            display: none !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .header-bar {
+            padding: 0 16px !important;
+            height: 68px !important;
+          }
+          .desktop-cta {
             display: none !important;
           }
         }

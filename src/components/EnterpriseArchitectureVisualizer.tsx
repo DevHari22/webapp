@@ -255,6 +255,7 @@ export default function EnterpriseArchitectureVisualizer() {
 
         {/* Interactive 3-Tier Node Topology */}
         <div
+          className="visualizer-nodes-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1.35fr 1fr",
@@ -407,6 +408,7 @@ export default function EnterpriseArchitectureVisualizer() {
 
       {/* Live System Telemetry Banner Footer */}
       <div
+        className="visualizer-telemetry"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
@@ -438,6 +440,20 @@ export default function EnterpriseArchitectureVisualizer() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .visualizer-nodes-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px !important;
+          }
+          .visualizer-telemetry {
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+            padding: 12px 14px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

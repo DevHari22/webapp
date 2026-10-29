@@ -88,6 +88,16 @@ button {
   padding: 0 24px;
 }
 
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+img, svg, canvas, video {
+  max-width: 100%;
+}
+
 /* Cognizant Enterprise Eyebrow Tag */
 .enterprise-tag {
   display: inline-flex;
