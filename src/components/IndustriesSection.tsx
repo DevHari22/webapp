@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { INDUSTRIES, Industry } from "../data/companyData";
 import { Landmark, Shield, Truck, ShoppingBag, Factory, CheckCircle2, ArrowRight } from "lucide-react";
 
@@ -26,42 +27,44 @@ export default function IndustriesSection() {
     }
   };
 
+  const getIndustryImage = (id: string) => {
+    switch (id) {
+      case "banking":
+        return "/cloud-security.jpg";
+      case "insurance":
+        return "/ai-platform.jpg";
+      case "logistics":
+        return "/hero-spectrum.jpg";
+      case "cpg":
+        return "/ai-platform.jpg";
+      case "manufacturing":
+        return "/cloud-security.jpg";
+      default:
+        return "/hero-spectrum.jpg";
+    }
+  };
+
   return (
     <section
       id="industries"
       style={{
-        paddingTop: "90px",
-        paddingBottom: "100px",
+        paddingTop: "80px",
+        paddingBottom: "90px",
         background: "var(--bg-secondary)",
         borderBottom: "1px solid var(--border-light)",
-        position: "relative",
       }}
     >
-      {/* Ambient background glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          right: "5%",
-          width: "450px",
-          height: "450px",
-          background: "radial-gradient(circle, rgba(0, 98, 255, 0.08) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div className="container" style={{ position: "relative", zIndex: 1 }}>
-        {/* Header */}
-        <div style={{ maxWidth: "880px", marginBottom: "48px" }}>
-          <div className="arch-tag">
-            <span className="num">[04]</span>
+      <div className="container">
+        {/* Header (Cognizant Style) */}
+        <div style={{ maxWidth: "860px", marginBottom: "40px" }}>
+          <div className="enterprise-tag">
+            <span className="bar" />
             <span>INDUSTRIES WE EMPOWER</span>
           </div>
 
           <h2
             style={{
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              fontSize: "clamp(2rem, 3.8vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "var(--text-primary)",
@@ -74,7 +77,7 @@ export default function IndustriesSection() {
 
           <p
             style={{
-              fontSize: "1.1rem",
+              fontSize: "1.08rem",
               lineHeight: 1.65,
               color: "var(--text-secondary)",
             }}
@@ -85,13 +88,15 @@ export default function IndustriesSection() {
           </p>
         </div>
 
-        {/* Industry Horizontal Selector Buttons */}
+        {/* Industry Tabs (Cognizant Corporate Tabs) */}
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "10px",
-            marginBottom: "36px",
+            gap: "8px",
+            marginBottom: "32px",
+            borderBottom: "2px solid #e2e8f0",
+            paddingBottom: "8px",
           }}
         >
           {INDUSTRIES.map((ind) => {
@@ -104,16 +109,17 @@ export default function IndustriesSection() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "10px",
-                  padding: "12px 22px",
-                  borderRadius: "9999px",
-                  background: isActive ? "var(--blue-primary)" : "rgba(255, 255, 255, 0.04)",
-                  color: isActive ? "#ffffff" : "var(--text-secondary)",
-                  border: isActive ? "1px solid #38bdf8" : "1px solid var(--border-light)",
-                  fontWeight: 600,
-                  fontSize: "0.88rem",
-                  boxShadow: isActive ? "0 0 25px rgba(0, 98, 255, 0.45)" : "none",
-                  transition: "all 0.2s ease",
-                  backdropFilter: "blur(12px)",
+                  padding: "12px 20px",
+                  borderRadius: "4px",
+                  background: isActive ? "#ffffff" : "transparent",
+                  color: isActive ? "var(--blue-primary)" : "var(--text-secondary)",
+                  fontWeight: 700,
+                  fontSize: "0.92rem",
+                  border: isActive ? "1px solid #cbd5e1" : "1px solid transparent",
+                  borderBottom: isActive ? "3px solid var(--blue-primary)" : "1px solid transparent",
+                  boxShadow: isActive ? "var(--shadow-sm)" : "none",
+                  transition: "all 0.15s ease",
+                  marginBottom: "-10px",
                 }}
               >
                 {getIndustryIcon(ind.id)}
@@ -123,186 +129,203 @@ export default function IndustriesSection() {
           })}
         </div>
 
-        {/* Industry Spotlight Card */}
+        {/* Industry Main Presentation Card */}
         <div
-          className="tech-card"
+          className="corp-card"
           style={{
-            padding: "44px",
-            background: "rgba(13, 18, 30, 0.85)",
-            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.6)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            background: "#ffffff",
+            boxShadow: "var(--shadow-md)",
+            border: "1px solid var(--border-light)",
           }}
         >
-          {/* Subtle top rainbow accent */}
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: "3px",
-              background: "var(--spectrum-gradient)",
-            }}
-          />
-
           <div
             style={{
               display: "grid",
               gridTemplateColumns: "1fr",
-              gap: "40px",
             }}
             className="industry-grid"
           >
-            {/* Left Narrative Column */}
-            <div>
-              <div
-                style={{
-                  fontSize: "0.8rem",
-                  fontWeight: 700,
-                  color: "#38bdf8",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  marginBottom: "8px",
-                  fontFamily: "var(--font-mono)",
-                }}
-              >
-                DOMAIN PRACTICE MATRIX
-              </div>
-
-              <h3
-                style={{
-                  fontSize: "clamp(1.7rem, 2.8vw, 2.2rem)",
-                  fontWeight: 800,
-                  color: "#ffffff",
-                  letterSpacing: "-0.02em",
-                  marginBottom: "12px",
-                  lineHeight: 1.2,
-                }}
-              >
-                {activeIndustry.name}
-              </h3>
-
-              <div
-                style={{
-                  fontSize: "1.05rem",
-                  fontWeight: 600,
-                  color: "#93c5fd",
-                  marginBottom: "18px",
-                  lineHeight: 1.5,
-                }}
-              >
-                {activeIndustry.headline}
-              </div>
-
-              <p
-                style={{
-                  fontSize: "0.98rem",
-                  lineHeight: 1.65,
-                  color: "#94a3b8",
-                  marginBottom: "28px",
-                }}
-              >
-                {activeIndustry.description}
-              </p>
-
-              {/* Quantified Impact Pill */}
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "18px",
-                  padding: "16px 22px",
-                  borderRadius: "12px",
-                  background: "rgba(0, 98, 255, 0.12)",
-                  border: "1px solid rgba(0, 98, 255, 0.35)",
-                  marginBottom: "28px",
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: "1.9rem",
-                    fontWeight: 800,
-                    color: "#ffffff",
-                    fontFeatureSettings: "'tnum' on",
-                  }}
-                >
-                  {activeIndustry.impactMetric.value}
-                </div>
-                <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#93c5fd", maxWidth: "220px", lineHeight: 1.4 }}>
-                  {activeIndustry.impactMetric.label}
-                </div>
-              </div>
-
-              <div>
-                <a href="#insights" className="btn-secondary" style={{ padding: "10px 20px", fontSize: "0.88rem" }}>
-                  <span>View Related Case Study</span>
-                  <ArrowRight size={14} />
-                </a>
-              </div>
-            </div>
-
-            {/* Right What We Enable Column */}
+            {/* Visual Header / Cover Image */}
             <div
               style={{
-                background: "rgba(255, 255, 255, 0.03)",
-                padding: "32px",
-                borderRadius: "14px",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
+                position: "relative",
+                minHeight: "280px",
+                background: "#0b132b",
               }}
             >
-              <div>
+              <Image
+                src={getIndustryImage(activeIndustry.id)}
+                alt={activeIndustry.name}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(to right, rgba(11, 19, 43, 0.95) 0%, rgba(11, 19, 43, 0.4) 60%, transparent 100%)",
+                }}
+              />
+
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "32px",
+                  left: "32px",
+                  right: "32px",
+                  color: "#ffffff",
+                }}
+              >
                 <div
                   style={{
-                    fontSize: "0.8rem",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    padding: "4px 10px",
+                    borderRadius: "4px",
+                    background: "var(--blue-primary)",
+                    fontSize: "0.75rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
-                    color: "#94a3b8",
-                    marginBottom: "20px",
+                    marginBottom: "12px",
                   }}
                 >
-                  What We Enable Across {activeIndustry.name}
+                  GLOBAL SECTOR PRACTICE
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {activeIndustry.keyEnablers.map((item, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: "12px",
-                        fontSize: "0.92rem",
-                        color: "#ffffff",
-                        fontWeight: 600,
-                        lineHeight: 1.45,
-                      }}
-                    >
-                      <CheckCircle2 size={18} color="#38bdf8" style={{ flexShrink: 0, marginTop: "2px" }} />
-                      <span>{item}</span>
-                    </div>
-                  ))}
+                <h3
+                  style={{
+                    fontSize: "clamp(1.6rem, 2.6vw, 2.2rem)",
+                    fontWeight: 800,
+                    lineHeight: 1.2,
+                    marginBottom: "8px",
+                  }}
+                >
+                  {activeIndustry.name}
+                </h3>
+
+                <div style={{ fontSize: "1.02rem", color: "#93c5fd", fontWeight: 600 }}>
+                  {activeIndustry.headline}
+                </div>
+              </div>
+            </div>
+
+            {/* Content Body Grid: Overview on Left + Key Enablers on Right */}
+            <div
+              style={{
+                padding: "40px",
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: "36px",
+              }}
+              className="industry-body-grid"
+            >
+              {/* Left: Overview & Metric */}
+              <div>
+                <h4 style={{ fontSize: "0.82rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--text-muted)", marginBottom: "12px" }}>
+                  Executive Summary
+                </h4>
+
+                <p style={{ fontSize: "1.02rem", lineHeight: 1.7, color: "var(--text-secondary)", marginBottom: "28px" }}>
+                  {activeIndustry.description}
+                </p>
+
+                {/* Quantified Impact Banner */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "18px",
+                    padding: "18px 24px",
+                    borderRadius: "6px",
+                    background: "var(--blue-light)",
+                    border: "1px solid var(--blue-border)",
+                    marginBottom: "28px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "2.2rem",
+                      fontWeight: 800,
+                      color: "var(--blue-primary)",
+                      fontFeatureSettings: "'tnum' on",
+                    }}
+                  >
+                    {activeIndustry.impactMetric.value}
+                  </div>
+                  <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.4 }}>
+                    {activeIndustry.impactMetric.label}
+                  </div>
+                </div>
+
+                <div>
+                  <a href="#insights" className="btn-secondary">
+                    <span>View Transformation Case Study</span>
+                    <ArrowRight size={15} />
+                  </a>
                 </div>
               </div>
 
+              {/* Right: What We Enable */}
               <div
                 style={{
-                  marginTop: "30px",
-                  paddingTop: "20px",
-                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-                  fontSize: "0.8rem",
-                  color: "#64748b",
-                  lineHeight: 1.5,
+                  background: "var(--bg-secondary)",
+                  padding: "30px",
+                  borderRadius: "8px",
+                  border: "1px solid var(--border-light)",
                   display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
                 }}
               >
-                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
-                <span>Compliant with Basel III, HIPAA, ISO 27001, and SOC 2 standards.</span>
+                <div>
+                  <div
+                    style={{
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                      color: "var(--text-primary)",
+                      marginBottom: "18px",
+                    }}
+                  >
+                    What We Enable Across {activeIndustry.name}
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                    {activeIndustry.keyEnablers.map((item, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "12px",
+                          fontSize: "0.94rem",
+                          color: "var(--text-primary)",
+                          fontWeight: 600,
+                          lineHeight: 1.45,
+                        }}
+                      >
+                        <CheckCircle2 size={18} color="var(--blue-primary)" style={{ flexShrink: 0, marginTop: "2px" }} />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    marginTop: "24px",
+                    paddingTop: "16px",
+                    borderTop: "1px solid var(--border-light)",
+                    fontSize: "0.82rem",
+                    color: "var(--text-muted)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Audited under ISO 27001:2022, SOC 2 Type II, and industry regulatory frameworks.
+                </div>
               </div>
             </div>
           </div>
@@ -311,8 +334,8 @@ export default function IndustriesSection() {
 
       <style jsx>{`
         @media (min-width: 960px) {
-          .industry-grid {
-            grid-template-columns: 1.2fr 0.8fr !important;
+          .industry-body-grid {
+            grid-template-columns: 1.15fr 0.85fr !important;
           }
         }
       `}</style>

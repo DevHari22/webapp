@@ -42,23 +42,23 @@ export default function CapabilitiesSection() {
     <section
       id="capabilities"
       style={{
-        paddingTop: "90px",
-        paddingBottom: "100px",
-        background: "var(--bg-primary)",
+        paddingTop: "80px",
+        paddingBottom: "90px",
+        background: "var(--bg-secondary)",
         borderBottom: "1px solid var(--border-light)",
       }}
     >
       <div className="container">
         {/* Header */}
-        <div style={{ maxWidth: "880px", marginBottom: "48px" }}>
-          <div className="arch-tag">
-            <span className="num">[03]</span>
-            <span>ENTERPRISE CAPABILITIES</span>
+        <div style={{ maxWidth: "860px", marginBottom: "40px" }}>
+          <div className="enterprise-tag">
+            <span className="bar" />
+            <span>CORE PRACTICE AREAS</span>
           </div>
 
           <h2
             style={{
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              fontSize: "clamp(2rem, 3.8vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "var(--text-primary)",
@@ -71,7 +71,7 @@ export default function CapabilitiesSection() {
 
           <p
             style={{
-              fontSize: "1.1rem",
+              fontSize: "1.08rem",
               lineHeight: 1.65,
               color: "var(--text-secondary)",
             }}
@@ -87,11 +87,12 @@ export default function CapabilitiesSection() {
             display: "grid",
             gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
             gap: "8px",
-            marginBottom: "36px",
-            background: "var(--bg-tertiary)",
+            marginBottom: "32px",
+            background: "#ffffff",
             padding: "8px",
-            borderRadius: "14px",
+            borderRadius: "6px",
             border: "1px solid var(--border-light)",
+            boxShadow: "var(--shadow-sm)",
           }}
         >
           {CAPABILITIES.map((cap) => {
@@ -105,22 +106,21 @@ export default function CapabilitiesSection() {
                   alignItems: "center",
                   gap: "10px",
                   padding: "12px 14px",
-                  borderRadius: "10px",
-                  background: isActive ? "var(--bg-card)" : "transparent",
+                  borderRadius: "4px",
+                  background: isActive ? "var(--blue-light)" : "transparent",
                   color: isActive ? "var(--blue-primary)" : "var(--text-secondary)",
-                  fontWeight: 600,
-                  fontSize: "0.85rem",
-                  boxShadow: isActive ? "var(--shadow-sm)" : "none",
-                  border: isActive ? "1px solid var(--border-light)" : "1px solid transparent",
+                  fontWeight: 700,
+                  fontSize: "0.86rem",
+                  border: isActive ? "1px solid var(--blue-border)" : "1px solid transparent",
                   transition: "all 0.15s ease",
                   textAlign: "left",
                 }}
               >
-                <div style={{ opacity: isActive ? 1 : 0.6, flexShrink: 0 }}>
-                  {getIcon(cap.iconName, 16)}
+                <div style={{ color: isActive ? "var(--blue-primary)" : "var(--text-muted)", flexShrink: 0 }}>
+                  {getIcon(cap.iconName, 17)}
                 </div>
                 <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", opacity: 0.7, marginRight: "6px" }}>
+                  <span style={{ fontSize: "0.72rem", opacity: 0.7, marginRight: "6px" }}>
                     {cap.num}
                   </span>
                   <span>{cap.title.split("&")[0].trim()}</span>
@@ -130,18 +130,17 @@ export default function CapabilitiesSection() {
           })}
         </div>
 
-        {/* Active Capability Presentation Display */}
+        {/* Active Capability Presentation Display Card */}
         <div
-          className="tech-card"
+          className="corp-card"
           style={{
-            padding: "44px",
-            background: "var(--bg-card)",
-            boxShadow: "var(--shadow-lg)",
+            padding: "40px",
+            background: "#ffffff",
+            boxShadow: "var(--shadow-md)",
             border: "1px solid var(--border-light)",
             position: "relative",
           }}
         >
-          {/* Top subtle rainbow accent line */}
           <div
             style={{
               position: "absolute",
@@ -149,7 +148,7 @@ export default function CapabilitiesSection() {
               left: 0,
               right: 0,
               height: "3px",
-              background: "var(--spectrum-gradient)",
+              background: "var(--blue-primary)",
             }}
           />
 
@@ -167,15 +166,16 @@ export default function CapabilitiesSection() {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "8px",
-                  padding: "3px 10px",
-                  borderRadius: "6px",
+                  gap: "6px",
+                  padding: "4px 10px",
+                  borderRadius: "4px",
                   background: "var(--blue-light)",
                   color: "var(--blue-primary)",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "0.78rem",
+                  fontSize: "0.76rem",
                   fontWeight: 700,
                   marginBottom: "14px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
                 }}
               >
                 <span>PRACTICE {activeCap.num}</span>
@@ -185,10 +185,10 @@ export default function CapabilitiesSection() {
 
               <h3
                 style={{
-                  fontSize: "clamp(1.7rem, 3vw, 2.3rem)",
+                  fontSize: "clamp(1.7rem, 2.8vw, 2.2rem)",
                   fontWeight: 800,
                   color: "var(--text-primary)",
-                  letterSpacing: "-0.025em",
+                  letterSpacing: "-0.02em",
                   marginBottom: "8px",
                   lineHeight: 1.2,
                 }}
@@ -201,7 +201,7 @@ export default function CapabilitiesSection() {
                   fontSize: "1.05rem",
                   fontWeight: 600,
                   color: "var(--blue-primary)",
-                  marginBottom: "20px",
+                  marginBottom: "18px",
                 }}
               >
                 {activeCap.headline}
@@ -209,10 +209,10 @@ export default function CapabilitiesSection() {
 
               <p
                 style={{
-                  fontSize: "1rem",
+                  fontSize: "1.02rem",
                   lineHeight: 1.65,
                   color: "var(--text-secondary)",
-                  marginBottom: "32px",
+                  marginBottom: "30px",
                 }}
               >
                 {activeCap.description}
@@ -225,17 +225,17 @@ export default function CapabilitiesSection() {
                   gridTemplateColumns: "1fr 1fr",
                   gap: "16px",
                   padding: "18px 22px",
-                  borderRadius: "12px",
-                  background: "var(--bg-tertiary)",
+                  borderRadius: "6px",
+                  background: "var(--bg-secondary)",
                   border: "1px solid var(--border-light)",
-                  marginBottom: "32px",
+                  marginBottom: "30px",
                 }}
               >
                 {activeCap.metrics.map((metric, mIdx) => (
                   <div key={mIdx}>
                     <div
                       style={{
-                        fontSize: "1.6rem",
+                        fontSize: "1.7rem",
                         fontWeight: 800,
                         color: "var(--blue-primary)",
                         fontFeatureSettings: "'tnum' on",
@@ -243,7 +243,7 @@ export default function CapabilitiesSection() {
                     >
                       {metric.value}
                     </div>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--text-muted)", marginTop: "2px" }}>
+                    <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--text-muted)", marginTop: "2px" }}>
                       {metric.label}
                     </div>
                   </div>
@@ -263,9 +263,9 @@ export default function CapabilitiesSection() {
                 display: "flex",
                 flexDirection: "column",
                 gap: "28px",
-                background: "var(--bg-tertiary)",
+                background: "var(--bg-secondary)",
                 padding: "32px",
-                borderRadius: "14px",
+                borderRadius: "8px",
                 border: "1px solid var(--border-light)",
               }}
             >
@@ -273,11 +273,11 @@ export default function CapabilitiesSection() {
               <div>
                 <div
                   style={{
-                    fontSize: "0.82rem",
+                    fontSize: "0.8rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
-                    color: "var(--text-muted)",
+                    color: "var(--text-primary)",
                     marginBottom: "16px",
                   }}
                 >
@@ -294,7 +294,7 @@ export default function CapabilitiesSection() {
                         gap: "10px",
                         fontSize: "0.92rem",
                         color: "var(--text-primary)",
-                        fontWeight: 500,
+                        fontWeight: 600,
                         lineHeight: 1.45,
                       }}
                     >
@@ -305,11 +305,11 @@ export default function CapabilitiesSection() {
                 </div>
               </div>
 
-              {/* Technologies Excelled At */}
+              {/* Technologies */}
               <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "20px" }}>
                 <div
                   style={{
-                    fontSize: "0.82rem",
+                    fontSize: "0.8rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
@@ -317,7 +317,7 @@ export default function CapabilitiesSection() {
                     marginBottom: "12px",
                   }}
                 >
-                  Technologies & Frameworks
+                  Technologies & Ecosystem
                 </div>
 
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -326,12 +326,13 @@ export default function CapabilitiesSection() {
                       key={t}
                       style={{
                         padding: "5px 12px",
-                        borderRadius: "6px",
-                        background: "var(--bg-card)",
+                        borderRadius: "4px",
+                        background: "#ffffff",
                         border: "1px solid var(--border-light)",
                         fontSize: "0.82rem",
                         fontWeight: 600,
                         color: "var(--text-secondary)",
+                        boxShadow: "var(--shadow-sm)",
                       }}
                     >
                       {t}

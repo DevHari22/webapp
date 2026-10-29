@@ -30,9 +30,9 @@ export default function ContactSection() {
     <section
       id="contact"
       style={{
-        paddingTop: "90px",
-        paddingBottom: "100px",
-        background: "var(--bg-primary)",
+        paddingTop: "80px",
+        paddingBottom: "90px",
+        background: "#ffffff",
         borderBottom: "1px solid var(--border-light)",
       }}
     >
@@ -47,14 +47,14 @@ export default function ContactSection() {
         >
           {/* Left Column: Locations & Contact Details */}
           <div>
-            <div className="arch-tag">
-              <span className="num">[07]</span>
+            <div className="enterprise-tag">
+              <span className="bar" />
               <span>START THE CONVERSATION</span>
             </div>
 
             <h2
               style={{
-                fontSize: "clamp(2rem, 3.8vw, 3.2rem)",
+                fontSize: "clamp(2rem, 3.8vw, 3rem)",
                 fontWeight: 800,
                 letterSpacing: "-0.03em",
                 color: "var(--text-primary)",
@@ -67,17 +67,17 @@ export default function ContactSection() {
 
             <p
               style={{
-                fontSize: "1.05rem",
+                fontSize: "1.08rem",
                 lineHeight: 1.65,
                 color: "var(--text-secondary)",
                 marginBottom: "36px",
               }}
             >
-              Connect with our team to explore how clarity, engineering, and intelligent systems
-              can move your business forward—securely, sustainably, and at scale.
+              Connect with our leadership team to explore how clarity, engineering discipline, and
+              intelligent systems can move your business forward—securely, sustainably, and at scale.
             </p>
 
-            {/* Direct Contact Links */}
+            {/* Direct Contact Cards */}
             <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "36px" }}>
               <div
                 style={{
@@ -85,16 +85,16 @@ export default function ContactSection() {
                   alignItems: "center",
                   gap: "14px",
                   padding: "16px 20px",
-                  borderRadius: "12px",
+                  borderRadius: "6px",
                   background: "var(--bg-secondary)",
                   border: "1px solid var(--border-light)",
                 }}
               >
                 <div
                   style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "6px",
                     background: "var(--blue-light)",
                     color: "var(--blue-primary)",
                     display: "flex",
@@ -106,8 +106,8 @@ export default function ContactSection() {
                   <Mail size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase" }}>
-                    Executive Inquiries
+                  <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase" }}>
+                    Executive Client Inquiries
                   </div>
                   <a href={`mailto:${COMPANY_DETAILS.contact.email}`} style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
                     {COMPANY_DETAILS.contact.email}
@@ -121,16 +121,16 @@ export default function ContactSection() {
                   alignItems: "center",
                   gap: "14px",
                   padding: "16px 20px",
-                  borderRadius: "12px",
+                  borderRadius: "6px",
                   background: "var(--bg-secondary)",
                   border: "1px solid var(--border-light)",
                 }}
               >
                 <div
                   style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
+                    width: "42px",
+                    height: "42px",
+                    borderRadius: "6px",
                     background: "var(--blue-light)",
                     color: "var(--blue-primary)",
                     display: "flex",
@@ -142,8 +142,8 @@ export default function ContactSection() {
                   <Phone size={18} />
                 </div>
                 <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase" }}>
-                    Global Direct
+                  <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase" }}>
+                    Global Toll-Free Line
                   </div>
                   <a href={`tel:${COMPANY_DETAILS.contact.phone}`} style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)" }}>
                     {COMPANY_DETAILS.contact.phone}
@@ -152,7 +152,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Global Locations List */}
+            {/* Global Hubs */}
             <div>
               <div
                 style={{
@@ -160,7 +160,7 @@ export default function ContactSection() {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
-                  color: "var(--text-muted)",
+                  color: "var(--text-primary)",
                   marginBottom: "14px",
                 }}
               >
@@ -173,15 +173,15 @@ export default function ContactSection() {
                     key={loc.city}
                     style={{
                       padding: "12px 14px",
-                      borderRadius: "8px",
+                      borderRadius: "6px",
                       background: "var(--bg-secondary)",
                       border: "1px solid var(--border-light)",
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text-primary)" }}>
+                    <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--text-primary)" }}>
                       {loc.city}
                     </div>
-                    <div style={{ fontSize: "0.76rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                    <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "2px" }}>
                       {loc.role}
                     </div>
                   </div>
@@ -190,13 +190,13 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Right Column: High-End Minimalist Form */}
+          {/* Right Column: Corporate Form */}
           <div
-            className="tech-card"
+            className="corp-card"
             style={{
               padding: "40px",
-              background: "var(--bg-card)",
-              boxShadow: "var(--shadow-lg)",
+              background: "#ffffff",
+              boxShadow: "var(--shadow-md)",
             }}
           >
             {submitted ? (
@@ -230,7 +230,7 @@ export default function ContactSection() {
                 </h3>
 
                 <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", maxWidth: "420px", lineHeight: 1.6, marginBottom: "24px" }}>
-                  Thank you, <strong>{formData.name}</strong>. An enterprise solution architect from Spectrum 7
+                  Thank you, <strong>{formData.name}</strong>. An enterprise solution director from Spectrum 7
                   will connect with you at <strong>{formData.email}</strong> shortly.
                 </p>
 
@@ -240,17 +240,17 @@ export default function ContactSection() {
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
-                <div style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "6px" }}>
-                  Start an Engagement
+                <div style={{ fontSize: "1.35rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "6px" }}>
+                  Schedule Architectural Discovery
                 </div>
-                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", marginBottom: "24px" }}>
+                <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", marginBottom: "24px" }}>
                   Tell us about your organization and modernization objectives.
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
-                      Your Name *
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+                      Your Full Name *
                     </label>
                     <input
                       type="text"
@@ -261,18 +261,18 @@ export default function ContactSection() {
                       style={{
                         width: "100%",
                         padding: "12px 14px",
-                        borderRadius: "8px",
-                        background: "var(--bg-tertiary)",
+                        borderRadius: "4px",
+                        background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         color: "var(--text-primary)",
-                        fontSize: "0.9rem",
+                        fontSize: "0.92rem",
                         outline: "none",
                       }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
                       Corporate Email *
                     </label>
                     <input
@@ -284,11 +284,11 @@ export default function ContactSection() {
                       style={{
                         width: "100%",
                         padding: "12px 14px",
-                        borderRadius: "8px",
-                        background: "var(--bg-tertiary)",
+                        borderRadius: "4px",
+                        background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         color: "var(--text-primary)",
-                        fontSize: "0.9rem",
+                        fontSize: "0.92rem",
                         outline: "none",
                       }}
                     />
@@ -297,7 +297,7 @@ export default function ContactSection() {
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "16px" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
                       Company / Organization
                     </label>
                     <input
@@ -308,19 +308,19 @@ export default function ContactSection() {
                       style={{
                         width: "100%",
                         padding: "12px 14px",
-                        borderRadius: "8px",
-                        background: "var(--bg-tertiary)",
+                        borderRadius: "4px",
+                        background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         color: "var(--text-primary)",
-                        fontSize: "0.9rem",
+                        fontSize: "0.92rem",
                         outline: "none",
                       }}
                     />
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
-                      Primary Capability
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+                      Primary Practice Area
                     </label>
                     <select
                       value={formData.capability}
@@ -328,15 +328,15 @@ export default function ContactSection() {
                       style={{
                         width: "100%",
                         padding: "12px 14px",
-                        borderRadius: "8px",
-                        background: "var(--bg-tertiary)",
+                        borderRadius: "4px",
+                        background: "var(--bg-secondary)",
                         border: "1px solid var(--border-light)",
                         color: "var(--text-primary)",
-                        fontSize: "0.9rem",
+                        fontSize: "0.92rem",
                         outline: "none",
                       }}
                     >
-                      <option value="all">Full Digital Transformation</option>
+                      <option value="all">Enterprise Digital Transformation</option>
                       {CAPABILITIES.map((c) => (
                         <option key={c.id} value={c.id}>
                           {c.num}. {c.title}
@@ -347,8 +347,8 @@ export default function ContactSection() {
                 </div>
 
                 <div style={{ marginBottom: "24px" }}>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
-                    How can we help? (Architecture, timelines, systems)
+                  <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "6px" }}>
+                    How can we help? (Architecture, legacy systems, scope)
                   </label>
                   <textarea
                     rows={4}
@@ -358,11 +358,11 @@ export default function ContactSection() {
                     style={{
                       width: "100%",
                       padding: "12px 14px",
-                      borderRadius: "8px",
-                      background: "var(--bg-tertiary)",
+                      borderRadius: "4px",
+                      background: "var(--bg-secondary)",
                       border: "1px solid var(--border-light)",
                       color: "var(--text-primary)",
-                      fontSize: "0.9rem",
+                      fontSize: "0.92rem",
                       outline: "none",
                       resize: "vertical",
                       fontFamily: "inherit",
@@ -381,7 +381,7 @@ export default function ContactSection() {
                     fontSize: "0.95rem",
                   }}
                 >
-                  {loading ? <span>Transmitting...</span> : <span>Submit Engagement Request</span>}
+                  {loading ? <span>Transmitting...</span> : <span>Submit Discovery Request</span>}
                   <Send size={16} />
                 </button>
               </form>

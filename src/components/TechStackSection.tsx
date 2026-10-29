@@ -18,7 +18,7 @@ export default function TechStackSection() {
     { name: "Boomi iPaaS", category: "integration", headline: "Enterprise Hybrid Integration & API Management", badge: "Award Winner" },
     { name: "MuleSoft AnyPoint", category: "integration", headline: "Full-Lifecycle API Mesh & ESB Orchestration", badge: "Enterprise" },
     { name: "Apache Kafka", category: "integration", headline: "Distributed Event Streaming & High-Throughput Pub/Sub", badge: "Core" },
-    { name: "AWS & Microsoft Azure", category: "integration", headline: "Multi-Cloud Hyperscale Infrastructure", badge: "Certified" },
+    { name: "AWS & Microsoft Azure", category: "integration", headline: "Multi-Cloud Hyperscale Cloud Infrastructure", badge: "Certified" },
     { name: "Oracle Cloud & ERP", category: "integration", headline: "Financial & Enterprise Core Operations", badge: "Specialty" },
 
     // Data & AI
@@ -50,23 +50,23 @@ export default function TechStackSection() {
     <section
       id="technologies"
       style={{
-        paddingTop: "90px",
-        paddingBottom: "100px",
+        paddingTop: "80px",
+        paddingBottom: "90px",
         background: "var(--bg-secondary)",
         borderBottom: "1px solid var(--border-light)",
       }}
     >
       <div className="container">
         {/* Header */}
-        <div style={{ maxWidth: "880px", marginBottom: "40px" }}>
-          <div className="arch-tag">
-            <span className="num">[06]</span>
-            <span>TECHNOLOGIES WE EXCEL AT</span>
+        <div style={{ maxWidth: "860px", marginBottom: "36px" }}>
+          <div className="enterprise-tag">
+            <span className="bar" />
+            <span>TECHNOLOGY ALLIANCES & ECOSYSTEM</span>
           </div>
 
           <h2
             style={{
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              fontSize: "clamp(2rem, 3.8vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "var(--text-primary)",
@@ -74,18 +74,18 @@ export default function TechStackSection() {
               lineHeight: 1.15,
             }}
           >
-            Battle-Tested Platforms for Enterprise Scale
+            Strategic Enterprise Technology Alliances
           </h2>
 
           <p
             style={{
-              fontSize: "1.1rem",
+              fontSize: "1.08rem",
               lineHeight: 1.65,
               color: "var(--text-secondary)",
             }}
           >
-            We partner with leading global technology providers. Every tool in our stack is
-            chosen for security, high-throughput reliability, and long-term maintainability.
+            We architect solutions on premier global enterprise platforms with certified engineers,
+            award-winning partnerships, and proven delivery frameworks.
           </p>
         </div>
 
@@ -94,8 +94,8 @@ export default function TechStackSection() {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "10px",
-            marginBottom: "36px",
+            gap: "8px",
+            marginBottom: "32px",
           }}
         >
           {[
@@ -110,12 +110,13 @@ export default function TechStackSection() {
               onClick={() => setFilter(item.id as any)}
               style={{
                 padding: "8px 18px",
-                borderRadius: "9999px",
-                background: filter === item.id ? "var(--text-primary)" : "var(--bg-card)",
-                color: filter === item.id ? "var(--bg-primary)" : "var(--text-secondary)",
-                fontWeight: 600,
+                borderRadius: "4px",
+                background: filter === item.id ? "var(--blue-primary)" : "#ffffff",
+                color: filter === item.id ? "#ffffff" : "var(--text-secondary)",
+                fontWeight: 700,
                 fontSize: "0.85rem",
                 border: "1px solid var(--border-light)",
+                boxShadow: "var(--shadow-sm)",
                 transition: "all 0.15s ease",
               }}
             >
@@ -129,20 +130,20 @@ export default function TechStackSection() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: "16px",
-            marginBottom: "50px",
+            gap: "18px",
+            marginBottom: "48px",
           }}
         >
           {filteredTech.map((item) => (
             <div
               key={item.name}
-              className="tech-card"
+              className="corp-card"
               style={{
                 padding: "24px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                background: "var(--bg-card)",
+                background: "#ffffff",
               }}
             >
               <div>
@@ -160,10 +161,10 @@ export default function TechStackSection() {
                   {item.badge && (
                     <span
                       style={{
-                        fontSize: "0.7rem",
-                        padding: "2px 8px",
-                        borderRadius: "6px",
-                        background: item.badge === "Award Winner" || item.badge === "Partner of Year" ? "var(--blue-light)" : "var(--bg-tertiary)",
+                        fontSize: "0.72rem",
+                        padding: "3px 8px",
+                        borderRadius: "4px",
+                        background: item.badge === "Award Winner" || item.badge === "Partner of Year" ? "var(--blue-light)" : "var(--bg-secondary)",
                         color: item.badge === "Award Winner" || item.badge === "Partner of Year" ? "var(--blue-primary)" : "var(--text-muted)",
                         fontWeight: 700,
                         border: "1px solid var(--border-light)",
@@ -173,7 +174,7 @@ export default function TechStackSection() {
                     </span>
                   )}
                 </div>
-                <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", lineHeight: 1.5 }}>
                   {item.headline}
                 </p>
               </div>
@@ -184,13 +185,13 @@ export default function TechStackSection() {
                   alignItems: "center",
                   gap: "6px",
                   marginTop: "18px",
-                  fontSize: "0.76rem",
+                  fontSize: "0.78rem",
                   color: "var(--blue-primary)",
                   fontWeight: 600,
                 }}
               >
-                <CheckCircle2 size={14} />
-                <span>Enterprise Certified Practice</span>
+                <CheckCircle2 size={15} />
+                <span>Certified Enterprise Practice</span>
               </div>
             </div>
           ))}
@@ -200,8 +201,8 @@ export default function TechStackSection() {
         <div
           style={{
             padding: "28px 32px",
-            borderRadius: "14px",
-            background: "var(--bg-card)",
+            borderRadius: "6px",
+            background: "#ffffff",
             border: "1px solid var(--border-light)",
             display: "flex",
             flexWrap: "wrap",
@@ -212,34 +213,34 @@ export default function TechStackSection() {
           }}
         >
           <div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-              SECURITY & GOVERNANCE COMMITMENT
+            <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+              ENTERPRISE INFORMATION SECURITY
             </div>
-            <div style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "2px" }}>
+            <div style={{ fontSize: "1.18rem", fontWeight: 800, color: "var(--text-primary)", marginTop: "2px" }}>
               Certified under ISO/IEC 27001:2022
             </div>
-            <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "4px" }}>
-              A reflection of our commitment to information security and data integrity at every layer of client engagement.
+            <div style={{ fontSize: "0.88rem", color: "var(--text-secondary)", marginTop: "4px" }}>
+              A reflection of our commitment to information security and regulatory governance across every engagement.
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <div>
             <div
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "8px",
-                padding: "8px 16px",
-                borderRadius: "8px",
+                padding: "10px 18px",
+                borderRadius: "4px",
                 background: "var(--blue-light)",
                 color: "var(--blue-primary)",
                 fontWeight: 700,
-                fontSize: "0.85rem",
+                fontSize: "0.88rem",
                 border: "1px solid var(--blue-border)",
               }}
             >
               <ShieldCheck size={18} />
-              <span>ISMS Verified</span>
+              <span>ISMS Verified & SOC 2 Audited</span>
             </div>
           </div>
         </div>

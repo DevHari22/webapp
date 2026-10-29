@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CASE_STUDIES, CaseStudy } from "../data/companyData";
-import { ArrowUpRight, TrendingUp, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, TrendingUp, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default function CaseStudiesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -19,23 +19,23 @@ export default function CaseStudiesSection() {
     <section
       id="insights"
       style={{
-        paddingTop: "90px",
-        paddingBottom: "100px",
-        background: "var(--bg-primary)",
+        paddingTop: "80px",
+        paddingBottom: "90px",
+        background: "#ffffff",
         borderBottom: "1px solid var(--border-light)",
       }}
     >
       <div className="container">
         {/* Header */}
-        <div style={{ maxWidth: "880px", marginBottom: "40px" }}>
-          <div className="arch-tag">
-            <span className="num">[05]</span>
-            <span>WHAT WE&apos;VE BUILT • PROVEN CLIENT IMPACT</span>
+        <div style={{ maxWidth: "860px", marginBottom: "36px" }}>
+          <div className="enterprise-tag">
+            <span className="bar" />
+            <span>FEATURED STORIES & IMPACT</span>
           </div>
 
           <h2
             style={{
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
+              fontSize: "clamp(2rem, 3.8vw, 3rem)",
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "var(--text-primary)",
@@ -48,14 +48,13 @@ export default function CaseStudiesSection() {
 
           <p
             style={{
-              fontSize: "1.1rem",
+              fontSize: "1.08rem",
               lineHeight: 1.65,
               color: "var(--text-secondary)",
             }}
           >
-            Over the past decade, we have delivered technology solutions that transformed
-            businesses from fast-scaling startups to Fortune 500 enterprises. These numbers
-            reflect the outcomes, not the promises.
+            Over the past decade, we have delivered enterprise systems across international markets.
+            Explore our featured client engagements and measurable outcomes below.
           </p>
         </div>
 
@@ -64,8 +63,8 @@ export default function CaseStudiesSection() {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "10px",
-            marginBottom: "40px",
+            gap: "8px",
+            marginBottom: "36px",
           }}
         >
           {categories.map((cat) => (
@@ -74,10 +73,10 @@ export default function CaseStudiesSection() {
               onClick={() => setSelectedCategory(cat)}
               style={{
                 padding: "8px 18px",
-                borderRadius: "9999px",
-                background: selectedCategory === cat ? "var(--text-primary)" : "var(--bg-tertiary)",
-                color: selectedCategory === cat ? "var(--bg-primary)" : "var(--text-secondary)",
-                fontWeight: 600,
+                borderRadius: "4px",
+                background: selectedCategory === cat ? "var(--blue-primary)" : "var(--bg-secondary)",
+                color: selectedCategory === cat ? "#ffffff" : "var(--text-secondary)",
+                fontWeight: 700,
                 fontSize: "0.85rem",
                 border: "1px solid var(--border-light)",
                 transition: "all 0.15s ease",
@@ -88,7 +87,7 @@ export default function CaseStudiesSection() {
           ))}
         </div>
 
-        {/* Case Studies 2-Column Grid */}
+        {/* Case Studies Grid */}
         <div
           style={{
             display: "grid",
@@ -99,13 +98,12 @@ export default function CaseStudiesSection() {
           {filteredCases.map((cs) => (
             <div
               key={cs.id}
-              className="tech-card"
+              className="corp-card"
               style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                overflow: "hidden",
-                background: "var(--bg-card)",
+                background: "#ffffff",
               }}
             >
               {/* Image banner */}
@@ -114,7 +112,7 @@ export default function CaseStudiesSection() {
                   position: "relative",
                   width: "100%",
                   height: "220px",
-                  background: "#07090e",
+                  background: "#0b132b",
                 }}
               >
                 <Image
@@ -127,7 +125,7 @@ export default function CaseStudiesSection() {
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background: "linear-gradient(to top, rgba(7, 9, 14, 0.85) 0%, transparent 70%)",
+                    background: "linear-gradient(to top, rgba(11, 19, 43, 0.88) 0%, transparent 60%)",
                   }}
                 />
 
@@ -136,17 +134,15 @@ export default function CaseStudiesSection() {
                     position: "absolute",
                     top: "16px",
                     left: "16px",
-                    display: "flex",
-                    gap: "6px",
                   }}
                 >
                   <span
                     style={{
                       fontSize: "0.72rem",
                       fontWeight: 700,
-                      padding: "3px 10px",
-                      borderRadius: "6px",
-                      background: "rgba(0, 98, 255, 0.9)",
+                      padding: "4px 10px",
+                      borderRadius: "4px",
+                      background: "var(--blue-primary)",
                       color: "#ffffff",
                     }}
                   >
@@ -167,12 +163,12 @@ export default function CaseStudiesSection() {
                     fontSize: "0.8rem",
                   }}
                 >
-                  <span style={{ fontWeight: 600, color: "#93c5fd" }}>{cs.clientIndustry}</span>
-                  <span style={{ color: "#94a3b8" }}>{cs.date}</span>
+                  <span style={{ fontWeight: 700, color: "#93c5fd" }}>{cs.clientIndustry}</span>
+                  <span style={{ color: "#cbd5e1" }}>{cs.date}</span>
                 </div>
               </div>
 
-              {/* Case Study Content Body */}
+              {/* Case Study Body */}
               <div style={{ padding: "28px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
                   <h3
@@ -188,35 +184,35 @@ export default function CaseStudiesSection() {
                     {cs.title}
                   </h3>
 
-                  <div style={{ marginBottom: "16px" }}>
-                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
-                      The Challenge
+                  <div style={{ marginBottom: "14px" }}>
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "3px" }}>
+                      Challenge
                     </div>
-                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                    <p style={{ fontSize: "0.92rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
                       {cs.challenge}
                     </p>
                   </div>
 
                   <div style={{ marginBottom: "20px" }}>
-                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "4px" }}>
-                      Engineering Solution
+                    <div style={{ fontSize: "0.76rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "3px" }}>
+                      Delivered Solution
                     </div>
-                    <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+                    <p style={{ fontSize: "0.92rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
                       {cs.solution}
                     </p>
                   </div>
                 </div>
 
-                {/* Quantified Outcomes */}
+                {/* Outcomes Row */}
                 <div style={{ borderTop: "1px solid var(--border-light)", paddingTop: "18px" }}>
                   <div
                     style={{
                       display: "grid",
                       gridTemplateColumns: "repeat(3, 1fr)",
-                      gap: "10px",
-                      background: "var(--bg-tertiary)",
+                      gap: "8px",
+                      background: "var(--bg-secondary)",
                       padding: "12px",
-                      borderRadius: "10px",
+                      borderRadius: "6px",
                       textAlign: "center",
                       marginBottom: "16px",
                     }}
@@ -240,18 +236,18 @@ export default function CaseStudiesSection() {
                     ))}
                   </div>
 
-                  {/* Tags */}
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                     {cs.tags.map((tag) => (
                       <span
                         key={tag}
                         style={{
-                          fontSize: "0.72rem",
+                          fontSize: "0.74rem",
                           fontWeight: 600,
                           padding: "2px 8px",
                           borderRadius: "4px",
-                          background: "var(--bg-tertiary)",
+                          background: "var(--bg-secondary)",
                           color: "var(--text-muted)",
+                          border: "1px solid var(--border-light)",
                         }}
                       >
                         #{tag}
