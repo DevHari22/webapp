@@ -22,9 +22,11 @@ export default function EnterpriseArchitectureVisualizer() {
   const [activeTab, setActiveTab] = useState<"integration" | "ai" | "cloud">("integration");
   const [selectedNode, setSelectedNode] = useState<string>("core");
   const [eventCount, setEventCount] = useState<number>(1489200);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   // Live ticking counter for high-tech telemetry feel
   useEffect(() => {
+    setMounted(true);
     const timer = setInterval(() => {
       setEventCount((prev) => prev + Math.floor(Math.random() * 85) + 30);
     }, 1200);
@@ -417,8 +419,8 @@ export default function EnterpriseArchitectureVisualizer() {
       >
         <div>
           <div style={{ fontSize: "0.65rem", color: "#64748b", fontWeight: 700 }}>SYNCHRONIZED EVENTS</div>
-          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#38bdf8", marginTop: "2px" }}>
-            {eventCount.toLocaleString()} /s
+          <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#38bdf8", marginTop: "2px" }} suppressHydrationWarning>
+            {mounted ? eventCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "1,489,200"} /s
           </div>
         </div>
 
