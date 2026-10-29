@@ -58,8 +58,8 @@ export const COMPANY_DETAILS = {
     { city: "Bangalore", role: "Engineering & Delivery Center", address: "Outer Ring Road, Bellandur, Bangalore" },
   ],
   contact: {
-    email: "sales@spectrum7.io",
-    generalEmail: "hello@spectrum7.io",
+    email: "sales@spectrum7tech.com",
+    generalEmail: "hello@spectrum7tech.com",
     phone: "+1 (800) 773-2878",
   },
   stats: [

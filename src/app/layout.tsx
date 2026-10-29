@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://spectrum7.io"),
+  metadataBase: new URL("https://spectrum7tech.com"),
   title: "Spectrum 7 | Full-Spectrum Enterprise Digital & AI Solutions",
   description:
-    "Architecting mission-critical digital systems across 7 core technological pillars: Cloud DevOps, Applied AI, Web & Mobile, Zero-Trust Cybersecurity, Real-time Data, IoT & Product Experience.",
+    "Architecting mission-critical digital systems across core technological pillars: Cloud DevOps, Applied AI, Enterprise Integration, Zero-Trust Cybersecurity, and Scaled Automation.",
   keywords: [
     "Spectrum 7",
     "Enterprise Software",
@@ -26,13 +26,14 @@ export const metadata: Metadata = {
     "Next.js Development",
     "Zero-Trust Cybersecurity",
     "Data Streaming",
-    "IoT Systems",
+    "Boomi iPaaS",
+    "UiPath Automation",
   ],
   authors: [{ name: "Spectrum 7 Technologies" }],
   openGraph: {
     title: "Spectrum 7 | Enterprise Digital & AI Engineering",
-    description: "The 7 Pillars of Modern Technological Excellence.",
-    url: "https://spectrum7.io",
+    description: "Engineering Intelligent Systems for Connected Enterprises.",
+    url: "https://spectrum7tech.com",
     siteName: "Spectrum 7",
     images: [
       {
