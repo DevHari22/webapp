@@ -152,7 +152,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Global Hubs */}
+            {/* Enterprise Engagement Standards */}
             <div>
               <div
                 style={{
@@ -164,13 +164,18 @@ export default function ContactSection() {
                   marginBottom: "14px",
                 }}
               >
-                Global Presence & Delivery Hubs
+                Enterprise Advisory Standards
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                {COMPANY_DETAILS.locations.map((loc) => (
+                {[
+                  { title: "NDA Protected", desc: "Strict confidentiality and mutual IP protection" },
+                  { title: "24-Hour SLA", desc: "Direct response from executive solutions team" },
+                  { title: "ISO 27001", desc: "Information security management verified" },
+                  { title: "Solution Matching", desc: "Paired with principal architects & consultants" },
+                ].map((item) => (
                   <div
-                    key={loc.city}
+                    key={item.title}
                     style={{
                       padding: "12px 14px",
                       borderRadius: "6px",
@@ -178,11 +183,11 @@ export default function ContactSection() {
                       border: "1px solid var(--border-light)",
                     }}
                   >
-                    <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--text-primary)" }}>
-                      {loc.city}
+                    <div style={{ fontWeight: 700, fontSize: "0.88rem", color: "var(--text-primary)" }}>
+                      {item.title}
                     </div>
-                    <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "2px" }}>
-                      {loc.role}
+                    <div style={{ fontSize: "0.76rem", color: "var(--text-muted)", marginTop: "2px", lineHeight: 1.35 }}>
+                      {item.desc}
                     </div>
                   </div>
                 ))}

@@ -179,7 +179,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Industries Column */}
+          {/* Strategic Alliances Column */}
           <div>
             <h4
               style={{
@@ -191,13 +191,19 @@ export default function Footer() {
                 marginBottom: "20px",
               }}
             >
-              Industries
+              Strategic Alliances
             </h4>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {INDUSTRIES.map((ind) => (
-                <li key={ind.id}>
+              {[
+                { name: "Boomi iPaaS (Award Winner)", href: "#technologies" },
+                { name: "UiPath (Partner of the Year)", href: "#technologies" },
+                { name: "Snowflake & Databricks", href: "#technologies" },
+                { name: "Apache Kafka Event Mesh", href: "#technologies" },
+                { name: "Next.js & Kubernetes Core", href: "#technologies" },
+              ].map((all) => (
+                <li key={all.name}>
                   <a
-                    href="#industries"
+                    href={all.href}
                     style={{
                       fontSize: "0.88rem",
                       color: "#94a3b8",
@@ -206,14 +212,14 @@ export default function Footer() {
                     onMouseEnter={(e) => (e.currentTarget.style.color = "#38bdf8")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "#94a3b8")}
                   >
-                    {ind.name}
+                    {all.name}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Locations Column */}
+          {/* Advisory & Inquiries Column (No addresses or countries) */}
           <div>
             <h4
               style={{
@@ -225,22 +231,35 @@ export default function Footer() {
                 marginBottom: "20px",
               }}
             >
-              Global Hubs
+              Executive Inquiries
             </h4>
-            <div style={{ fontSize: "0.88rem", color: "#94a3b8", lineHeight: 1.8 }}>
-              {COMPANY_DETAILS.locations.map((loc) => (
-                <div key={loc.city}>
-                  • <strong>{loc.city}</strong> ({loc.role.split(" ")[0]})
+            <div style={{ fontSize: "0.88rem", color: "#94a3b8", lineHeight: 1.7, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <div>
+                <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#f8fafc", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  Direct Email
                 </div>
-              ))}
-            </div>
-
-            <div style={{ marginTop: "20px" }}>
-              <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "#f8fafc", marginBottom: "4px" }}>
-                Direct Contact
+                <a href={`mailto:${COMPANY_DETAILS.contact.email}`} style={{ fontSize: "0.92rem", color: "#38bdf8", fontWeight: 600 }}>
+                  {COMPANY_DETAILS.contact.email}
+                </a>
               </div>
-              <div style={{ fontSize: "0.85rem", color: "#38bdf8" }}>{COMPANY_DETAILS.contact.email}</div>
-              <div style={{ fontSize: "0.85rem", color: "#94a3b8" }}>{COMPANY_DETAILS.contact.phone}</div>
+
+              <div>
+                <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#f8fafc", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  Toll-Free Enterprise Line
+                </div>
+                <a href={`tel:${COMPANY_DETAILS.contact.phone}`} style={{ fontSize: "0.92rem", color: "#cbd5e1", fontWeight: 600 }}>
+                  {COMPANY_DETAILS.contact.phone}
+                </a>
+              </div>
+
+              <div>
+                <div style={{ fontSize: "0.76rem", fontWeight: 700, color: "#f8fafc", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                  Consultation SLA
+                </div>
+                <span style={{ fontSize: "0.84rem", color: "#94a3b8" }}>
+                  Response within 24 business hours
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -270,18 +289,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Very bottom Spectrum 7 rainbow accent */}
-      <div
-        className="spectrum-bar"
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "4px",
-        }}
-      />
     </footer>
   );
 }

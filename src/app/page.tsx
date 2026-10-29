@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import EthosSection from "@/components/EthosSection";
 import CapabilitiesSection from "@/components/CapabilitiesSection";
-import IndustriesSection from "@/components/IndustriesSection";
+import TransformationCockpit from "@/components/TransformationCockpit";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import TechStackSection from "@/components/TechStackSection";
 import ContactSection from "@/components/ContactSection";
@@ -16,7 +16,7 @@ export default function Home() {
         <Hero />
         <EthosSection />
         <CapabilitiesSection />
-        <IndustriesSection />
+        <TransformationCockpit />
         <CaseStudiesSection />
         <TechStackSection />
         <ContactSection />

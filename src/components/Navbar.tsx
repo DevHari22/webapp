@@ -268,140 +268,21 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* NAV ITEM 2: INDUSTRIES (Floating Dropdown) */}
-          <div
-            onMouseEnter={() => handleMouseEnter("industries")}
-            onMouseLeave={handleMouseLeave}
-            style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}
+          {/* NAV ITEM 2: ENTERPRISE OUTCOMES (Direct Link) */}
+          <a
+            href="#outcomes"
+            style={{
+              fontSize: "0.92rem",
+              fontWeight: 700,
+              color: "var(--text-secondary)",
+              padding: "8px 0",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "var(--blue-primary)")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
           >
-            <a
-              href="#industries"
-              style={{
-                fontSize: "0.92rem",
-                fontWeight: 700,
-                color: activeDropdown === "industries" ? "var(--blue-primary)" : "var(--text-secondary)",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                padding: "8px 0",
-                transition: "color 0.2s ease",
-              }}
-            >
-              <span>Industries</span>
-              <ChevronDown
-                size={14}
-                style={{
-                  transform: activeDropdown === "industries" ? "rotate(180deg)" : "rotate(0deg)",
-                  transition: "transform 0.2s ease",
-                }}
-              />
-            </a>
-
-            {/* Floating Industries Card */}
-            {activeDropdown === "industries" && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "calc(100% - 6px)",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "560px",
-                  background: "#ffffff",
-                  borderRadius: "12px",
-                  boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
-                  border: "1px solid var(--border-light)",
-                  overflow: "hidden",
-                  zIndex: 200,
-                  animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-              >
-                <div style={{ padding: "18px 20px 14px" }}>
-                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
-                    DOMAIN PRACTICE VERTICALS
-                  </div>
-
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    {[
-                      {
-                        name: "Banking & Financial Services",
-                        badge: "Sub-15ms Latency",
-                        sub: "Core ledger modernizations, instant rails & real-time fraud AI",
-                      },
-                      {
-                        name: "Insurance & Risk Management",
-                        badge: "3.2x Faster Claims",
-                        sub: "Automated underwriting, intelligent triage & risk models",
-                      },
-                      {
-                        name: "Supply Chain & Global Logistics",
-                        badge: "99.9% Route Precision",
-                        sub: "Multi-modal telemetry, EDI mesh & automated warehouse dispatch",
-                      },
-                      {
-                        name: "Consumer Packaged Goods (CPG)",
-                        badge: "Zero-Copy Clean Rooms",
-                        sub: "Omnichannel inventory synchronization & predictive demand forecasting",
-                      },
-                      {
-                        name: "Advanced Manufacturing & IoT",
-                        badge: "Zero-Downtime OT Sync",
-                        sub: "Industrial telemetry, shop-floor SCADA & predictive maintenance",
-                      },
-                    ].map((ind) => (
-                      <a
-                        key={ind.name}
-                        href="#industries"
-                        onClick={() => setActiveDropdown(null)}
-                        className="nav-arrow-item"
-                        style={{ padding: "9px 12px" }}
-                      >
-                        <div className="item-content">
-                          <div className="item-header">
-                            <span className="item-title">{ind.name}</span>
-                            <span className="item-badge">{ind.badge}</span>
-                          </div>
-                          <div className="item-sub">{ind.sub}</div>
-                        </div>
-                        <div className="arrow-wrap">
-                          <ArrowRight size={13} className="item-arrow" />
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    padding: "12px 20px",
-                    background: "var(--bg-secondary)",
-                    borderTop: "1px solid var(--border-light)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
-                    ISO/IEC 27001 & SOC 2 Audited Delivery
-                  </span>
-                  <a
-                    href="#industries"
-                    onClick={() => setActiveDropdown(null)}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "5px",
-                      fontSize: "0.82rem",
-                      fontWeight: 700,
-                      color: "var(--blue-primary)",
-                    }}
-                  >
-                    <span>View Sector Blueprints</span>
-                    <ArrowRight size={13} />
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
+            Outcomes & ROI
+          </a>
 
           {/* NAV ITEM 3: TECHNOLOGIES (Floating Dropdown) */}
           <div
@@ -943,7 +824,7 @@ export default function Navbar() {
 
             {[
               { label: "Capabilities", href: "#capabilities" },
-              { label: "Industries", href: "#industries" },
+              { label: "Outcomes & ROI", href: "#outcomes" },
               { label: "Technologies", href: "#technologies" },
               { label: "Methodology", href: "#ethos" },
               { label: "Insights & Cases", href: "#case-studies" },
