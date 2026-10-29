@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import { Sun, Moon, Menu, X, ArrowRight, ShieldCheck } from "lucide-react";
 
 export default function Navbar() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -39,11 +39,11 @@ export default function Navbar() {
         zIndex: 100,
         width: "100%",
         transition: "all 0.25s ease",
-        background: scrolled ? "var(--bg-card)" : "rgba(255, 255, 255, 0.9)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        borderBottom: scrolled ? "1px solid var(--border-light)" : "1px solid transparent",
-        boxShadow: scrolled ? "var(--shadow-sm)" : "none",
+        background: scrolled ? "rgba(6, 8, 13, 0.88)" : "rgba(6, 8, 13, 0.65)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+        borderBottom: "1px solid var(--border-light)",
+        boxShadow: scrolled ? "0 4px 20px rgba(0, 0, 0, 0.5)" : "none",
       }}
     >
       {/* Top subtle Spectrum 7 chromatic indicator bar */}

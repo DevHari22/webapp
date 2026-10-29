@@ -12,17 +12,17 @@ export default function IndustriesSection() {
   const getIndustryIcon = (id: string) => {
     switch (id) {
       case "banking":
-        return <Landmark size={20} />;
+        return <Landmark size={18} />;
       case "insurance":
-        return <Shield size={20} />;
+        return <Shield size={18} />;
       case "logistics":
-        return <Truck size={20} />;
+        return <Truck size={18} />;
       case "cpg":
-        return <ShoppingBag size={20} />;
+        return <ShoppingBag size={18} />;
       case "manufacturing":
-        return <Factory size={20} />;
+        return <Factory size={18} />;
       default:
-        return <Landmark size={20} />;
+        return <Landmark size={18} />;
     }
   };
 
@@ -34,9 +34,24 @@ export default function IndustriesSection() {
         paddingBottom: "100px",
         background: "var(--bg-secondary)",
         borderBottom: "1px solid var(--border-light)",
+        position: "relative",
       }}
     >
-      <div className="container">
+      {/* Ambient background glow */}
+      <div
+        style={{
+          position: "absolute",
+          top: "20%",
+          right: "5%",
+          width: "450px",
+          height: "450px",
+          background: "radial-gradient(circle, rgba(0, 98, 255, 0.08) 0%, transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+        }}
+      />
+
+      <div className="container" style={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <div style={{ maxWidth: "880px", marginBottom: "48px" }}>
           <div className="arch-tag">
@@ -89,15 +104,16 @@ export default function IndustriesSection() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "10px",
-                  padding: "12px 20px",
+                  padding: "12px 22px",
                   borderRadius: "9999px",
-                  background: isActive ? "var(--blue-primary)" : "var(--bg-card)",
+                  background: isActive ? "var(--blue-primary)" : "rgba(255, 255, 255, 0.04)",
                   color: isActive ? "#ffffff" : "var(--text-secondary)",
-                  border: isActive ? "1px solid var(--blue-primary)" : "1px solid var(--border-light)",
+                  border: isActive ? "1px solid #38bdf8" : "1px solid var(--border-light)",
                   fontWeight: 600,
-                  fontSize: "0.9rem",
-                  boxShadow: isActive ? "var(--shadow-blue)" : "var(--shadow-sm)",
+                  fontSize: "0.88rem",
+                  boxShadow: isActive ? "0 0 25px rgba(0, 98, 255, 0.45)" : "none",
                   transition: "all 0.2s ease",
+                  backdropFilter: "blur(12px)",
                 }}
               >
                 {getIndustryIcon(ind.id)}
@@ -112,11 +128,23 @@ export default function IndustriesSection() {
           className="tech-card"
           style={{
             padding: "44px",
-            background: "var(--bg-card)",
-            boxShadow: "var(--shadow-md)",
-            border: "1px solid var(--border-light)",
+            background: "rgba(13, 18, 30, 0.85)",
+            boxShadow: "0 20px 50px rgba(0, 0, 0, 0.6)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
+          {/* Subtle top rainbow accent */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "3px",
+              background: "var(--spectrum-gradient)",
+            }}
+          />
+
           <div
             style={{
               display: "grid",
@@ -129,22 +157,23 @@ export default function IndustriesSection() {
             <div>
               <div
                 style={{
-                  fontSize: "0.82rem",
+                  fontSize: "0.8rem",
                   fontWeight: 700,
-                  color: "var(--blue-primary)",
+                  color: "#38bdf8",
                   textTransform: "uppercase",
-                  letterSpacing: "0.06em",
+                  letterSpacing: "0.08em",
                   marginBottom: "8px",
+                  fontFamily: "var(--font-mono)",
                 }}
               >
-                PRACTICE OVERVIEW
+                DOMAIN PRACTICE MATRIX
               </div>
 
               <h3
                 style={{
                   fontSize: "clamp(1.7rem, 2.8vw, 2.2rem)",
                   fontWeight: 800,
-                  color: "var(--text-primary)",
+                  color: "#ffffff",
                   letterSpacing: "-0.02em",
                   marginBottom: "12px",
                   lineHeight: 1.2,
@@ -157,7 +186,7 @@ export default function IndustriesSection() {
                 style={{
                   fontSize: "1.05rem",
                   fontWeight: 600,
-                  color: "var(--text-primary)",
+                  color: "#93c5fd",
                   marginBottom: "18px",
                   lineHeight: 1.5,
                 }}
@@ -169,7 +198,7 @@ export default function IndustriesSection() {
                 style={{
                   fontSize: "0.98rem",
                   lineHeight: 1.65,
-                  color: "var(--text-secondary)",
+                  color: "#94a3b8",
                   marginBottom: "28px",
                 }}
               >
@@ -181,25 +210,25 @@ export default function IndustriesSection() {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "16px",
-                  padding: "16px 20px",
+                  gap: "18px",
+                  padding: "16px 22px",
                   borderRadius: "12px",
-                  background: "var(--bg-tertiary)",
-                  border: "1px solid var(--border-light)",
+                  background: "rgba(0, 98, 255, 0.12)",
+                  border: "1px solid rgba(0, 98, 255, 0.35)",
                   marginBottom: "28px",
                 }}
               >
                 <div
                   style={{
-                    fontSize: "1.8rem",
+                    fontSize: "1.9rem",
                     fontWeight: 800,
-                    color: "var(--blue-primary)",
+                    color: "#ffffff",
                     fontFeatureSettings: "'tnum' on",
                   }}
                 >
                   {activeIndustry.impactMetric.value}
                 </div>
-                <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--text-muted)", maxWidth: "200px" }}>
+                <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#93c5fd", maxWidth: "220px", lineHeight: 1.4 }}>
                   {activeIndustry.impactMetric.label}
                 </div>
               </div>
@@ -215,10 +244,10 @@ export default function IndustriesSection() {
             {/* Right What We Enable Column */}
             <div
               style={{
-                background: "var(--bg-tertiary)",
+                background: "rgba(255, 255, 255, 0.03)",
                 padding: "32px",
                 borderRadius: "14px",
-                border: "1px solid var(--border-light)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -227,11 +256,11 @@ export default function IndustriesSection() {
               <div>
                 <div
                   style={{
-                    fontSize: "0.82rem",
+                    fontSize: "0.8rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
-                    color: "var(--text-muted)",
+                    color: "#94a3b8",
                     marginBottom: "20px",
                   }}
                 >
@@ -247,12 +276,12 @@ export default function IndustriesSection() {
                         alignItems: "flex-start",
                         gap: "12px",
                         fontSize: "0.92rem",
-                        color: "var(--text-primary)",
+                        color: "#ffffff",
                         fontWeight: 600,
                         lineHeight: 1.45,
                       }}
                     >
-                      <CheckCircle2 size={18} color="var(--blue-primary)" style={{ flexShrink: 0, marginTop: "2px" }} />
+                      <CheckCircle2 size={18} color="#38bdf8" style={{ flexShrink: 0, marginTop: "2px" }} />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -263,13 +292,17 @@ export default function IndustriesSection() {
                 style={{
                   marginTop: "30px",
                   paddingTop: "20px",
-                  borderTop: "1px solid var(--border-light)",
-                  fontSize: "0.82rem",
-                  color: "var(--text-muted)",
+                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                  fontSize: "0.8rem",
+                  color: "#64748b",
                   lineHeight: 1.5,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
                 }}
               >
-                Compliant with international industry regulations: Basel III, HIPAA, ISO 27001, and GDPR.
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10b981" }} />
+                <span>Compliant with Basel III, HIPAA, ISO 27001, and SOC 2 standards.</span>
               </div>
             </div>
           </div>

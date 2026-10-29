@@ -56,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} data-theme="light">
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} data-theme="dark">
       <head>
         <link rel="icon" href="/logo.png" type="image/png" />
       </head>
