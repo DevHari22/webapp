@@ -120,9 +120,6 @@ export default function Navbar() {
         boxShadow: scrolled ? "0 4px 25px rgba(15, 23, 42, 0.08)" : "none",
       }}
     >
-      {/* Top Chromatic Spectrum 7 Rainbow Accent Bar */}
-      <div className="spectrum-bar" />
-
       {/* Full-Width Header Bar */}
       <div
         style={{
@@ -199,9 +196,6 @@ export default function Navbar() {
                   animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                {/* Micro Rainbow Stripe on Dropdown Card */}
-                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
-
                 <div style={{ padding: "18px 20px 14px" }}>
                   <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
                     CORE IT PRACTICES
@@ -347,8 +341,6 @@ export default function Navbar() {
                   animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
-
                 <div style={{ padding: "18px 20px 14px" }}>
                   <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
                     DOMAIN PRACTICE VERTICALS
@@ -464,8 +456,6 @@ export default function Navbar() {
                   animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               >
-                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
-
                 <div style={{ padding: "18px 20px 14px" }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                     {/* Left Column */}
