@@ -40,15 +40,17 @@ export default function Navbar() {
       {/* Top subtle Spectrum 7 chromatic indicator bar */}
       <div className="spectrum-bar" />
 
-      <div className="container">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "76px",
-          }}
-        >
+      {/* Full-Width Header Container */}
+      <div
+        style={{
+          width: "100%",
+          padding: "0 clamp(24px, 3.5vw, 60px)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          height: "78px",
+        }}
+      >
           {/* Logo */}
           <a href="#" aria-label="Spectrum 7 Home" style={{ display: "flex", alignItems: "center" }}>
             <Logo width={162} height={40} showTagline={false} />
@@ -140,7 +142,6 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
