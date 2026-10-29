@@ -27,6 +27,8 @@ import {
   X,
   ExternalLink,
   SlidersHorizontal,
+  Compass,
+  Maximize2,
 } from "lucide-react";
 
 interface TechItem {
@@ -51,6 +53,7 @@ interface TechItem {
 }
 
 export default function TechStackSection() {
+  const [viewMode, setViewMode] = useState<"stream" | "deck">("stream");
   const [filter, setFilter] = useState<"all" | "integration" | "data-ai" | "automation" | "apps">("all");
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
@@ -59,13 +62,13 @@ export default function TechStackSection() {
   const [progress, setProgress] = useState<number>(0);
   const [selectedTech, setSelectedTech] = useState<TechItem | null>(null);
 
-  // Drag-to-scroll state
+  // Drag-to-scroll state for Deck mode
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [scrollLeftPos, setScrollLeftPos] = useState<number>(0);
   const [hasDragged, setHasDragged] = useState<boolean>(false);
 
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const deckSliderRef = useRef<HTMLDivElement>(null);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -98,7 +101,7 @@ export default function TechStackSection() {
       categoryLabel: "Enterprise Integration",
       iconName: "Layers",
       headline: "API-Led Connectivity & Enterprise ESB Service Mesh Orchestration",
-      badge: "Enterprise",
+      badge: "Enterprise Core",
       badgeType: "enterprise",
       accentColor: "#0284c7",
       accentBg: "#f0f9ff",
@@ -138,7 +141,7 @@ export default function TechStackSection() {
       categoryLabel: "Hyperscale Cloud",
       iconName: "Cloud",
       headline: "Multi-Cloud Resilient Hyperscale Infrastructure & Landing Zones",
-      badge: "Certified",
+      badge: "Certified MSP",
       badgeType: "certified",
       accentColor: "#059669",
       accentBg: "#ecfdf5",
@@ -444,7 +447,10 @@ export default function TechStackSection() {
       ? technologies
       : technologies.filter((t) => t.category === filter);
 
-  // Helper for rendering icons
+  // Split into 2 rows for Dual-Stream Marquee
+  const row1Tech = technologies.slice(0, 9);
+  const row2Tech = technologies.slice(9, 18);
+
   const renderIcon = (iconName: string, color: string, size = 20) => {
     switch (iconName) {
       case "Zap": return <Zap size={size} color={color} />;
@@ -465,32 +471,31 @@ export default function TechStackSection() {
     }
   };
 
-  // Scroll tracking to update button disabled states and active indicator
+  // Scroll tracking for Deck mode
   const updateScrollState = useCallback(() => {
-    if (!sliderRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+    if (!deckSliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = deckSliderRef.current;
     setCanScrollLeft(scrollLeft > 15);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 15);
 
-    const cardWidth = 350 + 20; // card width + gap
+    const cardWidth = 360 + 20;
     const index = Math.round(scrollLeft / cardWidth);
     setActiveSlideIndex(Math.min(filteredTech.length - 1, Math.max(0, index)));
   }, [filteredTech.length]);
 
   useEffect(() => {
-    const slider = sliderRef.current;
+    const slider = deckSliderRef.current;
     if (slider) {
       slider.addEventListener("scroll", updateScrollState);
       updateScrollState();
       return () => slider.removeEventListener("scroll", updateScrollState);
     }
-  }, [updateScrollState]);
+  }, [updateScrollState, viewMode]);
 
-  // Smooth scroll method
-  const scroll = (direction: "left" | "right") => {
-    if (!sliderRef.current) return;
-    const scrollAmount = 370; // 1 card + gap
-    sliderRef.current.scrollBy({
+  const scrollDeck = (direction: "left" | "right") => {
+    if (!deckSliderRef.current) return;
+    const scrollAmount = 380;
+    deckSliderRef.current.scrollBy({
       left: direction === "right" ? scrollAmount : -scrollAmount,
       behavior: "smooth",
     });
@@ -498,40 +503,34 @@ export default function TechStackSection() {
   };
 
   const jumpToSlide = (index: number) => {
-    if (!sliderRef.current) return;
-    const targetScroll = index * 370;
-    sliderRef.current.scrollTo({ left: targetScroll, behavior: "smooth" });
+    if (!deckSliderRef.current) return;
+    deckSliderRef.current.scrollTo({ left: index * 380, behavior: "smooth" });
     setProgress(0);
   };
 
-  // Auto-play sliding motion with progress bar
+  // Deck Mode auto-play timer
   useEffect(() => {
-    if (!isAutoPlaying) {
+    if (viewMode !== "deck" || !isAutoPlaying) {
       if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
       if (progressTimerRef.current) clearInterval(progressTimerRef.current);
       return;
     }
 
-    const intervalTime = 3600; // 3.6s per slide
+    const intervalTime = 3800;
     const tickTime = 60;
     const step = (tickTime / intervalTime) * 100;
 
     progressTimerRef.current = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + step;
-      });
+      setProgress((prev) => (prev >= 100 ? 0 : prev + step));
     }, tickTime);
 
     autoPlayTimerRef.current = setInterval(() => {
-      if (!sliderRef.current) return;
-      const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-
+      if (!deckSliderRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = deckSliderRef.current;
       if (scrollLeft + clientWidth >= scrollWidth - 25) {
-        // Rewind smoothly to beginning
-        sliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        deckSliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
       } else {
-        sliderRef.current.scrollBy({ left: 370, behavior: "smooth" });
+        deckSliderRef.current.scrollBy({ left: 380, behavior: "smooth" });
       }
       setProgress(0);
     }, intervalTime);
@@ -540,32 +539,245 @@ export default function TechStackSection() {
       if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
       if (progressTimerRef.current) clearInterval(progressTimerRef.current);
     };
-  }, [isAutoPlaying, filteredTech.length]);
+  }, [viewMode, isAutoPlaying, filteredTech.length]);
 
-  // Drag-to-scroll implementation
+  // Mouse drag handlers for Deck mode
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (!sliderRef.current) return;
+    if (!deckSliderRef.current) return;
     setIsDragging(true);
     setHasDragged(false);
-    setStartX(e.pageX - sliderRef.current.offsetLeft);
-    setScrollLeftPos(sliderRef.current.scrollLeft);
+    setStartX(e.pageX - deckSliderRef.current.offsetLeft);
+    setScrollLeftPos(deckSliderRef.current.scrollLeft);
     setIsAutoPlaying(false);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !sliderRef.current) return;
+    if (!isDragging || !deckSliderRef.current) return;
     e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 1.4; // scroll speed multiplier
-    if (Math.abs(walk) > 5) {
-      setHasDragged(true);
-    }
-    sliderRef.current.scrollLeft = scrollLeftPos - walk;
+    const x = e.pageX - deckSliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    if (Math.abs(walk) > 5) setHasDragged(true);
+    deckSliderRef.current.scrollLeft = scrollLeftPos - walk;
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
+  const handleMouseUp = () => setIsDragging(false);
+
+  // Render Card Component
+  const renderCard = (item: TechItem, isMarquee = false) => (
+    <div
+      key={item.id + (isMarquee ? "-marq" : "")}
+      onClick={() => setSelectedTech(item)}
+      className="corp-card tech-card-interactive"
+      style={{
+        flex: "0 0 360px",
+        width: "360px",
+        maxWidth: "360px",
+        padding: "26px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        background: "#ffffff",
+        minHeight: "260px",
+        borderRadius: "10px",
+        border: "1px solid var(--border-light)",
+        position: "relative",
+        overflow: "hidden",
+        cursor: "pointer",
+        boxShadow: "0 4px 16px rgba(0, 0, 0, 0.04)",
+        transition: "all 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-6px)";
+        e.currentTarget.style.borderColor = "var(--blue-border)";
+        e.currentTarget.style.boxShadow = "0 18px 40px -10px rgba(0, 98, 255, 0.18)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.borderColor = "var(--border-light)";
+        e.currentTarget.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.04)";
+      }}
+    >
+      {/* Top signature spectrum rainbow micro-stripe */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "3px",
+          background: "var(--spectrum-gradient)",
+          opacity: 0.95,
+        }}
+      />
+
+      <div>
+        {/* Card Header: Icon + Status Badge */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div
+            style={{
+              width: "46px",
+              height: "46px",
+              borderRadius: "10px",
+              background: item.accentBg,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: `1px solid ${item.accentColor}25`,
+            }}
+          >
+            {renderIcon(item.iconName, item.accentColor, 23)}
+          </div>
+
+          {item.badge && (
+            <span
+              style={{
+                fontSize: "0.74rem",
+                padding: "4px 10px",
+                borderRadius: "4px",
+                background:
+                  item.badgeType === "award"
+                    ? "#fffbeb"
+                    : item.badgeType === "partner"
+                    ? "var(--blue-light)"
+                    : item.badgeType === "enterprise"
+                    ? "#0f172a"
+                    : item.badgeType === "certified"
+                    ? "#ecfdf5"
+                    : "var(--bg-secondary)",
+                color:
+                  item.badgeType === "award"
+                    ? "#b45309"
+                    : item.badgeType === "partner"
+                    ? "var(--blue-primary)"
+                    : item.badgeType === "enterprise"
+                    ? "#ffffff"
+                    : item.badgeType === "certified"
+                    ? "#047857"
+                    : "var(--text-muted)",
+                fontWeight: 700,
+                border:
+                  item.badgeType === "award"
+                    ? "1px solid #fef3c7"
+                    : item.badgeType === "partner"
+                    ? "1px solid var(--blue-border)"
+                    : item.badgeType === "enterprise"
+                    ? "1px solid #0f172a"
+                    : item.badgeType === "certified"
+                    ? "1px solid #a7f3d0"
+                    : "1px solid var(--border-light)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {item.badgeType === "award" && <Award size={12} />}
+              {item.badge}
+            </span>
+          )}
+        </div>
+
+        {/* Category Subheading */}
+        <div
+          style={{
+            fontSize: "0.74rem",
+            fontWeight: 800,
+            color: "var(--blue-primary)",
+            textTransform: "uppercase",
+            letterSpacing: "0.06em",
+            marginBottom: "5px",
+          }}
+        >
+          {item.categoryLabel}
+        </div>
+
+        {/* Platform Name */}
+        <h3
+          style={{
+            fontSize: "1.26rem",
+            fontWeight: 800,
+            color: "var(--text-primary)",
+            letterSpacing: "-0.015em",
+            marginBottom: "8px",
+            lineHeight: 1.25,
+          }}
+        >
+          {item.name}
+        </h3>
+
+        {/* Headline Summary */}
+        <p
+          style={{
+            fontSize: "0.88rem",
+            color: "var(--text-secondary)",
+            lineHeight: 1.52,
+            marginBottom: "16px",
+          }}
+        >
+          {item.headline}
+        </p>
+
+        {/* Capability Tags */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+          {item.tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                padding: "2px 8px",
+                borderRadius: "4px",
+                background: "#f1f5f9",
+                color: "#475569",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Verification Footer Bar */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          paddingTop: "14px",
+          borderTop: "1px solid var(--border-light)",
+          fontSize: "0.78rem",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--blue-primary)", fontWeight: 700 }}>
+          <CheckCircle2 size={16} color="var(--blue-primary)" />
+          <span>Certified Enterprise Practice</span>
+        </div>
+
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            color: "var(--text-muted)",
+            fontSize: "0.76rem",
+            fontWeight: 700,
+          }}
+        >
+          <span>Architecture</span>
+          <ArrowRight size={13} />
+        </span>
+      </div>
+    </div>
+  );
 
   return (
     <section
@@ -576,10 +788,11 @@ export default function TechStackSection() {
         background: "var(--bg-secondary)",
         borderBottom: "1px solid var(--border-light)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
       <div className="container">
-        {/* Top Header & Motion Controls Row */}
+        {/* Section Header & Mode Switcher */}
         <div
           style={{
             display: "flex",
@@ -587,7 +800,7 @@ export default function TechStackSection() {
             alignItems: "flex-end",
             justifyContent: "space-between",
             gap: "24px",
-            marginBottom: "32px",
+            marginBottom: "36px",
           }}
         >
           <div style={{ maxWidth: "780px" }}>
@@ -598,9 +811,9 @@ export default function TechStackSection() {
 
             <h2
               style={{
-                fontSize: "clamp(2rem, 3.8vw, 3rem)",
-                fontWeight: 800,
-                letterSpacing: "-0.03em",
+                fontSize: "clamp(2rem, 3.8vw, 3.1rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.035em",
                 color: "var(--text-primary)",
                 marginBottom: "14px",
                 lineHeight: 1.15,
@@ -612,144 +825,156 @@ export default function TechStackSection() {
             <p
               style={{
                 fontSize: "1.06rem",
-                lineHeight: 1.6,
+                lineHeight: 1.65,
                 color: "var(--text-secondary)",
               }}
             >
-              We engineer enterprise-grade solutions on premier global platforms with certified architects,
+              We engineer enterprise-grade architectures on premier global platforms with certified architects,
               award-winning partnerships, and proven delivery frameworks.
             </p>
           </div>
 
-          {/* Slider Motion Controller Console */}
+          {/* Interactive Motion Mode Switcher & Controls */}
           <div
             style={{
               display: "flex",
               alignItems: "center",
               gap: "10px",
               background: "#ffffff",
-              padding: "6px 12px",
+              padding: "6px 8px",
               borderRadius: "8px",
               border: "1px solid var(--border-light)",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.04)",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.05)",
             }}
           >
-            {/* Auto Play / Pause Toggle with Live Indicator */}
-            <button
-              onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "7px",
-                padding: "7px 13px",
-                borderRadius: "5px",
-                background: isAutoPlaying ? "var(--blue-light)" : "#f1f5f9",
-                color: isAutoPlaying ? "var(--blue-primary)" : "var(--text-muted)",
-                fontSize: "0.8rem",
-                fontWeight: 700,
-                border: isAutoPlaying ? "1px solid var(--blue-border)" : "1px solid var(--border-light)",
-                transition: "all 0.15s ease",
-              }}
-              title={isAutoPlaying ? "Pause Auto-Slide Motion" : "Resume Auto-Slide Motion"}
-            >
-              {isAutoPlaying ? (
-                <>
-                  <span
-                    style={{
-                      width: "8px",
-                      height: "8px",
-                      borderRadius: "50%",
-                      background: "var(--blue-primary)",
-                      boxShadow: "0 0 8px rgba(0, 98, 255, 0.6)",
-                      animation: "pulse 1.8s infinite",
-                    }}
-                  />
-                  <Pause size={13} />
-                  <span>Auto-Slide On</span>
-                </>
-              ) : (
-                <>
-                  <Play size={13} />
-                  <span>Slide Paused</span>
-                </>
-              )}
-            </button>
-
-            {/* Slide Index Counter */}
+            {/* View Mode Toggle: Dual-Stream Marquee vs Interactive Deck */}
             <div
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.82rem",
-                fontWeight: 700,
-                color: "var(--text-muted)",
-                padding: "0 8px",
-                borderLeft: "1px solid var(--border-light)",
-                borderRight: "1px solid var(--border-light)",
+                display: "flex",
+                background: "#f1f5f9",
+                borderRadius: "6px",
+                padding: "3px",
+                gap: "2px",
               }}
             >
-              <span style={{ color: "var(--blue-primary)" }}>
-                {String(activeSlideIndex + 1).padStart(2, "0")}
-              </span>
-              <span> / </span>
-              <span>{String(filteredTech.length).padStart(2, "0")}</span>
-            </div>
-
-            {/* Arrow Navigation Controls */}
-            <div style={{ display: "flex", gap: "6px" }}>
               <button
-                onClick={() => {
-                  scroll("left");
-                  setIsAutoPlaying(false);
-                }}
-                disabled={!canScrollLeft}
+                onClick={() => setViewMode("stream")}
                 style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "5px",
-                  background: canScrollLeft ? "var(--blue-primary)" : "#f8fafc",
-                  color: canScrollLeft ? "#ffffff" : "#94a3b8",
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid var(--border-light)",
-                  cursor: canScrollLeft ? "pointer" : "default",
-                  opacity: canScrollLeft ? 1 : 0.5,
+                  gap: "6px",
+                  padding: "6px 14px",
+                  borderRadius: "5px",
+                  background: viewMode === "stream" ? "#ffffff" : "transparent",
+                  color: viewMode === "stream" ? "var(--blue-primary)" : "var(--text-muted)",
+                  fontWeight: 800,
+                  fontSize: "0.8rem",
+                  border: "none",
+                  boxShadow: viewMode === "stream" ? "0 2px 6px rgba(0, 0, 0, 0.08)" : "none",
+                  cursor: "pointer",
                   transition: "all 0.15s ease",
                 }}
-                aria-label="Previous Slide"
               >
-                <ChevronLeft size={18} />
+                <SlidersHorizontal size={14} />
+                <span>Continuous Stream</span>
               </button>
 
               <button
-                onClick={() => {
-                  scroll("right");
-                  setIsAutoPlaying(false);
-                }}
-                disabled={!canScrollRight}
+                onClick={() => setViewMode("deck")}
                 style={{
-                  width: "36px",
-                  height: "36px",
-                  borderRadius: "5px",
-                  background: canScrollRight ? "var(--blue-primary)" : "#f8fafc",
-                  color: canScrollRight ? "#ffffff" : "#94a3b8",
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid var(--border-light)",
-                  cursor: canScrollRight ? "pointer" : "default",
-                  opacity: canScrollRight ? 1 : 0.5,
+                  gap: "6px",
+                  padding: "6px 14px",
+                  borderRadius: "5px",
+                  background: viewMode === "deck" ? "#ffffff" : "transparent",
+                  color: viewMode === "deck" ? "var(--blue-primary)" : "var(--text-muted)",
+                  fontWeight: 800,
+                  fontSize: "0.8rem",
+                  border: "none",
+                  boxShadow: viewMode === "deck" ? "0 2px 6px rgba(0, 0, 0, 0.08)" : "none",
+                  cursor: "pointer",
                   transition: "all 0.15s ease",
                 }}
-                aria-label="Next Slide"
               >
-                <ChevronRight size={18} />
+                <Compass size={14} />
+                <span>Step Carousel</span>
               </button>
             </div>
+
+            {/* Deck-specific Arrow Controls & Counter */}
+            {viewMode === "deck" && (
+              <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingLeft: "6px" }}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.82rem",
+                    fontWeight: 800,
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  <span style={{ color: "var(--blue-primary)" }}>{String(activeSlideIndex + 1).padStart(2, "0")}</span>
+                  <span> / </span>
+                  <span>{String(filteredTech.length).padStart(2, "0")}</span>
+                </div>
+
+                <div style={{ display: "flex", gap: "4px" }}>
+                  <button
+                    onClick={() => {
+                      scrollDeck("left");
+                      setIsAutoPlaying(false);
+                    }}
+                    disabled={!canScrollLeft}
+                    style={{
+                      width: "34px",
+                      height: "34px",
+                      borderRadius: "5px",
+                      background: canScrollLeft ? "var(--blue-primary)" : "#f8fafc",
+                      color: canScrollLeft ? "#ffffff" : "#94a3b8",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "1px solid var(--border-light)",
+                      cursor: canScrollLeft ? "pointer" : "default",
+                      opacity: canScrollLeft ? 1 : 0.5,
+                      transition: "all 0.15s ease",
+                    }}
+                    aria-label="Previous Slide"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      scrollDeck("right");
+                      setIsAutoPlaying(false);
+                    }}
+                    disabled={!canScrollRight}
+                    style={{
+                      width: "34px",
+                      height: "34px",
+                      borderRadius: "5px",
+                      background: canScrollRight ? "var(--blue-primary)" : "#f8fafc",
+                      color: canScrollRight ? "#ffffff" : "#94a3b8",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "1px solid var(--border-light)",
+                      cursor: canScrollRight ? "pointer" : "default",
+                      opacity: canScrollRight ? 1 : 0.5,
+                      transition: "all 0.15s ease",
+                    }}
+                    aria-label="Next Slide"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Filter Pills with Counter Badges */}
+        {/* Filter Pills */}
         <div
           style={{
             display: "flex",
@@ -770,8 +995,8 @@ export default function TechStackSection() {
               key={item.id}
               onClick={() => {
                 setFilter(item.id as any);
-                if (sliderRef.current) {
-                  sliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
+                if (deckSliderRef.current) {
+                  deckSliderRef.current.scrollTo({ left: 0, behavior: "smooth" });
                 }
                 setProgress(0);
               }}
@@ -788,6 +1013,7 @@ export default function TechStackSection() {
                 border: filter === item.id ? "1px solid var(--blue-primary)" : "1px solid var(--border-light)",
                 boxShadow: filter === item.id ? "0 4px 12px rgba(0, 98, 255, 0.2)" : "var(--shadow-sm)",
                 transition: "all 0.15s ease",
+                cursor: "pointer",
               }}
             >
               <span>{item.label}</span>
@@ -805,424 +1031,243 @@ export default function TechStackSection() {
             </button>
           ))}
         </div>
+      </div>
 
-        {/* Continuous Auto-Motion Countdown Progress Line */}
-        <div
-          style={{
-            width: "100%",
-            height: "3px",
-            background: "#e2e8f0",
-            borderRadius: "2px",
-            marginBottom: "20px",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              width: `${isAutoPlaying ? progress : 0}%`,
-              height: "100%",
-              background: "linear-gradient(90deg, var(--blue-primary), #00d2ff)",
-              transition: isAutoPlaying ? "width 0.06s linear" : "width 0.2s ease",
-            }}
-          />
-        </div>
-
-        {/* Slider Container with Edge Fade Vignettes & Floating Arrow Buttons */}
-        <div style={{ position: "relative" }}>
-          {/* Left Edge Gradient Vignette */}
+      {/* VIEW MODE 1: DUAL-STREAM INFINITE 60FPS MARQUEE (CONTINUOUS STREAM) */}
+      {viewMode === "stream" && (
+        <div style={{ position: "relative", width: "100%", overflow: "hidden", padding: "10px 0" }}>
+          {/* Left & Right Cinematic Edge Vignettes */}
           <div
             style={{
               position: "absolute",
               left: 0,
               top: 0,
-              bottom: "16px",
-              width: "48px",
-              background: "linear-gradient(to right, var(--bg-secondary), transparent)",
+              bottom: 0,
+              width: "120px",
+              background: "linear-gradient(to right, var(--bg-secondary) 15%, transparent 100%)",
               zIndex: 3,
               pointerEvents: "none",
             }}
           />
-
-          {/* Right Edge Gradient Vignette */}
           <div
             style={{
               position: "absolute",
               right: 0,
               top: 0,
-              bottom: "16px",
-              width: "48px",
-              background: "linear-gradient(to left, var(--bg-secondary), transparent)",
+              bottom: 0,
+              width: "120px",
+              background: "linear-gradient(to left, var(--bg-secondary) 15%, transparent 100%)",
               zIndex: 3,
               pointerEvents: "none",
             }}
           />
 
-          {/* Floating Left Arrow (visible on desktop hover) */}
-          {canScrollLeft && (
-            <button
-              onClick={() => {
-                scroll("left");
-                setIsAutoPlaying(false);
-              }}
-              style={{
-                position: "absolute",
-                left: "-16px",
-                top: "42%",
-                transform: "translateY(-50%)",
-                width: "44px",
-                height: "44px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.95)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid var(--border-light)",
-                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.12)",
-                color: "var(--text-primary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                zIndex: 5,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "var(--blue-primary)";
-                e.currentTarget.style.color = "#ffffff";
-                e.currentTarget.style.transform = "translateY(-50%) scale(1.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.95)";
-                e.currentTarget.style.color = "var(--text-primary)";
-                e.currentTarget.style.transform = "translateY(-50%) scale(1)";
-              }}
-              aria-label="Scroll left"
-            >
-              <ChevronLeft size={20} />
-            </button>
-          )}
+          {/* Track 1: Gliding Left */}
+          <div className="marquee-wrapper" style={{ marginBottom: "22px" }}>
+            <div className="marquee-track marquee-left">
+              {filteredTech.concat(filteredTech).map((item, idx) => (
+                <div key={`t1-${item.id}-${idx}`} style={{ marginRight: "22px" }}>
+                  {renderCard(item, true)}
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Floating Right Arrow */}
-          {canScrollRight && (
-            <button
-              onClick={() => {
-                scroll("right");
-                setIsAutoPlaying(false);
-              }}
-              style={{
-                position: "absolute",
-                right: "-16px",
-                top: "42%",
-                transform: "translateY(-50%)",
-                width: "44px",
-                height: "44px",
-                borderRadius: "50%",
-                background: "rgba(255, 255, 255, 0.95)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid var(--border-light)",
-                boxShadow: "0 6px 20px rgba(0, 0, 0, 0.12)",
-                color: "var(--text-primary)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                zIndex: 5,
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "var(--blue-primary)";
-                e.currentTarget.style.color = "#ffffff";
-                e.currentTarget.style.transform = "translateY(-50%) scale(1.08)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "rgba(255, 255, 255, 0.95)";
-                e.currentTarget.style.color = "var(--text-primary)";
-                e.currentTarget.style.transform = "translateY(-50%) scale(1)";
-              }}
-              aria-label="Scroll right"
-            >
-              <ChevronRight size={20} />
-            </button>
-          )}
+          {/* Track 2: Gliding Right (reversed direction for hypnotic balance) */}
+          <div className="marquee-wrapper">
+            <div className="marquee-track marquee-right">
+              {filteredTech.slice().reverse().concat(filteredTech.slice().reverse()).map((item, idx) => (
+                <div key={`t2-${item.id}-${idx}`} style={{ marginRight: "22px" }}>
+                  {renderCard(item, true)}
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* The Scrollable Slider Motion Track */}
+          {/* Ambient Hint Banner */}
+          <div className="container" style={{ textAlign: "center", marginTop: "24px" }}>
+            <span
+              style={{
+                fontSize: "0.82rem",
+                color: "var(--text-muted)",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "#ffffff",
+                padding: "6px 14px",
+                borderRadius: "20px",
+                border: "1px solid var(--border-light)",
+              }}
+            >
+              <Sparkles size={14} color="var(--blue-primary)" />
+              <span>Hover any platform to pause motion • Click to inspect enterprise architecture specifications</span>
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* VIEW MODE 2: STEP CAROUSEL (INTERACTIVE DECK) */}
+      {viewMode === "deck" && (
+        <div className="container" style={{ position: "relative" }}>
+          {/* Progress Countdown Line */}
           <div
-            ref={sliderRef}
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
+            style={{
+              width: "100%",
+              height: "3px",
+              background: "#e2e8f0",
+              borderRadius: "2px",
+              marginBottom: "20px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${isAutoPlaying ? progress : 0}%`,
+                height: "100%",
+                background: "linear-gradient(90deg, var(--blue-primary), #00d2ff)",
+                transition: isAutoPlaying ? "width 0.06s linear" : "width 0.2s ease",
+              }}
+            />
+          </div>
+
+          <div style={{ position: "relative" }}>
+            {/* Floating Left Arrow */}
+            {canScrollLeft && (
+              <button
+                onClick={() => {
+                  scrollDeck("left");
+                  setIsAutoPlaying(false);
+                }}
+                style={{
+                  position: "absolute",
+                  left: "-18px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: "46px",
+                  height: "46px",
+                  borderRadius: "50%",
+                  background: "rgba(255, 255, 255, 0.96)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid var(--border-light)",
+                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
+                  color: "var(--text-primary)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 5,
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                aria-label="Scroll left"
+              >
+                <ChevronLeft size={22} />
+              </button>
+            )}
+
+            {/* Floating Right Arrow */}
+            {canScrollRight && (
+              <button
+                onClick={() => {
+                  scrollDeck("right");
+                  setIsAutoPlaying(false);
+                }}
+                style={{
+                  position: "absolute",
+                  right: "-18px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  width: "46px",
+                  height: "46px",
+                  borderRadius: "50%",
+                  background: "rgba(255, 255, 255, 0.96)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid var(--border-light)",
+                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)",
+                  color: "var(--text-primary)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 5,
+                  cursor: "pointer",
+                  transition: "all 0.2s ease",
+                }}
+                aria-label="Scroll right"
+              >
+                <ChevronRight size={22} />
+              </button>
+            )}
+
+            {/* Deck Track */}
+            <div
+              ref={deckSliderRef}
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              style={{
+                display: "flex",
+                gap: "20px",
+                overflowX: "auto",
+                scrollBehavior: isDragging ? "auto" : "smooth",
+                scrollSnapType: isDragging ? "none" : "x mandatory",
+                padding: "10px 4px 28px 4px",
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
+                WebkitOverflowScrolling: "touch",
+                cursor: isDragging ? "grabbing" : "grab",
+                userSelect: "none",
+              }}
+              className="slider-track"
+            >
+              {filteredTech.map((item) => (
+                <div key={item.id} style={{ scrollSnapAlign: "start" }}>
+                  {renderCard(item, false)}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Indicator Dot Bar */}
+          <div
             style={{
               display: "flex",
-              gap: "20px",
-              overflowX: "auto",
-              scrollBehavior: isDragging ? "auto" : "smooth",
-              scrollSnapType: isDragging ? "none" : "x mandatory",
-              padding: "8px 8px 30px 8px",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch",
-              cursor: isDragging ? "grabbing" : "grab",
-              userSelect: "none",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "8px",
+              marginTop: "8px",
             }}
-            className="slider-track"
           >
-            {filteredTech.map((item, idx) => (
-              <div
+            {filteredTech.map((item, i) => (
+              <button
                 key={item.id}
                 onClick={() => {
-                  if (!hasDragged) setSelectedTech(item);
+                  jumpToSlide(i);
+                  setIsAutoPlaying(false);
                 }}
-                className="corp-card"
                 style={{
-                  flex: "0 0 350px",
-                  maxWidth: "350px",
-                  scrollSnapAlign: "start",
-                  padding: "26px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: "#ffffff",
-                  minHeight: "260px",
-                  borderRadius: "8px",
-                  border: "1px solid var(--border-light)",
-                  position: "relative",
-                  overflow: "hidden",
+                  width: i === activeSlideIndex ? "32px" : "8px",
+                  height: "6px",
+                  borderRadius: "3px",
+                  background: i === activeSlideIndex ? "var(--blue-primary)" : "#cbd5e1",
+                  transition: "all 0.25s ease",
+                  padding: 0,
+                  border: "none",
                   cursor: "pointer",
-                  transition: "all 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow = "0 16px 36px rgba(0, 98, 255, 0.09)";
-                  e.currentTarget.style.borderColor = "var(--blue-border)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0px)";
-                  e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-                  e.currentTarget.style.borderColor = "var(--border-light)";
-                }}
-              >
-                {/* Rainbow Spectrum Top Micro-Accent on Card */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: "3px",
-                    background: "var(--spectrum-gradient)",
-                    opacity: 0.9,
-                  }}
-                />
-
-                <div>
-                  {/* Card Header: Tailored Icon + Status Badge */}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "12px",
-                      marginBottom: "16px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "44px",
-                        height: "44px",
-                        borderRadius: "8px",
-                        background: item.accentBg,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        border: `1px solid ${item.accentColor}25`,
-                      }}
-                    >
-                      {renderIcon(item.iconName, item.accentColor, 22)}
-                    </div>
-
-                    {item.badge && (
-                      <span
-                        style={{
-                          fontSize: "0.72rem",
-                          padding: "4px 9px",
-                          borderRadius: "4px",
-                          background:
-                            item.badgeType === "award"
-                              ? "#fffbeb"
-                              : item.badgeType === "partner"
-                              ? "var(--blue-light)"
-                              : item.badgeType === "enterprise"
-                              ? "#0f172a"
-                              : item.badgeType === "certified"
-                              ? "#ecfdf5"
-                              : "var(--bg-secondary)",
-                          color:
-                            item.badgeType === "award"
-                              ? "#b45309"
-                              : item.badgeType === "partner"
-                              ? "var(--blue-primary)"
-                              : item.badgeType === "enterprise"
-                              ? "#ffffff"
-                              : item.badgeType === "certified"
-                              ? "#047857"
-                              : "var(--text-muted)",
-                          fontWeight: 700,
-                          border:
-                            item.badgeType === "award"
-                              ? "1px solid #fef3c7"
-                              : item.badgeType === "partner"
-                              ? "1px solid var(--blue-border)"
-                              : item.badgeType === "enterprise"
-                              ? "1px solid #0f172a"
-                              : item.badgeType === "certified"
-                              ? "1px solid #a7f3d0"
-                              : "1px solid var(--border-light)",
-                          whiteSpace: "nowrap",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        {item.badgeType === "award" && <Award size={11} />}
-                        {item.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Subheading category */}
-                  <div
-                    style={{
-                      fontSize: "0.74rem",
-                      fontWeight: 700,
-                      color: "var(--blue-primary)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.06em",
-                      marginBottom: "6px",
-                    }}
-                  >
-                    {item.categoryLabel}
-                  </div>
-
-                  {/* Platform Name */}
-                  <h3
-                    style={{
-                      fontSize: "1.24rem",
-                      fontWeight: 800,
-                      color: "var(--text-primary)",
-                      letterSpacing: "-0.015em",
-                      marginBottom: "8px",
-                      lineHeight: 1.25,
-                    }}
-                  >
-                    {item.name}
-                  </h3>
-
-                  {/* Summary */}
-                  <p
-                    style={{
-                      fontSize: "0.88rem",
-                      color: "var(--text-secondary)",
-                      lineHeight: 1.5,
-                      marginBottom: "14px",
-                    }}
-                  >
-                    {item.headline}
-                  </p>
-
-                  {/* Feature Tag Chips */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontSize: "0.7rem",
-                          fontWeight: 600,
-                          padding: "2px 7px",
-                          borderRadius: "3px",
-                          background: "#f1f5f9",
-                          color: "#475569",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom Verification Footer */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginTop: "20px",
-                    paddingTop: "14px",
-                    borderTop: "1px solid var(--border-light)",
-                    fontSize: "0.78rem",
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "var(--blue-primary)", fontWeight: 600 }}>
-                    <CheckCircle2 size={15} color="var(--blue-primary)" />
-                    <span>Certified Practice</span>
-                  </div>
-
-                  <span
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "3px",
-                      color: "var(--text-muted)",
-                      fontSize: "0.74rem",
-                      fontWeight: 600,
-                    }}
-                  >
-                    <span>Details</span>
-                    <ArrowRight size={12} />
-                  </span>
-                </div>
-              </div>
+                aria-label={`Go to slide ${i + 1}`}
+              />
             ))}
           </div>
         </div>
+      )}
 
-        {/* Bottom Interactive Track Indicator Bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-            marginBottom: "50px",
-            marginTop: "8px",
-          }}
-        >
-          {filteredTech.map((item, i) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                jumpToSlide(i);
-                setIsAutoPlaying(false);
-              }}
-              style={{
-                width: i === activeSlideIndex ? "32px" : "8px",
-                height: "6px",
-                borderRadius: "3px",
-                background: i === activeSlideIndex ? "var(--blue-primary)" : "#cbd5e1",
-                transition: "all 0.25s ease",
-                padding: 0,
-                border: "none",
-                cursor: "pointer",
-              }}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Enterprise Governance & Security Verification Card */}
+      {/* Enterprise Security Verification Bar */}
+      <div className="container" style={{ marginTop: "48px" }}>
         <div
           style={{
             padding: "28px 36px",
-            borderRadius: "8px",
+            borderRadius: "10px",
             background: "#ffffff",
             border: "1px solid var(--border-light)",
             display: "flex",
@@ -1233,11 +1278,11 @@ export default function TechStackSection() {
             boxShadow: "var(--shadow-sm)",
           }}
         >
-          <div style={{ maxWidth: "680px" }}>
+          <div style={{ maxWidth: "700px" }}>
             <div
               style={{
                 fontSize: "0.76rem",
-                fontWeight: 700,
+                fontWeight: 800,
                 color: "var(--blue-primary)",
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
@@ -1247,8 +1292,8 @@ export default function TechStackSection() {
             </div>
             <div
               style={{
-                fontSize: "1.22rem",
-                fontWeight: 800,
+                fontSize: "1.25rem",
+                fontWeight: 900,
                 color: "var(--text-primary)",
                 marginTop: "3px",
                 letterSpacing: "-0.01em",
@@ -1261,7 +1306,7 @@ export default function TechStackSection() {
                 fontSize: "0.9rem",
                 color: "var(--text-secondary)",
                 marginTop: "4px",
-                lineHeight: 1.5,
+                lineHeight: 1.55,
               }}
             >
               Every solution architected across our technology alliances adheres to strict zero-trust network boundaries,
@@ -1275,12 +1320,12 @@ export default function TechStackSection() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "10px",
-                padding: "12px 20px",
+                padding: "12px 22px",
                 borderRadius: "6px",
                 background: "var(--blue-light)",
                 color: "var(--blue-primary)",
-                fontWeight: 700,
-                fontSize: "0.9rem",
+                fontWeight: 800,
+                fontSize: "0.92rem",
                 border: "1px solid var(--blue-border)",
               }}
             >
@@ -1291,14 +1336,14 @@ export default function TechStackSection() {
         </div>
       </div>
 
-      {/* Interactive Platform Practice Detail Modal */}
+      {/* Interactive Platform Practice Architecture Modal */}
       {selectedTech && (
         <div
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(11, 19, 43, 0.65)",
-            backdropFilter: "blur(6px)",
+            background: "rgba(11, 19, 43, 0.7)",
+            backdropFilter: "blur(8px)",
             zIndex: 1000,
             display: "flex",
             alignItems: "center",
@@ -1311,13 +1356,14 @@ export default function TechStackSection() {
             onClick={(e) => e.stopPropagation()}
             style={{
               background: "#ffffff",
-              borderRadius: "12px",
-              maxWidth: "600px",
+              borderRadius: "14px",
+              maxWidth: "620px",
               width: "100%",
               padding: "36px",
               border: "1px solid var(--border-light)",
-              boxShadow: "0 24px 60px rgba(0, 0, 0, 0.2)",
+              boxShadow: "0 28px 70px rgba(0, 0, 0, 0.25)",
               position: "relative",
+              animation: "modalFadeIn 0.2s ease-out",
             }}
           >
             {/* Top Close Button */}
@@ -1325,8 +1371,8 @@ export default function TechStackSection() {
               onClick={() => setSelectedTech(null)}
               style={{
                 position: "absolute",
-                top: "20px",
-                right: "20px",
+                top: "22px",
+                right: "22px",
                 background: "#f1f5f9",
                 border: "none",
                 borderRadius: "50%",
@@ -1337,6 +1383,7 @@ export default function TechStackSection() {
                 justifyContent: "center",
                 color: "var(--text-secondary)",
                 cursor: "pointer",
+                transition: "all 0.15s ease",
               }}
               aria-label="Close details"
             >
@@ -1344,12 +1391,12 @@ export default function TechStackSection() {
             </button>
 
             {/* Modal Header */}
-            <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "18px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
               <div
                 style={{
-                  width: "52px",
-                  height: "52px",
-                  borderRadius: "10px",
+                  width: "56px",
+                  height: "56px",
+                  borderRadius: "12px",
                   background: selectedTech.accentBg,
                   display: "flex",
                   alignItems: "center",
@@ -1357,29 +1404,29 @@ export default function TechStackSection() {
                   border: `1px solid ${selectedTech.accentColor}30`,
                 }}
               >
-                {renderIcon(selectedTech.iconName, selectedTech.accentColor, 26)}
+                {renderIcon(selectedTech.iconName, selectedTech.accentColor, 28)}
               </div>
               <div>
-                <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--blue-primary)", textTransform: "uppercase" }}>
+                <div style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase" }}>
                   {selectedTech.categoryLabel}
                 </div>
-                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                <h3 style={{ fontSize: "1.55rem", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
                   {selectedTech.name}
                 </h3>
               </div>
             </div>
 
-            <p style={{ fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
+            <p style={{ fontSize: "0.96rem", color: "var(--text-secondary)", lineHeight: 1.62, marginBottom: "24px" }}>
               {selectedTech.details.leadSummary}
             </p>
 
-            {/* Enterprise Specs Metrics Grid */}
+            {/* Metrics Grid */}
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
                 gap: "14px",
-                padding: "16px",
+                padding: "18px",
                 background: "var(--bg-secondary)",
                 borderRadius: "8px",
                 marginBottom: "24px",
@@ -1387,27 +1434,27 @@ export default function TechStackSection() {
               }}
             >
               <div>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>PRACTICE BENCHMARK</div>
-                <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--text-primary)", marginTop: "2px" }}>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontWeight: 700 }}>PRACTICE BENCHMARK</div>
+                <div style={{ fontSize: "0.96rem", fontWeight: 800, color: "var(--text-primary)", marginTop: "3px" }}>
                   {selectedTech.details.certifiedEngineers}
                 </div>
               </div>
               <div>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 600 }}>DELIVERY SLA</div>
-                <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--blue-primary)", marginTop: "2px" }}>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-muted)", fontWeight: 700 }}>DELIVERY SLA</div>
+                <div style={{ fontSize: "0.96rem", fontWeight: 800, color: "var(--blue-primary)", marginTop: "3px" }}>
                   {selectedTech.details.deploymentSla}
                 </div>
               </div>
             </div>
 
-            {/* Core Capabilities Checklist */}
+            {/* Core Architecture Deliverables */}
             <div style={{ marginBottom: "24px" }}>
-              <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: "10px", textTransform: "uppercase" }}>
+              <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "10px", textTransform: "uppercase" }}>
                 Practice Architecture Deliverables:
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {selectedTech.details.coreCapabilities.map((cap) => (
-                  <div key={cap} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.88rem", color: "var(--text-secondary)" }}>
+                  <div key={cap} style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "0.9rem", color: "var(--text-secondary)" }}>
                     <CheckCircle2 size={16} color="var(--blue-primary)" style={{ flexShrink: 0 }} />
                     <span>{cap}</span>
                   </div>
@@ -1415,33 +1462,33 @@ export default function TechStackSection() {
               </div>
             </div>
 
-            {/* Typical Outcome Banner */}
+            {/* Measurable Outcome */}
             <div
               style={{
-                padding: "12px 16px",
+                padding: "14px 18px",
                 borderRadius: "6px",
                 background: "var(--blue-light)",
                 border: "1px solid var(--blue-border)",
-                fontSize: "0.85rem",
+                fontSize: "0.88rem",
                 color: "var(--blue-primary)",
                 fontWeight: 600,
-                marginBottom: "24px",
+                marginBottom: "26px",
               }}
             >
               <strong>Measurable Impact:</strong> {selectedTech.details.typicalOutcome}
             </div>
 
-            {/* CTA in Modal */}
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+            {/* Modal CTAs */}
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px" }}>
               <button
                 onClick={() => setSelectedTech(null)}
                 style={{
-                  padding: "10px 18px",
+                  padding: "11px 20px",
                   borderRadius: "5px",
                   background: "#f1f5f9",
                   border: "1px solid var(--border-light)",
-                  fontWeight: 600,
-                  fontSize: "0.88rem",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
                   color: "var(--text-secondary)",
                   cursor: "pointer",
                 }}
@@ -1454,18 +1501,18 @@ export default function TechStackSection() {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  gap: "6px",
-                  padding: "10px 22px",
+                  gap: "7px",
+                  padding: "11px 24px",
                   borderRadius: "5px",
                   background: "var(--blue-primary)",
                   color: "#ffffff",
-                  fontWeight: 700,
-                  fontSize: "0.88rem",
+                  fontWeight: 800,
+                  fontSize: "0.9rem",
                   textDecoration: "none",
                 }}
               >
                 <span>Consult On {selectedTech.name}</span>
-                <ArrowRight size={14} />
+                <ArrowRight size={15} />
               </a>
             </div>
           </div>
@@ -1476,14 +1523,58 @@ export default function TechStackSection() {
         .slider-track::-webkit-scrollbar {
           display: none;
         }
-        @keyframes pulse {
-          0%, 100% {
+
+        .marquee-wrapper {
+          display: flex;
+          overflow: hidden;
+          user-select: none;
+          width: 100%;
+        }
+
+        .marquee-track {
+          display: flex;
+          flex-shrink: 0;
+          will-change: transform;
+        }
+
+        .marquee-left {
+          animation: marqueeLeft 42s linear infinite;
+        }
+
+        .marquee-right {
+          animation: marqueeRight 42s linear infinite;
+        }
+
+        .marquee-wrapper:hover .marquee-track {
+          animation-play-state: paused;
+        }
+
+        @keyframes marqueeLeft {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes marqueeRight {
+          0% {
+            transform: translateX(-50%);
+          }
+          100% {
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes modalFadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.96);
+          }
+          to {
             opacity: 1;
             transform: scale(1);
-          }
-          50% {
-            opacity: 0.4;
-            transform: scale(0.85);
           }
         }
       `}</style>

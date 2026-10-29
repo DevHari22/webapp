@@ -2,27 +2,60 @@
 
 import React from "react";
 import Image from "next/image";
-import { ArrowRight, ShieldCheck, Award, Zap, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ShieldCheck, Award, Zap, CheckCircle2, Sparkles } from "lucide-react";
 import { COMPANY_DETAILS } from "../data/companyData";
+import TechMeshCanvas from "./TechMeshCanvas";
 
 export default function Hero() {
   return (
     <section
       style={{
-        paddingTop: "60px",
-        paddingBottom: "70px",
-        background: "linear-gradient(180deg, #ffffff 0%, var(--bg-secondary) 100%)",
+        paddingTop: "70px",
+        paddingBottom: "80px",
+        background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
         borderBottom: "1px solid var(--border-light)",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div className="container">
+      {/* Dynamic Animated Tech Mesh Canvas Background */}
+      <TechMeshCanvas />
+
+      {/* Subtle Radial Ambient Tech Light Glows */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-15%",
+          left: "25%",
+          width: "550px",
+          height: "550px",
+          background: "radial-gradient(circle, rgba(0, 98, 255, 0.08) 0%, transparent 70%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10%",
+          right: "5%",
+          width: "480px",
+          height: "480px",
+          background: "radial-gradient(circle, rgba(0, 210, 255, 0.06) 0%, transparent 70%)",
+          filter: "blur(50px)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
+      <div className="container" style={{ position: "relative", zIndex: 2 }}>
         {/* Main 2-Column Split: Authority Narrative on Left + Enterprise Visual on Right */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "1fr",
-            gap: "48px",
+            gap: "52px",
             alignItems: "center",
             marginBottom: "56px",
           }}
@@ -37,12 +70,12 @@ export default function Hero() {
 
             <h1
               style={{
-                fontSize: "clamp(2.3rem, 4.6vw, 3.8rem)",
-                fontWeight: 800,
-                lineHeight: 1.12,
-                letterSpacing: "-0.03em",
+                fontSize: "clamp(2.4rem, 4.8vw, 4.1rem)",
+                fontWeight: 900,
+                lineHeight: 1.1,
+                letterSpacing: "-0.035em",
                 color: "var(--text-primary)",
-                marginBottom: "18px",
+                marginBottom: "20px",
               }}
             >
               Engineering Intelligent Systems for Connected Enterprises.
@@ -50,53 +83,57 @@ export default function Hero() {
 
             <div
               style={{
-                fontSize: "clamp(1.15rem, 2vw, 1.45rem)",
-                fontWeight: 600,
+                fontSize: "clamp(1.15rem, 2vw, 1.4rem)",
+                fontWeight: 700,
                 color: "var(--blue-primary)",
                 marginBottom: "20px",
                 letterSpacing: "-0.015em",
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
               }}
             >
-              Where Technology, Design, and Strategy Converge.
+              <span>Where Technology, Design, and Strategy Converge.</span>
             </div>
 
             <p
               style={{
                 fontSize: "1.08rem",
-                lineHeight: 1.65,
+                lineHeight: 1.68,
                 color: "var(--text-secondary)",
                 marginBottom: "36px",
-                maxWidth: "600px",
+                maxWidth: "620px",
               }}
             >
               {COMPANY_DETAILS.subheadline}
             </p>
 
-            {/* CTAs */}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px" }}>
-              <a href="#contact" className="btn-primary">
+            {/* Action Buttons */}
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px" }}>
+              <a href="#contact" className="btn-primary" style={{ padding: "14px 28px", fontSize: "0.96rem" }}>
                 <span>Start the Conversation</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={17} />
               </a>
 
-              <a href="#capabilities" className="btn-secondary">
-                <span>Explore Capabilities</span>
+              <a href="#technologies" className="btn-secondary" style={{ padding: "14px 24px", fontSize: "0.96rem" }}>
+                <span>View Tech Alliances</span>
               </a>
 
               <a
-                href="#insights"
+                href="#case-studies"
                 style={{
                   fontSize: "0.92rem",
-                  fontWeight: 600,
-                  color: "var(--text-muted)",
+                  fontWeight: 700,
+                  color: "var(--text-primary)",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  marginLeft: "8px",
+                  marginLeft: "4px",
+                  textDecoration: "none",
                 }}
               >
-                <span>View Case Studies</span>
-                <span style={{ color: "var(--blue-primary)" }}>→</span>
+                <span>Read Case Studies</span>
+                <span style={{ color: "var(--blue-primary)", fontWeight: 800 }}>→</span>
               </a>
             </div>
           </div>
@@ -105,11 +142,12 @@ export default function Hero() {
           <div
             style={{
               position: "relative",
-              borderRadius: "12px",
+              borderRadius: "14px",
               overflow: "hidden",
               border: "1px solid var(--border-light)",
-              boxShadow: "var(--shadow-lg)",
+              boxShadow: "0 25px 60px -15px rgba(11, 19, 43, 0.15)",
               background: "#ffffff",
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
             }}
           >
             {/* Top signature rainbow bar */}
@@ -119,7 +157,7 @@ export default function Hero() {
               style={{
                 position: "relative",
                 width: "100%",
-                height: "380px",
+                height: "400px",
                 background: "#0b132b",
               }}
             >
@@ -128,20 +166,22 @@ export default function Hero() {
                 alt="Spectrum 7 Architecture and Data Intelligence"
                 fill
                 priority
+                sizes="(max-width: 960px) 100vw, 50vw"
                 style={{
                   objectFit: "cover",
                 }}
               />
 
+              {/* High-tech gradient overlay */}
               <div
                 style={{
                   position: "absolute",
                   inset: 0,
-                  background: "linear-gradient(to top, rgba(11, 19, 43, 0.92) 0%, rgba(11, 19, 43, 0.2) 60%, transparent 100%)",
+                  background: "linear-gradient(to top, rgba(11, 19, 43, 0.94) 0%, rgba(11, 19, 43, 0.35) 60%, transparent 100%)",
                 }}
               />
 
-              {/* Float Overlay Badge */}
+              {/* Floating Architectural Overlay Card */}
               <div
                 style={{
                   position: "absolute",
@@ -149,34 +189,45 @@ export default function Hero() {
                   left: "24px",
                   right: "24px",
                   color: "#ffffff",
+                  background: "rgba(11, 19, 43, 0.75)",
+                  backdropFilter: "blur(12px)",
+                  padding: "18px 22px",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-                  <span
-                    style={{
-                      width: "8px",
-                      height: "8px",
-                      borderRadius: "50%",
-                      background: "#10b981",
-                      boxShadow: "0 0 10px #10b981",
-                    }}
-                  />
-                  <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#93c5fd", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                    Connected Enterprise Mesh
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        borderRadius: "50%",
+                        background: "#10b981",
+                        boxShadow: "0 0 10px #10b981",
+                      }}
+                    />
+                    <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#93c5fd", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                      Connected Enterprise Architecture
+                    </span>
+                  </div>
+                  <span style={{ fontSize: "0.74rem", padding: "2px 8px", borderRadius: "12px", background: "rgba(0, 98, 255, 0.3)", color: "#ffffff", fontWeight: 700 }}>
+                    Global Scale
                   </span>
                 </div>
-                <div style={{ fontSize: "1.2rem", fontWeight: 700 }}>
-                  Design • Integration • Execution
+
+                <div style={{ fontSize: "1.24rem", fontWeight: 800 }}>
+                  Design • Integration • Autonomous AI
                 </div>
-                <div style={{ fontSize: "0.85rem", color: "#cbd5e1", marginTop: "4px" }}>
-                  Unifying core legacy systems, cloud applications, and AI pipelines into a single high-velocity core.
+                <div style={{ fontSize: "0.86rem", color: "#cbd5e1", marginTop: "4px", lineHeight: 1.5 }}>
+                  Unifying core legacy mainframes, hyperscale clouds, and agentic workflows into a synchronized digital fabric.
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Real Quantifiable Metrics Banner (Cognizant / Accenture Style) */}
+        {/* Quantifiable Metrics Grid (Cognizant / Accenture Style) */}
         <div
           style={{
             display: "grid",
@@ -190,26 +241,41 @@ export default function Hero() {
               key={idx}
               className="corp-card card-featured"
               style={{
-                padding: "24px 22px",
+                padding: "26px 24px",
                 background: "#ffffff",
+                borderRadius: "8px",
+                border: "1px solid var(--border-light)",
+                boxShadow: "var(--shadow-sm)",
+                transition: "all 0.25s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.borderColor = "var(--blue-border)";
+                e.currentTarget.style.boxShadow = "0 12px 28px rgba(0, 98, 255, 0.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.borderColor = "var(--border-light)";
+                e.currentTarget.style.boxShadow = "var(--shadow-sm)";
               }}
             >
               <div
                 style={{
-                  fontSize: "clamp(2rem, 3.2vw, 2.5rem)",
-                  fontWeight: 800,
+                  fontSize: "clamp(2rem, 3.2vw, 2.6rem)",
+                  fontWeight: 900,
                   color: "var(--blue-primary)",
                   fontFeatureSettings: "'tnum' on",
                   letterSpacing: "-0.03em",
                   marginBottom: "4px",
+                  lineHeight: 1.1,
                 }}
               >
                 {stat.value}
               </div>
               <div
                 style={{
-                  fontSize: "0.95rem",
-                  fontWeight: 700,
+                  fontSize: "0.96rem",
+                  fontWeight: 800,
                   color: "var(--text-primary)",
                   marginBottom: "6px",
                 }}
@@ -218,7 +284,7 @@ export default function Hero() {
               </div>
               <div
                 style={{
-                  fontSize: "0.82rem",
+                  fontSize: "0.84rem",
                   color: "var(--text-muted)",
                   lineHeight: 1.5,
                 }}
@@ -232,7 +298,7 @@ export default function Hero() {
         {/* Corporate Trust & Certification Bar */}
         <div
           style={{
-            padding: "18px 24px",
+            padding: "20px 28px",
             borderRadius: "8px",
             background: "#ffffff",
             border: "1px solid var(--border-light)",
@@ -248,17 +314,17 @@ export default function Hero() {
             Certified Partner Ecosystem:
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "24px", alignItems: "center" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>
-              <Award size={18} color="var(--blue-primary)" />
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "28px", alignItems: "center" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              <Award size={19} color="var(--blue-primary)" />
               <span>Boomi Partner Innovation Award</span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>
-              <Zap size={18} color="var(--blue-primary)" />
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              <Zap size={19} color="var(--blue-primary)" />
               <span>UiPath Automation Partner of the Year</span>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>
-              <ShieldCheck size={18} color="var(--blue-primary)" />
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>
+              <ShieldCheck size={19} color="var(--blue-primary)" />
               <span>ISO/IEC 27001:2022 Certified</span>
             </div>
           </div>
