@@ -258,7 +258,7 @@ export const INDUSTRIES: Industry[] = [
       "Legacy Core System API Modernization",
     ],
     impactMetric: { value: "75%", label: "Reduction in claims cycle time" },
-    caseStudyRef: "cpg-data",
+    caseStudyRef: "global-insurer",
   },
   {
     id: "logistics",
@@ -327,6 +327,26 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     image: "/cloud-security.jpg",
     tags: ["Banking", "Microservices", "Kafka", "Security"],
+  },
+  {
+    id: "global-insurer",
+    title: "Autonomous Claims Processing & Underwriting for Multinational Insurer",
+    clientIndustry: "Insurance & Risk Management",
+    category: "Hyperautomation & AI",
+    date: "April 2025",
+    challenge:
+      "A multinational property and casualty insurer was burdened by 3-week claims backlogs and manual extraction of policy schedules across legacy AS400 core systems.",
+    solution:
+      "Engineered an automated intake pipeline combining vision OCR, automated fraud triage models, and event-driven API gateways to policy ledgers.",
+    outcome:
+      "Accelerated claims adjudication by 75%, allowing 82% of standard claims to settle within 4 hours with 99.8% regulatory audit compliance.",
+    metrics: [
+      { value: "75%", label: "Faster Claims Settlement" },
+      { value: "<4 Hours", label: "Average Adjudication" },
+      { value: "99.8%", label: "Audit Accuracy" },
+    ],
+    image: "/ai-platform.jpg",
+    tags: ["Insurance", "Claims AI", "Automation", "OCR"],
   },
   {
     id: "cpg-data",
