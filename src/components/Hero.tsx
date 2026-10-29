@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { ArrowRight, ShieldCheck, Award, Zap, CheckCircle2, Sparkles } from "lucide-react";
 import { COMPANY_DETAILS } from "../data/companyData";
 import TechMeshCanvas from "./TechMeshCanvas";
+import EnterpriseArchitectureVisualizer from "./EnterpriseArchitectureVisualizer";
 
 export default function Hero() {
   return (
@@ -138,92 +138,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Hero Enterprise Architecture Image Card */}
-          <div
-            style={{
-              position: "relative",
-              borderRadius: "14px",
-              overflow: "hidden",
-              border: "1px solid var(--border-light)",
-              boxShadow: "0 25px 60px -15px rgba(11, 19, 43, 0.15)",
-              background: "#ffffff",
-              transition: "transform 0.3s ease, box-shadow 0.3s ease",
-            }}
-          >
-            {/* Top signature rainbow bar */}
-            <div className="spectrum-bar" />
-
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: "400px",
-                background: "#0b132b",
-              }}
-            >
-              <Image
-                src="/hero-spectrum.jpg"
-                alt="Spectrum 7 Architecture and Data Intelligence"
-                fill
-                priority
-                sizes="(max-width: 960px) 100vw, 50vw"
-                style={{
-                  objectFit: "cover",
-                }}
-              />
-
-              {/* High-tech gradient overlay */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "linear-gradient(to top, rgba(11, 19, 43, 0.94) 0%, rgba(11, 19, 43, 0.35) 60%, transparent 100%)",
-                }}
-              />
-
-              {/* Floating Architectural Overlay Card */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "24px",
-                  left: "24px",
-                  right: "24px",
-                  color: "#ffffff",
-                  background: "rgba(11, 19, 43, 0.75)",
-                  backdropFilter: "blur(12px)",
-                  padding: "18px 22px",
-                  borderRadius: "10px",
-                  border: "1px solid rgba(255, 255, 255, 0.12)",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "8px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <span
-                      style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background: "#10b981",
-                        boxShadow: "0 0 10px #10b981",
-                      }}
-                    />
-                    <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "#93c5fd", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-                      Connected Enterprise Architecture
-                    </span>
-                  </div>
-                  <span style={{ fontSize: "0.74rem", padding: "2px 8px", borderRadius: "12px", background: "rgba(0, 98, 255, 0.3)", color: "#ffffff", fontWeight: 700 }}>
-                    Global Scale
-                  </span>
-                </div>
-
-                <div style={{ fontSize: "1.24rem", fontWeight: 800 }}>
-                  Design • Integration • Autonomous AI
-                </div>
-                <div style={{ fontSize: "0.86rem", color: "#cbd5e1", marginTop: "4px", lineHeight: 1.5 }}>
-                  Unifying core legacy mainframes, hyperscale clouds, and agentic workflows into a synchronized digital fabric.
-                </div>
-              </div>
-            </div>
+          {/* Right Column: Interactive Live Enterprise Architecture Visualizer */}
+          <div style={{ position: "relative" }}>
+            <EnterpriseArchitectureVisualizer />
           </div>
         </div>
 
