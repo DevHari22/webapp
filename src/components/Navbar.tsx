@@ -10,24 +10,6 @@ import {
   ChevronDown,
   ChevronRight,
   Search,
-  Sparkles,
-  Database,
-  Layers,
-  Zap,
-  Cpu,
-  Globe,
-  Bot,
-  Truck,
-  Landmark,
-  Shield,
-  ShoppingBag,
-  Factory,
-  CheckCircle2,
-  ExternalLink,
-  Code2,
-  Workflow,
-  Activity,
-  Award,
 } from "lucide-react";
 
 interface SearchResult {
@@ -186,7 +168,7 @@ export default function Navbar() {
                   top: "calc(100% - 6px)",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  width: "560px",
+                  width: "600px",
                   background: "#ffffff",
                   borderRadius: "12px",
                   boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
@@ -201,62 +183,54 @@ export default function Navbar() {
                     CORE IT PRACTICES
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                    <a
-                      href="#capabilities"
-                      onClick={() => setActiveDropdown(null)}
-                      className="nav-dropdown-item"
-                    >
-                      <div className="icon-wrap blue">
-                        <Database size={18} color="var(--blue-primary)" />
-                      </div>
-                      <div>
-                        <div className="item-title">AI & Data Intelligence</div>
-                        <div className="item-sub">Lakehouses, Snowflake & real-time RAG</div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="#capabilities"
-                      onClick={() => setActiveDropdown(null)}
-                      className="nav-dropdown-item"
-                    >
-                      <div className="icon-wrap sky">
-                        <Layers size={18} color="#0284c7" />
-                      </div>
-                      <div>
-                        <div className="item-title">Enterprise Integration</div>
-                        <div className="item-sub">Boomi iPaaS, MuleSoft & API mesh</div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="#capabilities"
-                      onClick={() => setActiveDropdown(null)}
-                      className="nav-dropdown-item"
-                    >
-                      <div className="icon-wrap amber">
-                        <Bot size={18} color="#ea580c" />
-                      </div>
-                      <div>
-                        <div className="item-title">Hyperautomation & RPA</div>
-                        <div className="item-sub">UiPath bot fleets & document OCR</div>
-                      </div>
-                    </a>
-
-                    <a
-                      href="#capabilities"
-                      onClick={() => setActiveDropdown(null)}
-                      className="nav-dropdown-item"
-                    >
-                      <div className="icon-wrap purple">
-                        <Globe size={18} color="#7c3aed" />
-                      </div>
-                      <div>
-                        <div className="item-title">App Modernization</div>
-                        <div className="item-sub">Next.js 16, Cloud Native & Go</div>
-                      </div>
-                    </a>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+                    {[
+                      {
+                        title: "AI & Data Intelligence",
+                        sub: "Lakehouses, Snowflake & real-time RAG",
+                        href: "#capabilities",
+                      },
+                      {
+                        title: "Enterprise Integration",
+                        sub: "Boomi iPaaS, MuleSoft & API mesh",
+                        href: "#capabilities",
+                      },
+                      {
+                        title: "Hyperautomation & RPA",
+                        sub: "UiPath bot fleets & document OCR",
+                        href: "#capabilities",
+                      },
+                      {
+                        title: "Application Modernization",
+                        sub: "Next.js 16, Cloud Native & Go",
+                        href: "#capabilities",
+                      },
+                      {
+                        title: "Cloud & Cyber Security",
+                        sub: "Zero-Trust mTLS & multi-cloud mesh",
+                        href: "#capabilities",
+                      },
+                      {
+                        title: "Managed IT Services",
+                        sub: "SRE operations & 99.99% uptime SLA",
+                        href: "#capabilities",
+                      },
+                    ].map((item) => (
+                      <a
+                        key={item.title}
+                        href={item.href}
+                        onClick={() => setActiveDropdown(null)}
+                        className="nav-arrow-item"
+                      >
+                        <div className="item-content">
+                          <div className="item-title">{item.title}</div>
+                          <div className="item-sub">{item.sub}</div>
+                        </div>
+                        <div className="arrow-wrap">
+                          <ArrowRight size={13} className="item-arrow" />
+                        </div>
+                      </a>
+                    ))}
                   </div>
                 </div>
 
@@ -331,7 +305,7 @@ export default function Navbar() {
                   top: "calc(100% - 6px)",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  width: "520px",
+                  width: "560px",
                   background: "#ffffff",
                   borderRadius: "12px",
                   boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
@@ -348,31 +322,51 @@ export default function Navbar() {
 
                   <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     {[
-                      { name: "Banking & Financial Services", metric: "Sub-15ms Core Latency", icon: Landmark, color: "#0062ff" },
-                      { name: "Insurance & Risk Management", metric: "3.2x Faster Claims", icon: Shield, color: "#0284c7" },
-                      { name: "Supply Chain & Global Logistics", metric: "99.9% Route Precision", icon: Truck, color: "#ea580c" },
-                      { name: "Consumer Packaged Goods (CPG)", metric: "Zero-Copy Clean Rooms", icon: ShoppingBag, color: "#10b981" },
-                      { name: "Advanced Manufacturing & IoT", metric: "Zero-Downtime OT Sync", icon: Factory, color: "#7c3aed" },
-                    ].map((ind) => {
-                      const Icon = ind.icon;
-                      return (
-                        <a
-                          key={ind.name}
-                          href="#industries"
-                          onClick={() => setActiveDropdown(null)}
-                          className="nav-dropdown-item"
-                          style={{ padding: "8px 12px" }}
-                        >
-                          <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: `${ind.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                            <Icon size={16} color={ind.color} />
+                      {
+                        name: "Banking & Financial Services",
+                        badge: "Sub-15ms Latency",
+                        sub: "Core ledger modernizations, instant rails & real-time fraud AI",
+                      },
+                      {
+                        name: "Insurance & Risk Management",
+                        badge: "3.2x Faster Claims",
+                        sub: "Automated underwriting, intelligent triage & risk models",
+                      },
+                      {
+                        name: "Supply Chain & Global Logistics",
+                        badge: "99.9% Route Precision",
+                        sub: "Multi-modal telemetry, EDI mesh & automated warehouse dispatch",
+                      },
+                      {
+                        name: "Consumer Packaged Goods (CPG)",
+                        badge: "Zero-Copy Clean Rooms",
+                        sub: "Omnichannel inventory synchronization & predictive demand forecasting",
+                      },
+                      {
+                        name: "Advanced Manufacturing & IoT",
+                        badge: "Zero-Downtime OT Sync",
+                        sub: "Industrial telemetry, shop-floor SCADA & predictive maintenance",
+                      },
+                    ].map((ind) => (
+                      <a
+                        key={ind.name}
+                        href="#industries"
+                        onClick={() => setActiveDropdown(null)}
+                        className="nav-arrow-item"
+                        style={{ padding: "9px 12px" }}
+                      >
+                        <div className="item-content">
+                          <div className="item-header">
+                            <span className="item-title">{ind.name}</span>
+                            <span className="item-badge">{ind.badge}</span>
                           </div>
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                            <div className="item-title" style={{ fontSize: "0.88rem" }}>{ind.name}</div>
-                            <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "var(--blue-primary)" }}>{ind.metric}</span>
-                          </div>
-                        </a>
-                      );
-                    })}
+                          <div className="item-sub">{ind.sub}</div>
+                        </div>
+                        <div className="arrow-wrap">
+                          <ArrowRight size={13} className="item-arrow" />
+                        </div>
+                      </a>
+                    ))}
                   </div>
                 </div>
 
@@ -446,7 +440,7 @@ export default function Navbar() {
                   top: "calc(100% - 6px)",
                   left: "50%",
                   transform: "translateX(-50%)",
-                  width: "580px",
+                  width: "660px",
                   background: "#ffffff",
                   borderRadius: "12px",
                   boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
@@ -465,30 +459,30 @@ export default function Navbar() {
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                         {[
-                          { name: "Boomi iPaaS", badge: "Award Winner", icon: Zap, color: "#0062ff" },
-                          { name: "MuleSoft AnyPoint", badge: "Enterprise", icon: Layers, color: "#0284c7" },
-                          { name: "Snowflake & Databricks", badge: "Lakehouse", icon: Database, color: "#0ea5e9" },
-                          { name: "Apache Kafka", badge: "Real-Time", icon: Activity, color: "#ea580c" },
-                        ].map((tech) => {
-                          const Icon = tech.icon;
-                          return (
-                            <a
-                              key={tech.name}
-                              href="#technologies"
-                              onClick={() => setActiveDropdown(null)}
-                              className="nav-dropdown-item"
-                              style={{ padding: "7px 10px" }}
-                            >
-                              <div style={{ width: "26px", height: "26px", borderRadius: "5px", background: `${tech.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                <Icon size={14} color={tech.color} />
+                          { name: "Boomi iPaaS", badge: "Award Winner", sub: "Hybrid integration & API gateway" },
+                          { name: "MuleSoft AnyPoint", badge: "Enterprise", sub: "API lifecycle & runtime mesh" },
+                          { name: "Snowflake & Databricks", badge: "Lakehouse", sub: "Multi-cloud warehouse & Delta Lake" },
+                          { name: "Apache Kafka", badge: "Real-Time", sub: "High-throughput event streaming" },
+                        ].map((tech) => (
+                          <a
+                            key={tech.name}
+                            href="#technologies"
+                            onClick={() => setActiveDropdown(null)}
+                            className="nav-arrow-item"
+                            style={{ padding: "8px 10px" }}
+                          >
+                            <div className="item-content">
+                              <div className="item-header">
+                                <span className="item-title" style={{ fontSize: "0.85rem" }}>{tech.name}</span>
+                                <span className="item-badge">{tech.badge}</span>
                               </div>
-                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                                <span className="item-title" style={{ fontSize: "0.84rem" }}>{tech.name}</span>
-                                <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f1f5f9", color: "#475569" }}>{tech.badge}</span>
-                              </div>
-                            </a>
-                          );
-                        })}
+                              <div className="item-sub" style={{ fontSize: "0.72rem" }}>{tech.sub}</div>
+                            </div>
+                            <div className="arrow-wrap">
+                              <ArrowRight size={13} className="item-arrow" />
+                            </div>
+                          </a>
+                        ))}
                       </div>
                     </div>
 
@@ -499,30 +493,30 @@ export default function Navbar() {
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                         {[
-                          { name: "UiPath Automation Cloud", badge: "Partner of Year", icon: Bot, color: "#ea580c" },
-                          { name: "PyTorch & Domain LLMs", badge: "AI Core", icon: Sparkles, color: "#7c3aed" },
-                          { name: "Celonis Process Mining", badge: "Specialty", icon: Workflow, color: "#059669" },
-                          { name: "Next.js 16 & Kubernetes", badge: "Cloud Native", icon: Globe, color: "#0f172a" },
-                        ].map((tech) => {
-                          const Icon = tech.icon;
-                          return (
-                            <a
-                              key={tech.name}
-                              href="#technologies"
-                              onClick={() => setActiveDropdown(null)}
-                              className="nav-dropdown-item"
-                              style={{ padding: "7px 10px" }}
-                            >
-                              <div style={{ width: "26px", height: "26px", borderRadius: "5px", background: `${tech.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                <Icon size={14} color={tech.color} />
+                          { name: "UiPath Automation", badge: "Partner of Year", sub: "Unattended bot fleets & RPA" },
+                          { name: "PyTorch & Custom LLMs", badge: "AI Core", sub: "Generative AI & vector RAG" },
+                          { name: "Celonis Process Mining", badge: "Specialty", sub: "Execution management systems" },
+                          { name: "Next.js 16 & Kubernetes", badge: "Cloud Native", sub: "Edge SSR & container mesh" },
+                        ].map((tech) => (
+                          <a
+                            key={tech.name}
+                            href="#technologies"
+                            onClick={() => setActiveDropdown(null)}
+                            className="nav-arrow-item"
+                            style={{ padding: "8px 10px" }}
+                          >
+                            <div className="item-content">
+                              <div className="item-header">
+                                <span className="item-title" style={{ fontSize: "0.85rem" }}>{tech.name}</span>
+                                <span className="item-badge">{tech.badge}</span>
                               </div>
-                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-                                <span className="item-title" style={{ fontSize: "0.84rem" }}>{tech.name}</span>
-                                <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f1f5f9", color: "#475569" }}>{tech.badge}</span>
-                              </div>
-                            </a>
-                          );
-                        })}
+                              <div className="item-sub" style={{ fontSize: "0.72rem" }}>{tech.sub}</div>
+                            </div>
+                            <div className="arrow-wrap">
+                              <ArrowRight size={13} className="item-arrow" />
+                            </div>
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -989,41 +983,59 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
-        .nav-dropdown-item {
+        .nav-arrow-item {
           display: flex;
           align-items: center;
+          justify-content: space-between;
           gap: 12px;
           padding: 10px 12px;
           border-radius: 8px;
           text-decoration: none;
-          transition: all 0.15s ease;
+          background: #ffffff;
+          border: 1px solid transparent;
+          transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+          cursor: pointer;
         }
 
-        .nav-dropdown-item:hover {
+        .nav-arrow-item:hover {
           background: #f8fafc;
+          border-color: #e2e8f0;
+          box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
         }
 
-        .nav-dropdown-item:hover .item-title {
+        .nav-arrow-item:hover .item-title {
           color: var(--blue-primary) !important;
         }
 
-        .nav-dropdown-item .icon-wrap {
-          width: 34px;
-          height: 34px;
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
+        .nav-arrow-item:hover .arrow-wrap {
+          background: #eff6ff;
+          border-color: #bfdbfe;
+          color: var(--blue-primary);
+          transform: translateX(4px);
         }
 
-        .icon-wrap.blue { background: #eff6ff; }
-        .icon-wrap.sky { background: #f0f9ff; }
-        .icon-wrap.amber { background: #fff7ed; }
-        .icon-wrap.purple { background: #f5f3ff; }
+        .nav-arrow-item:hover .item-badge {
+          background: #eff6ff;
+          color: var(--blue-primary);
+          border-color: #bfdbfe;
+        }
+
+        .item-content {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+          flex: 1;
+        }
+
+        .item-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
 
         .item-title {
-          font-size: 0.9rem;
+          font-size: 0.88rem;
           font-weight: 700;
           color: var(--text-primary);
           line-height: 1.25;
@@ -1031,10 +1043,37 @@ export default function Navbar() {
         }
 
         .item-sub {
-          font-size: 0.76rem;
+          font-size: 0.74rem;
           color: var(--text-muted);
           margin-top: 2px;
           line-height: 1.35;
+        }
+
+        .item-badge {
+          font-size: 0.66rem;
+          font-weight: 700;
+          padding: 1px 7px;
+          border-radius: 4px;
+          background: #f1f5f9;
+          border: 1px solid #e2e8f0;
+          color: #475569;
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+          transition: all 0.15s ease;
+        }
+
+        .arrow-wrap {
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+          background: #f8fafc;
+          border: 1px solid var(--border-light);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #94a3b8;
+          flex-shrink: 0;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes dropdownPop {
