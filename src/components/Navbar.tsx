@@ -24,7 +24,10 @@ import {
   Factory,
   CheckCircle2,
   ExternalLink,
-  Command,
+  Code2,
+  Workflow,
+  Activity,
+  Award,
 } from "lucide-react";
 
 interface SearchResult {
@@ -51,7 +54,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Keyboard shortcut for Cmd/Ctrl + K to open search
+  // Cmd / Ctrl + K shortcut
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -76,10 +79,9 @@ export default function Navbar() {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 180);
+    }, 160);
   };
 
-  // Search indexed items
   const searchIndex: SearchResult[] = [
     { title: "Boomi iPaaS Architecture", category: "Technology", href: "#technologies", snippet: "Enterprise hybrid integration fabric & universal API gateway management." },
     { title: "MuleSoft AnyPoint Integration", category: "Technology", href: "#technologies", snippet: "Full-lifecycle API design, runtime fabric, and service mesh orchestration." },
@@ -118,10 +120,10 @@ export default function Navbar() {
         boxShadow: scrolled ? "0 4px 25px rgba(15, 23, 42, 0.08)" : "none",
       }}
     >
-      {/* Top Chromatic Spectrum 7 Accent Bar */}
+      {/* Top Chromatic Spectrum 7 Rainbow Accent Bar */}
       <div className="spectrum-bar" />
 
-      {/* Full-Width Header Container */}
+      {/* Full-Width Header Bar */}
       <div
         style={{
           width: "100%",
@@ -134,13 +136,13 @@ export default function Navbar() {
         }}
       >
         {/* Left Side: Brand Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <a href="#" aria-label="Spectrum 7 Home" style={{ display: "flex", alignItems: "center" }}>
             <Logo width={168} height={42} showTagline={false} />
           </a>
         </div>
 
-        {/* Center: Interactive Navigation Links with Dropdown Indicators */}
+        {/* Center: Interactive Nav Links with Floating Anchored Dropdowns */}
         <nav
           style={{
             display: "none",
@@ -150,11 +152,11 @@ export default function Navbar() {
           }}
           className="desktop-nav"
         >
-          {/* Capabilities Item with Mega Menu */}
+          {/* NAV ITEM 1: CAPABILITIES (Floating Dropdown) */}
           <div
             onMouseEnter={() => handleMouseEnter("capabilities")}
             onMouseLeave={handleMouseLeave}
-            style={{ height: "100%", display: "flex", alignItems: "center" }}
+            style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}
           >
             <a
               href="#capabilities"
@@ -178,13 +180,131 @@ export default function Navbar() {
                 }}
               />
             </a>
+
+            {/* Floating Capabilities Card */}
+            {activeDropdown === "capabilities" && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% - 6px)",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "560px",
+                  background: "#ffffff",
+                  borderRadius: "12px",
+                  boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
+                  border: "1px solid var(--border-light)",
+                  overflow: "hidden",
+                  zIndex: 200,
+                  animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                {/* Micro Rainbow Stripe on Dropdown Card */}
+                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
+
+                <div style={{ padding: "18px 20px 14px" }}>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
+                    CORE IT PRACTICES
+                  </div>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                    <a
+                      href="#capabilities"
+                      onClick={() => setActiveDropdown(null)}
+                      className="nav-dropdown-item"
+                    >
+                      <div className="icon-wrap blue">
+                        <Database size={18} color="var(--blue-primary)" />
+                      </div>
+                      <div>
+                        <div className="item-title">AI & Data Intelligence</div>
+                        <div className="item-sub">Lakehouses, Snowflake & real-time RAG</div>
+                      </div>
+                    </a>
+
+                    <a
+                      href="#capabilities"
+                      onClick={() => setActiveDropdown(null)}
+                      className="nav-dropdown-item"
+                    >
+                      <div className="icon-wrap sky">
+                        <Layers size={18} color="#0284c7" />
+                      </div>
+                      <div>
+                        <div className="item-title">Enterprise Integration</div>
+                        <div className="item-sub">Boomi iPaaS, MuleSoft & API mesh</div>
+                      </div>
+                    </a>
+
+                    <a
+                      href="#capabilities"
+                      onClick={() => setActiveDropdown(null)}
+                      className="nav-dropdown-item"
+                    >
+                      <div className="icon-wrap amber">
+                        <Bot size={18} color="#ea580c" />
+                      </div>
+                      <div>
+                        <div className="item-title">Hyperautomation & RPA</div>
+                        <div className="item-sub">UiPath bot fleets & document OCR</div>
+                      </div>
+                    </a>
+
+                    <a
+                      href="#capabilities"
+                      onClick={() => setActiveDropdown(null)}
+                      className="nav-dropdown-item"
+                    >
+                      <div className="icon-wrap purple">
+                        <Globe size={18} color="#7c3aed" />
+                      </div>
+                      <div>
+                        <div className="item-title">App Modernization</div>
+                        <div className="item-sub">Next.js 16, Cloud Native & Go</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Dropdown Footer */}
+                <div
+                  style={{
+                    padding: "12px 20px",
+                    background: "var(--bg-secondary)",
+                    borderTop: "1px solid var(--border-light)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+                    Proven Enterprise Delivery Frameworks
+                  </span>
+                  <a
+                    href="#capabilities"
+                    onClick={() => setActiveDropdown(null)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "var(--blue-primary)",
+                    }}
+                  >
+                    <span>View All Capabilities</span>
+                    <ArrowRight size={13} />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Industries Item with Mega Menu */}
+          {/* NAV ITEM 2: INDUSTRIES (Floating Dropdown) */}
           <div
             onMouseEnter={() => handleMouseEnter("industries")}
             onMouseLeave={handleMouseLeave}
-            style={{ height: "100%", display: "flex", alignItems: "center" }}
+            style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}
           >
             <a
               href="#industries"
@@ -208,13 +328,100 @@ export default function Navbar() {
                 }}
               />
             </a>
+
+            {/* Floating Industries Card */}
+            {activeDropdown === "industries" && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% - 6px)",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "520px",
+                  background: "#ffffff",
+                  borderRadius: "12px",
+                  boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
+                  border: "1px solid var(--border-light)",
+                  overflow: "hidden",
+                  zIndex: 200,
+                  animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
+
+                <div style={{ padding: "18px 20px 14px" }}>
+                  <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>
+                    DOMAIN PRACTICE VERTICALS
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    {[
+                      { name: "Banking & Financial Services", metric: "Sub-15ms Core Latency", icon: Landmark, color: "#0062ff" },
+                      { name: "Insurance & Risk Management", metric: "3.2x Faster Claims", icon: Shield, color: "#0284c7" },
+                      { name: "Supply Chain & Global Logistics", metric: "99.9% Route Precision", icon: Truck, color: "#ea580c" },
+                      { name: "Consumer Packaged Goods (CPG)", metric: "Zero-Copy Clean Rooms", icon: ShoppingBag, color: "#10b981" },
+                      { name: "Advanced Manufacturing & IoT", metric: "Zero-Downtime OT Sync", icon: Factory, color: "#7c3aed" },
+                    ].map((ind) => {
+                      const Icon = ind.icon;
+                      return (
+                        <a
+                          key={ind.name}
+                          href="#industries"
+                          onClick={() => setActiveDropdown(null)}
+                          className="nav-dropdown-item"
+                          style={{ padding: "8px 12px" }}
+                        >
+                          <div style={{ width: "32px", height: "32px", borderRadius: "6px", background: `${ind.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                            <Icon size={16} color={ind.color} />
+                          </div>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                            <div className="item-title" style={{ fontSize: "0.88rem" }}>{ind.name}</div>
+                            <span style={{ fontSize: "0.74rem", fontWeight: 700, color: "var(--blue-primary)" }}>{ind.metric}</span>
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    padding: "12px 20px",
+                    background: "var(--bg-secondary)",
+                    borderTop: "1px solid var(--border-light)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+                    ISO/IEC 27001 & SOC 2 Audited Delivery
+                  </span>
+                  <a
+                    href="#industries"
+                    onClick={() => setActiveDropdown(null)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "var(--blue-primary)",
+                    }}
+                  >
+                    <span>View Sector Blueprints</span>
+                    <ArrowRight size={13} />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Technologies Item with Mega Menu */}
+          {/* NAV ITEM 3: TECHNOLOGIES (Floating Dropdown) */}
           <div
             onMouseEnter={() => handleMouseEnter("technologies")}
             onMouseLeave={handleMouseLeave}
-            style={{ height: "100%", display: "flex", alignItems: "center" }}
+            style={{ position: "relative", height: "100%", display: "flex", alignItems: "center" }}
           >
             <a
               href="#technologies"
@@ -238,6 +445,130 @@ export default function Navbar() {
                 }}
               />
             </a>
+
+            {/* Floating Technologies Card */}
+            {activeDropdown === "technologies" && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "calc(100% - 6px)",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "580px",
+                  background: "#ffffff",
+                  borderRadius: "12px",
+                  boxShadow: "0 20px 50px -10px rgba(11, 19, 43, 0.16)",
+                  border: "1px solid var(--border-light)",
+                  overflow: "hidden",
+                  zIndex: 200,
+                  animation: "dropdownPop 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              >
+                <div style={{ height: "3px", width: "100%", background: "var(--spectrum-gradient)" }} />
+
+                <div style={{ padding: "18px 20px 14px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
+                    {/* Left Column */}
+                    <div>
+                      <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px" }}>
+                        INTEGRATION & DATA CORE
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                        {[
+                          { name: "Boomi iPaaS", badge: "Award Winner", icon: Zap, color: "#0062ff" },
+                          { name: "MuleSoft AnyPoint", badge: "Enterprise", icon: Layers, color: "#0284c7" },
+                          { name: "Snowflake & Databricks", badge: "Lakehouse", icon: Database, color: "#0ea5e9" },
+                          { name: "Apache Kafka", badge: "Real-Time", icon: Activity, color: "#ea580c" },
+                        ].map((tech) => {
+                          const Icon = tech.icon;
+                          return (
+                            <a
+                              key={tech.name}
+                              href="#technologies"
+                              onClick={() => setActiveDropdown(null)}
+                              className="nav-dropdown-item"
+                              style={{ padding: "7px 10px" }}
+                            >
+                              <div style={{ width: "26px", height: "26px", borderRadius: "5px", background: `${tech.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                <Icon size={14} color={tech.color} />
+                              </div>
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                                <span className="item-title" style={{ fontSize: "0.84rem" }}>{tech.name}</span>
+                                <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f1f5f9", color: "#475569" }}>{tech.badge}</span>
+                              </div>
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Right Column */}
+                    <div>
+                      <div style={{ fontSize: "0.72rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "10px" }}>
+                        AUTOMATION & MODERN WEB
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                        {[
+                          { name: "UiPath Automation Cloud", badge: "Partner of Year", icon: Bot, color: "#ea580c" },
+                          { name: "PyTorch & Domain LLMs", badge: "AI Core", icon: Sparkles, color: "#7c3aed" },
+                          { name: "Celonis Process Mining", badge: "Specialty", icon: Workflow, color: "#059669" },
+                          { name: "Next.js 16 & Kubernetes", badge: "Cloud Native", icon: Globe, color: "#0f172a" },
+                        ].map((tech) => {
+                          const Icon = tech.icon;
+                          return (
+                            <a
+                              key={tech.name}
+                              href="#technologies"
+                              onClick={() => setActiveDropdown(null)}
+                              className="nav-dropdown-item"
+                              style={{ padding: "7px 10px" }}
+                            >
+                              <div style={{ width: "26px", height: "26px", borderRadius: "5px", background: `${tech.color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                <Icon size={14} color={tech.color} />
+                              </div>
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                                <span className="item-title" style={{ fontSize: "0.84rem" }}>{tech.name}</span>
+                                <span style={{ fontSize: "0.68rem", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f1f5f9", color: "#475569" }}>{tech.badge}</span>
+                              </div>
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    padding: "12px 20px",
+                    background: "var(--bg-secondary)",
+                    borderTop: "1px solid var(--border-light)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <span style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
+                    120+ Certified Engineers & Solution Architects
+                  </span>
+                  <a
+                    href="#technologies"
+                    onClick={() => setActiveDropdown(null)}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      fontSize: "0.82rem",
+                      fontWeight: 700,
+                      color: "var(--blue-primary)",
+                    }}
+                  >
+                    <span>View All 18 Alliances</span>
+                    <ArrowRight size={13} />
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Direct Link: Methodology */}
@@ -385,383 +716,6 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-
-      {/* INTERACTIVE MEGA MENU 1: CAPABILITIES */}
-      {activeDropdown === "capabilities" && (
-        <div
-          onMouseEnter={() => handleMouseEnter("capabilities")}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            background: "#ffffff",
-            borderBottom: "1px solid var(--border-light)",
-            boxShadow: "0 20px 45px rgba(11, 19, 43, 0.12)",
-            padding: "32px clamp(24px, 3.5vw, 64px) 36px",
-            animation: "navDropdownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-            zIndex: 99,
-          }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1.4fr 0.6fr",
-              gap: "40px",
-              maxWidth: "1400px",
-              margin: "0 auto",
-            }}
-          >
-            {/* Left: 4 Practices Grid */}
-            <div>
-              <div
-                style={{
-                  fontSize: "0.76rem",
-                  fontWeight: 800,
-                  color: "var(--blue-primary)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.06em",
-                  marginBottom: "18px",
-                }}
-              >
-                ENTERPRISE PRACTICE DOMAINS
-              </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
-                <a
-                  href="#capabilities"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    padding: "16px",
-                    borderRadius: "8px",
-                    border: "1px solid var(--border-light)",
-                    background: "#f8fafc",
-                    transition: "all 0.2s ease",
-                    display: "flex",
-                    gap: "14px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--blue-border)";
-                    e.currentTarget.style.background = "#eff6ff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-light)";
-                    e.currentTarget.style.background = "#f8fafc";
-                  }}
-                >
-                  <div style={{ width: "38px", height: "38px", borderRadius: "8px", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Database size={20} color="var(--blue-primary)" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.94rem", fontWeight: 800, color: "var(--text-primary)" }}>AI & Data Intelligence</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.4 }}>
-                      Lakehouses, Snowflake, Databricks & semantic real-time pipelines.
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href="#capabilities"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    padding: "16px",
-                    borderRadius: "8px",
-                    border: "1px solid var(--border-light)",
-                    background: "#f8fafc",
-                    transition: "all 0.2s ease",
-                    display: "flex",
-                    gap: "14px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--blue-border)";
-                    e.currentTarget.style.background = "#eff6ff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-light)";
-                    e.currentTarget.style.background = "#f8fafc";
-                  }}
-                >
-                  <div style={{ width: "38px", height: "38px", borderRadius: "8px", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Layers size={20} color="var(--blue-primary)" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.94rem", fontWeight: 800, color: "var(--text-primary)" }}>Enterprise Integration</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.4 }}>
-                      Boomi iPaaS, MuleSoft Anypoint, and universal API mesh connectivity.
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href="#capabilities"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    padding: "16px",
-                    borderRadius: "8px",
-                    border: "1px solid var(--border-light)",
-                    background: "#f8fafc",
-                    transition: "all 0.2s ease",
-                    display: "flex",
-                    gap: "14px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--blue-border)";
-                    e.currentTarget.style.background = "#eff6ff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-light)";
-                    e.currentTarget.style.background = "#f8fafc";
-                  }}
-                >
-                  <div style={{ width: "38px", height: "38px", borderRadius: "8px", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Bot size={20} color="var(--blue-primary)" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.94rem", fontWeight: 800, color: "var(--text-primary)" }}>Hyperautomation & RPA</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.4 }}>
-                      UiPath bot fleets, intelligent OCR, and process mining optimization.
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href="#capabilities"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    padding: "16px",
-                    borderRadius: "8px",
-                    border: "1px solid var(--border-light)",
-                    background: "#f8fafc",
-                    transition: "all 0.2s ease",
-                    display: "flex",
-                    gap: "14px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--blue-border)";
-                    e.currentTarget.style.background = "#eff6ff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-light)";
-                    e.currentTarget.style.background = "#f8fafc";
-                  }}
-                >
-                  <div style={{ width: "38px", height: "38px", borderRadius: "8px", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Globe size={20} color="var(--blue-primary)" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: "0.94rem", fontWeight: 800, color: "var(--text-primary)" }}>Application Modernization</div>
-                    <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "3px", lineHeight: 1.4 }}>
-                      Next.js 16, Kubernetes, Go microservices & global edge performance.
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-            {/* Right: Practice Spotlight Card */}
-            <div
-              style={{
-                padding: "24px",
-                borderRadius: "10px",
-                background: "linear-gradient(135deg, #0b132b 0%, #1e293b 100%)",
-                color: "#ffffff",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.74rem", fontWeight: 700, color: "#60a5fa", padding: "3px 8px", borderRadius: "4px", background: "rgba(0, 98, 255, 0.2)", marginBottom: "12px" }}>
-                  <Sparkles size={12} />
-                  <span>PARTNER INNOVATION</span>
-                </div>
-                <div style={{ fontSize: "1.12rem", fontWeight: 800, lineHeight: 1.35, marginBottom: "8px" }}>
-                  Boomi Innovation Award Winner & UiPath Partner of the Year
-                </div>
-                <div style={{ fontSize: "0.82rem", color: "#cbd5e1", lineHeight: 1.5 }}>
-                  Over 120+ certified platform architects delivering zero-data-loss enterprise transformations.
-                </div>
-              </div>
-
-              <a
-                href="#technologies"
-                onClick={() => setActiveDropdown(null)}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "0.86rem",
-                  fontWeight: 700,
-                  color: "#93c5fd",
-                  marginTop: "20px",
-                }}
-              >
-                <span>Explore Certified Ecosystem</span>
-                <ArrowRight size={14} />
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* INTERACTIVE MEGA MENU 2: INDUSTRIES */}
-      {activeDropdown === "industries" && (
-        <div
-          onMouseEnter={() => handleMouseEnter("industries")}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            background: "#ffffff",
-            borderBottom: "1px solid var(--border-light)",
-            boxShadow: "0 20px 45px rgba(11, 19, 43, 0.12)",
-            padding: "32px clamp(24px, 3.5vw, 64px) 36px",
-            animation: "navDropdownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-            zIndex: 99,
-          }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(5, 1fr)",
-              gap: "18px",
-              maxWidth: "1400px",
-              margin: "0 auto",
-            }}
-          >
-            {[
-              { id: "banking", name: "Banking & Financial Core", metric: "Sub-15ms Core Latency", icon: Landmark },
-              { id: "insurance", name: "Insurance & Risk", metric: "3.2x Faster Settlement", icon: Shield },
-              { id: "logistics", name: "Supply Chain & Logistics", metric: "99.9% Route Precision", icon: Truck },
-              { id: "cpg", name: "Consumer Goods (CPG)", metric: "Zero-Copy Data Clean Rooms", icon: ShoppingBag },
-              { id: "manufacturing", name: "Smart Manufacturing", metric: "Zero-Downtime Telemetry", icon: Factory },
-            ].map((ind) => {
-              const Icon = ind.icon;
-              return (
-                <a
-                  key={ind.id}
-                  href="#industries"
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    padding: "18px 16px",
-                    borderRadius: "8px",
-                    border: "1px solid var(--border-light)",
-                    background: "#f8fafc",
-                    transition: "all 0.2s ease",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    minHeight: "140px",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--blue-border)";
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                    e.currentTarget.style.boxShadow = "var(--shadow-sm)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--border-light)";
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.boxShadow = "none";
-                  }}
-                >
-                  <div>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#eff6ff", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "12px" }}>
-                      <Icon size={18} color="var(--blue-primary)" />
-                    </div>
-                    <div style={{ fontSize: "0.92rem", fontWeight: 800, color: "var(--text-primary)" }}>{ind.name}</div>
-                  </div>
-                  <div style={{ fontSize: "0.74rem", fontWeight: 700, color: "var(--blue-primary)", marginTop: "12px" }}>
-                    {ind.metric}
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* INTERACTIVE MEGA MENU 3: TECHNOLOGIES */}
-      {activeDropdown === "technologies" && (
-        <div
-          onMouseEnter={() => handleMouseEnter("technologies")}
-          onMouseLeave={handleMouseLeave}
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            background: "#ffffff",
-            borderBottom: "1px solid var(--border-light)",
-            boxShadow: "0 20px 45px rgba(11, 19, 43, 0.12)",
-            padding: "32px clamp(24px, 3.5vw, 64px) 36px",
-            animation: "navDropdownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-            zIndex: 99,
-          }}
-        >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "24px",
-              maxWidth: "1400px",
-              margin: "0 auto",
-            }}
-          >
-            <div>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", marginBottom: "12px" }}>
-                INTEGRATION & CLOUD
-              </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>Boomi iPaaS (Award Winner)</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>MuleSoft AnyPoint</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Apache Kafka Real-Time</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>AWS & Microsoft Azure</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", marginBottom: "12px" }}>
-                DATA INTELLIGENCE & AI
-              </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>Snowflake Lakehouse</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Databricks Unified Lakehouse</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>PyTorch & Domain LLMs</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Vector Databases (Milvus)</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", marginBottom: "12px" }}>
-                HYPERAUTOMATION & RPA
-              </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>UiPath Automation Cloud</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Microsoft Power Automate</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Celonis Process Mining</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Intelligent Document OCR</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, color: "var(--blue-primary)", textTransform: "uppercase", marginBottom: "12px" }}>
-                MODERN APPLICATION STACK
-              </div>
-              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "8px" }}>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 700, color: "var(--text-primary)" }}>Next.js 16 (App Router)</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>React 19 & TypeScript</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Kubernetes & Docker</a></li>
-                <li><a href="#technologies" onClick={() => setActiveDropdown(null)} style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--text-secondary)" }}>Node.js & Go Microservices</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* QUICK SEARCH PALETTE MODAL (Ctrl+K / ⌘K) */}
       {searchOpen && (
@@ -1045,6 +999,65 @@ export default function Navbar() {
       )}
 
       <style jsx>{`
+        .nav-dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 10px 12px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: all 0.15s ease;
+        }
+
+        .nav-dropdown-item:hover {
+          background: #f8fafc;
+        }
+
+        .nav-dropdown-item:hover .item-title {
+          color: var(--blue-primary) !important;
+        }
+
+        .nav-dropdown-item .icon-wrap {
+          width: 34px;
+          height: 34px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .icon-wrap.blue { background: #eff6ff; }
+        .icon-wrap.sky { background: #f0f9ff; }
+        .icon-wrap.amber { background: #fff7ed; }
+        .icon-wrap.purple { background: #f5f3ff; }
+
+        .item-title {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          line-height: 1.25;
+          transition: color 0.15s ease;
+        }
+
+        .item-sub {
+          font-size: 0.76rem;
+          color: var(--text-muted);
+          margin-top: 2px;
+          line-height: 1.35;
+        }
+
+        @keyframes dropdownPop {
+          from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+
         @keyframes navDropdownFade {
           from {
             opacity: 0;
